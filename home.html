@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>SFGC IKS Forum</title>
+    <style>
+        /* ============================================
+           GLOBAL SETTINGS
+           ============================================ */
+        html, body {
+            margin: 0;
+            padding: 0;
+            overscroll-behavior-x: none;
+            overflow-x: hidden;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            font-size: 11pt;
+            line-height: 1.2;
+        }
+        
+        body {
+            font-family: 'Georgia Pro', Georgia, serif;
+            background: url('45383.png') no-repeat top center fixed;
+            background-size: cover;
+            color: #fdf5e6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ============================================
+           1. CINEMATIC LOADING SCREEN
+           ============================================ */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1F0505 0%, #3B0D0D 50%, #2B0A0A 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        #iks-text {
+            font-size: clamp(50px, 10vw, 80px);
+            font-weight: 900;
+            letter-spacing: 8px;
+            background: linear-gradient(to bottom, #BF953F 22%, #FCF6BA 45%, #B38728 50%, #FBF5B7 55%, #AA771C 78%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: scale(0.5);
+            animation: netflixFadeIn 2s ease-out forwards;
+        }
+        
+        @keyframes netflixFadeIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* ============================================
+           2. HEADER & NAVIGATION
+           ============================================ */
+        header {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1000;
+        }
+        
+        h1 {
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            margin: 10px 0;
+        }
+        
+        /* Navigation Bar - From about.html */
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        nav a {
+            color: #ffcc66;
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+            font-size: 1.1em;
+            font-family: 'Georgia Pro', Georgia, serif;
+            display: inline-block;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #ffd700;
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        nav a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px #ffd700;
+        }
+        
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 70%;
+            transform: translateY(-50%);
+            z-index: 1001;
+        }
+        
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: #cccccc;
+            margin: 3px 0;
+        }
+
+        /* ============================================
+           3. MAIN CONTENT
+           ============================================ */
+        main {
+            flex: 1;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 40px 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.2);
+            text-align: center;
+            opacity: 0;
+            animation: pageFadeIn 1.5s ease-out forwards;
+        }
+        
+        @keyframes pageFadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .main-title {
+            font-size: 1.8em;
+            color: #ffd700;
+            border-bottom: 1px solid #ffcc66;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .description {
+            text-align: justify;
+            color: #fff;
+            font-size: 11pt;
+            line-height: 1.2;
+        }
+
+        /* Carousel */
+        .carousel-container {
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto 40px;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+        
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .carousel img {
+            width: 100%;
+            flex: 0 0 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+        }
+        
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            z-index: 10;
+        }
+        
+        .carousel-btn.prev {
+            left: 10px;
+        }
+        
+        .carousel-btn.next {
+            right: 10px;
+        }
+
+        /* ============================================
+           4. FOOTER - From about.html
+           ============================================ */
+        footer {
+            padding: 30px 20px;
+            text-align: center;
+            background: linear-gradient(to right, #1F0505, #3B0D0D, #1F0505);
+            border-top: 2px solid #BF953F;
+            margin-top: auto;
+        }
+        
+        footer p {
+            margin: 0;
+            font-weight: bold;
+            font-size: 1em;
+            line-height: 1.6;
+            color: #BF953F;
+            background: linear-gradient(to bottom, #BF953F, #FCF6BA, #B38728);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .footer-break {
+            display: block;
+            margin-top: 5px;
+        }
+        
+        .hidden {
+            opacity: 0 !important;
+            visibility: hidden;
+        }
+
+        /* ============================================
+           MOBILE STYLES
+           ============================================ */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 75px;
+                right: 10px;
+                width: 260px;
+                background-color: rgba(0, 0, 0, 0.95);
+                padding: 25px 0;
+                border: 1px solid #BF953F;
+                border-radius: 12px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+                z-index: 2000;
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 15px 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            nav a {
+                font-size: 1.2em;
+            }
+            
+            main {
+                padding: 20px 15px;
+                margin: 20px auto;
+                width: 95%;
+            }
+            
+            footer p {
+                font-size: 1.1em;
+                line-height: 1.4;
+            }
+            
+            .footer-break {
+                display: block;
+                margin-top: 5px;
+            }
+            
+            .carousel img {
+                max-height: 300px;
+                object-fit: cover;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div id="iks-text">SFGC IKS</div>
+    </div>
+    
+    <!-- Header & Navigation -->
+    <header>
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <h1>SFGC IKS Forum Welcomes You</h1>
+        <nav>
+            <ul id="nav-menu">
+                <li><a href="home.html?fromnav=true">Home</a></li>
+                <li><a href="occasion.html?fromnav=true">Occasions</a></li>
+                <li><a href="proceedings-journal.html?fromnav=true">Proceedings & Journal</a></li>
+                <li><a href="committee.html?fromnav=true">Committee</a></li>
+                <li><a href="about us.html?fromnav=true">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        <h2 class="main-title">Recent Updates</h2>
+        <p style="color: #fff; font-weight: bold; margin-bottom: 35px;">
+            IKS HORIZON 2025 - INTERNATIONAL CONFERENCE On INDIAN KNOWLEDGE SYSTEM
+        </p>
+        
+        <!-- Carousel -->
+        <div class="carousel-container">
+            <div class="carousel" id="carousel">
+                <img src="slide1.png">
+                <img src="slide2.png">
+                <img src="slide3.png">
+                <img src="slide4.png">
+                <img src="slide5.png">
+                <img src="slide6.png">
+                <img src="slide7.png">
+                <img src="slide8.png">
+                <img src="slide9.png">
+                <img src="slide10.png">
+                <img src="slide11.png">
+                <img src="slide12.png">
+                <img src="slide13.png">
+                <img src="slide14.png">
+                <img src="slide15.png">
+                <img src="slide16.png">
+                <img src="slide17.png">
+                <img src="slide18.png">
+                <img src="slide19.png">
+                <img src="slide20.png">
+                <img src="slide21.png">
+                <img src="slide22.png">
+            </div>
+            <button class="carousel-btn prev" onclick="prevSlide()">&#10094;</button>
+            <button class="carousel-btn next" onclick="nextSlide()">&#10095;</button>
+        </div>
+        
+        <!-- Description -->
+        <div class="description">
+            The International Conference - IKS Horizon 2025, organized by the Seshadripuram Research Foundation (SRF) at Seshadripuram First Grade College (SFGC), Yelahanka, stood out as a prestigious academic gathering that celebrated the integration of the Indian Knowledge System (IKS) with contemporary global scholarship. The conference served as a vibrant platform for academicians, researchers, and practitioners to engage in meaningful discussions across disciplines including Science, Technology, Humanities, Commerce, and Management.
+
+            The conference was graced by the distinguished presence of the Chief Guest, Dr. Anil D. Sahasrabudhe Chairman of NETF/ EC-NAAC & NBA /Former Chairman, AICTE., whose inaugural address set a strong intellectual tone for the event. The Chief Guest emphasized the relevance of Indian knowledge traditions in addressing present-day global challenges and highlighted the need for interdisciplinary research rooted in indigenous wisdom. The keynote insights inspired participants to explore innovative research pathways while preserving the richness of India's intellectual heritage.
+
+            IKS Horizons 2025 witnessed enthusiastic participation from over 250 delegates, featuring 120 research paper presentations and 80 poster presentations by scholars from reputed institutions across India and abroad. The sessions were marked by dynamic academic exchanges, thought-provoking presentations, and interactive discussions that enriched the research experience of all participants. The hybrid mode of the conference enabled broader outreach and inclusive participation.
+
+            A major highlight of the conference was the launch of key academic initiatives, including the release of the e-conference proceedings, the introduction of a seshadripuram Global Journal Multilinguistic(SJGML) Research Journal, and the formal establishment of the IKS Forum at SFGC. These milestones reflect SRF's continued commitment to promoting research excellence, fostering interdisciplinary collaboration, and strengthening the academic ecosystem.
+
+            Through the successful organization of IKS Horizons 2025, the Seshadripuram Research Foundation reaffirmed its vision of nurturing research that harmoniously blends tradition with innovation. The conference laid a strong foundation for future scholarly collaborations and reinforced SRF's role as a catalyst for knowledge creation and academic leadership.
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <p>
+            © All Copyrights Reserved 2026-27
+            <span class="footer-break">SFGC IKS FORUM - SRF INDIA</span>
+        </p>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        function toggleMenu() {
+            document.getElementById('nav-menu').classList.toggle('active');
+        }
+        
+        // Professional Loading - 2.5 seconds
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading-screen').classList.add('hidden');
+                setTimeout(() => {
+                    document.getElementById('loading-screen').style.display = 'none';
+                }, 1000);
+            }, 2500);
+        });
+        
+        // Carousel Functions
+        let currentIndex = 0;
+        const totalSlides = 22;
+        
+        function updateCarousel() {
+            document.getElementById('carousel').style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+        
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateCarousel();
+        }
+        
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+        
+        // Auto-slide every 4 seconds
+        setInterval(nextSlide, 4000);
+    </script>
+</body>
+</html>

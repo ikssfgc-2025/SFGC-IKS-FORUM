@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>SFGC IKS Forum - Committee</title>
+    <style>
+        /* GLOBAL DNA */
+        html, body { 
+            margin: 0; padding: 0; 
+            overscroll-behavior-x: none; overflow-x: hidden; 
+            min-height: 100vh; 
+            -webkit-font-smoothing: antialiased; 
+            text-rendering: optimizeLegibility; 
+            font-size: 11pt; line-height: 1.2; 
+        }
+        body { 
+            font-family: 'Georgia Pro', Georgia, serif; 
+            background: url('45383.png') no-repeat top center fixed; 
+            background-size: cover; 
+            color: #fdf5e6; 
+            display: flex; flex-direction: column; 
+        }
+
+        /* HEADER & NAVIGATION */
+        header { 
+            background-color: rgba(0, 0, 0, 0.6); 
+            padding: 20px; 
+            text-align: center; 
+            position: relative; 
+            z-index: 1000; 
+        }
+        
+        h1 { 
+            color: #ffd700; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7); 
+            margin: 10px 0; 
+        }
+        
+        nav ul { 
+            list-style: none; 
+            padding: 0; 
+            display: flex; 
+            justify-content: center; 
+            flex-wrap: wrap; 
+            gap: 20px; 
+        }
+        
+        nav a { 
+            color: #ffcc66; 
+            text-decoration: none; 
+            font-weight: bold; 
+            position: relative; 
+            font-size: 1.1em; 
+            font-family: 'Georgia Pro', Georgia, serif; 
+            display: inline-block; 
+        }
+        
+        nav a::after { 
+            content: ''; 
+            position: absolute; 
+            width: 0; 
+            height: 2px; 
+            bottom: -5px; 
+            left: 0; 
+            background-color: #ffd700; 
+            transition: width 0.3s ease; 
+        }
+        
+        nav a:hover::after { width: 100%; }
+        nav a:hover { color: #fff; text-shadow: 0 0 10px #ffd700; }
+
+        /* HAMBURGER MENU */
+        .hamburger { 
+            display: none; 
+            flex-direction: column; 
+            cursor: pointer; 
+            position: absolute; 
+            right: 10px; 
+            top: 70%; 
+            transform: translateY(-50%); 
+            z-index: 1001; 
+        }
+        
+        .hamburger div { 
+            width: 25px; 
+            height: 3px; 
+            background-color: #cccccc; 
+            margin: 3px 0; 
+        }
+
+        /* MAIN CONTENT */
+        main { 
+            flex: 1; max-width: 900px; margin: 40px auto; padding: 40px 20px; 
+            background-color: rgba(0, 0, 0, 0.5); border-radius: 20px; 
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.2); 
+            text-align: center; 
+        }
+
+        h2.main-title { font-size: 1.8em; color: #ffd700; border-bottom: 1px solid #ffcc66; display: inline-block; margin-bottom: 35px; width: 100%; }
+
+        .committee-section { 
+            margin-bottom: 50px; padding: 25px; border-left: 4px solid #BF953F; 
+            text-align: left; background: rgba(0, 0, 0, 0.25); border-radius: 0 15px 15px 0; 
+        }
+
+        h3 { 
+            color: #ffd700; margin-top: 0; margin-bottom: 25px; font-size: 1.3em; 
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2); padding-bottom: 10px; 
+            text-transform: uppercase; letter-spacing: 1px; 
+        }
+
+        .member-box { margin-bottom: 20px; }
+        .member-name { display: block; color: #ffd700; font-weight: bold; font-size: 1.15em; margin-bottom: 2px; }
+        
+        .member-name a { color: #ffd700; text-decoration: none; }
+        .member-post { display: block; color: #fdf5e6; font-size: 0.95em; opacity: 0.85; line-height: 1.4; }
+
+        /* FOOTER */
+        footer { padding: 30px 20px; text-align: center; background: linear-gradient(to right, #1F0505, #3B0D0D, #1F0505); border-top: 2px solid #BF953F; margin-top: auto; }
+        footer p { margin: 0; font-weight: bold; font-size: 1em; line-height: 1.6; color: #BF953F; background: linear-gradient(to bottom, #BF953F, #FCF6BA, #B38728); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
+        .footer-break { display: block; margin-top: 5px; }
+
+        /* MOBILE STYLES */
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            
+            nav ul { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 75px; 
+                right: 10px; 
+                width: 260px; 
+                background-color: rgba(0, 0, 0, 0.95); 
+                padding: 25px 0; 
+                border: 1px solid #BF953F; 
+                border-radius: 12px; 
+                box-shadow: 0 10px 40px rgba(0,0,0,0.8); 
+                z-index: 2000; 
+            }
+            
+            nav ul.active { display: flex; }
+            nav ul li { margin: 15px 0; width: 100%; text-align: center; }
+            nav a { font-size: 1.2em; }
+            
+            main {
+                padding: 20px 15px;
+                margin: 20px auto;
+                width: 95%;
+            }
+            
+            .committee-section {
+                padding: 15px;
+            }
+            
+            footer p { font-size: 1.1em; line-height: 1.4; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <h1>SFGC IKS Forum</h1>
+        <nav>
+            <ul id="nav-menu">
+                <li><a href="home.html?fromnav=true">Home</a></li>
+                <li><a href="occasion.html?fromnav=true">Occasions</a></li>
+                <li><a href="proceedings-journal.html?fromnav=true">Proceedings & Journal</a></li>
+                <li><a href="committee.html?fromnav=true">Committee</a></li>
+                <li><a href="about us.html?fromnav=true">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2 class="main-title">BOARD OF EXECUTIVES</h2>
+
+        <div class="committee-section">
+            <h3>Chief Patrons</h3>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://en.wikipedia.org/wiki/Anil_Sahasrabudhe" target="_blank">Dr. ANIL D. SAHASRABUDHE</a>
+                </span>
+                <span class="member-post">Chairman NETF/ EC-NAAC & NBA/ Former Chairman, AICTE</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://www.set.edu.in/president-message" target="_blank">Shri. N R PANDITH ARADHYA</a>
+                </span>
+                <span class="member-post">President, Seshadripuram Educational Trust</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://www.set.edu.in/management-team" target="_blank">Shri. T S HENJARAPPA</a>
+                </span>
+                <span class="member-post">Vice President, Seshadripuram Educational Trust</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://www.set.edu.in/management-team" target="_blank">Shri. W H ANIL KUMAR</a>
+                </span>
+                <span class="member-post">Vice President, Seshadripuram Educational Trust</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://en.wikipedia.org/wiki/Wooday_P._Krishna" target="_blank">NADOJA Dr. WOODAY P. KRISHNA</a>
+                </span>
+                <span class="member-post">Honorary General Secretary, Seshadripuram Educational Trust</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://www.set.edu.in/management-team" target="_blank">Shri. S. SESHANARAYANA</a>
+                </span>
+                <span class="member-post">Honorary Joint Secretary, Seshadripuram Educational Trust</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://www.set.edu.in/management-team" target="_blank">Shri M S NATARAJ</a>
+                </span>
+                <span class="member-post">Honorary Joint Secretary, Seshadripuram Educational Trust</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://www.set.edu.in/management-team" target="_blank">Shri W D ASHOK</a>
+                </span>
+                <span class="member-post">Trustee, Seshadripuram Educational Trust</span>
+            </div>
+        </div>
+        
+        <div class="committee-section">
+            <h3>Advisory Board</h3>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://en.wikipedia.org/wiki/Vinay_Sahasrabuddhe" target="_blank">Dr. VINAY SAHASRABUDDHE</a>
+                </span>
+                <span class="member-post">Chairman, Indian Council of Cultural Relations</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://profbmahadevan.org/about-prof-b-mahadevan/" target="_blank">Prof. B MAHADEVAN</a>
+                </span>
+                <span class="member-post">IIM Bangalore</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://en.wikipedia.org/wiki/T._G._Sitharam" target="_blank">Prof. T.G. SITHARAM</a>
+                </span>
+                <span class="member-post">Chairman of AICTE</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://en.wikipedia.org/wiki/Sudha_Murty" target="_blank">PADMA BHUSHAN SUDHA MURTHY</a>
+                </span>
+                <span class="member-post">MP, Rajya Sabha & Chairman, Infosys Foundation</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://en.wikipedia.org/wiki/Venugopal_K.R." target="_blank">Dr. VENUGOPAL</a>
+                </span>
+                <span class="member-post">Former Vice Chancellor, Bangalore University, Fellow IEEE</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href=" https://aero.iisc.ac.in/people/s-n-omkar/" target="_blank">Dr. OMKAR</a>
+                </span>
+                <span class="member-post">Chief Research Scientist, IISc</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://share.google/SXKpoLtsJD3ZsnSIH" target="_blank">ER. DEVARAJAN</a
+                </span>
+                <span class="member-post">Senior Vice President, TVS Motors</span>
+            </div>
+        </div>
+
+        <div class="committee-section">
+            <div class="member-box">
+                <span class="member-name">
+                <h3>Directors, SFGC IKS</h3>
+                    <a href="https://www.sfgc.ac.in/principal-desk" target="_blank">Dr. S N VENKATESH</a>
+                </span>
+                <span class="member-post">Chairman, SFGC IKS</span>
+                <span class="member-post">Principal, Seshadripuram First Grade College</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://www.google.com/search?q=Prof+vivekananda+emeritus+faculty+iit+bombay+iist+thiruvananthapuram" target="_blank">Prof. VIVEKANANDA</a>
+                </span>
+                <span class="member-post">Co-Chairman, SFGC IKS</span>
+                <span class="member-post">Emeritus Faculty, IIT Bombay/IIST, Tiruvanantapuram</span>
+            </div> 
+        </div>
+        
+        <div class="committee-section">
+            <h3>Convenors, SFGC IKS</h3>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://www.linkedin.com/in/dr-anjana-radhakrishnan-5a540b103" target="_blank">Dr. ANJANA RADHAKRISHNAN</a>
+                </span>
+                <span class="member-post">Co-ordinator, B.Com</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://www.google.com/search?q=Prof.+Vidya+A.S+HOD%2C+Bio-Chemistry%2C+SFGC" target="_blank">Prof. VIDYA A.S</a>
+                </span>
+                <span class="member-post">HOD, Bio-Chemistry</span>
+            </div>
+        </div>
+
+        <div class="committee-section">
+            <h3>Organizing Committee</h3>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Dr. M L ASHOK</a>
+                </span>
+                <span class="member-post">IQAC Co-ordinator</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Dr. VATSALA G</a>
+                </span>
+                <span class="member-post">Director, SAGE</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Dr. VINAY S</a>
+                </span>
+                <span class="member-post">Director, MBA</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Dr. RAJI PILLAI</a>
+                </span>
+                <span class="member-post">Director, M.Com</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Dr. SARITHA B</a>
+                </span>
+                <span class="member-post">HOD, Commerce and Management</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Mr. SUDHAKARAN</a>
+                </span>
+                <span class="member-post">Asst. Professor, Commerce and Management</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Prof. RAMESH T C</a>
+                </span>
+                <span class="member-post">HOD, Mathematics</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Dr. RAMA RAO S</a>
+                </span>
+                <span class="member-post">HOD, Sanskrit</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Prof. SANDEEP TILAK</a>
+                </span>
+                <span class="member-post">HOD, English</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Prof. RAJASHRI PADAKI</a>
+                </span>
+                <span class="member-post">HOD, Electronics</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Dr. SANTANU DAS</a>
+                </span>
+                <span class="member-post">HOD, Bio-Technology</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Prof. THIMMAPPA N T</a>
+                </span>
+                <span class="member-post">Staff Secretary 2025-26</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Prof. REKHA RAICHAL</a>
+                </span>
+                <span class="member-post">Director, MCA</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Prof. NETRA SANJEEV MIRJI</a>
+                </span>
+                <span class="member-post">Faculty, Department of Computer Application</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Prof. V A NAGARAJ</a>
+                </span>
+                <span class="member-post">Faculty, Department of Commerce and Management</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Dr. GEETHA D C</a>
+                </span>
+                <span class="member-post">HOD, Kannada</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Dr. SHARMILA BISWAS</a>
+                </span>
+                <span class="member-post">HOD, Hindi</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Mr. SACHIN GOWDA K S</a>
+                </span>
+                <span class="member-post">Asst. Professor, SRF Research Team Member</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://www.google.com/search?q=Prof.+Naveen+Kumar+K+S%2C+PO%2C+SFGC+NSS" target="_blank">Asst. Prof. NAVEEN KUMAR K S</a>
+                </span>
+                <span class="member-post">Faculty of Commerce, NSS Officer</span>
+            </div>
+        </div>
+
+        <div class="committee-section">
+            <h3>Student Co-ordinators</h3>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://share.google/aimode/9eZefKehjgwZBe3os" target="_blank">SHAM ROBINSON V</a>
+                </span>
+                <span class="member-post">Executive Student Organiser & Technical Co-ordinator - SFGC IKS</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://share.google/aimode/xTxn9gbRPl7keLd0f" target="_blank">SANDEEP S</a>
+                </span>
+                <span class="member-post">President, Student Council 2025-26, SFGC</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://www.linkedin.com/in/saajan-d-b2878a347" target="_blank">SAAJAN D</a>
+                </span>
+                <span class="member-post">Technical Head and Member of Organising team - SFGC IKS</span>
+            </div>
+            <div class="member-box">
+                <span class="member-name">
+                    <a href="https://www.linkedin.com/in/arvind-n-u-b25bb8383" target="_blank">ARVIND N U</a>
+                </span>
+                <span class="member-post">Technical and Media Representative - SFGC IKS</span>
+            </div>
+        </div>
+    </main>
+
+    <footer><p>© All Copyrights Reserved 2026-27 <span class="footer-break">SFGC IKS FORUM - SRF INDIA</span></p></footer>
+
+    <script>
+        function toggleMenu() { 
+            document.getElementById('nav-menu').classList.toggle('active'); 
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>SFGC IKS Forum - Events</title>
+    <style>
+        /* ============================================
+           GLOBAL DNA - Standardized for all pages
+           ============================================ */
+        html, body { 
+            margin: 0;
+            padding: 0;
+            overscroll-behavior-x: none;
+            overflow-x: hidden;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            font-size: 11pt;
+            line-height: 1.2;
+        }
+        
+        body { 
+            font-family: 'Georgia Pro', Georgia, serif;
+            background: url('45383.png') no-repeat top center fixed;
+            background-size: cover;
+            color: #fdf5e6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ============================================
+           HEADER & NAVIGATION - From about.html
+           ============================================ */
+        header {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1000;
+        }
+        
+        h1 {
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            margin: 10px 0;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        nav a {
+            color: #ffcc66;
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+            font-size: 1.1em;
+            font-family: 'Georgia Pro', Georgia, serif;
+            display: inline-block;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #ffd700;
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        nav a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px #ffd700;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 70%;
+            transform: translateY(-50%);
+            z-index: 1001;
+        }
+        
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: #cccccc;
+            margin: 3px 0;
+        }
+
+        /* ============================================
+           MAIN CONTENT - Standardized Box
+           ============================================ */
+        main {
+            flex: 1;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 40px 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.2);
+            text-align: center;
+        }
+
+        h2.main-title {
+            font-size: 1.8em;
+            color: #ffd700;
+            border-bottom: 1px solid #ffcc66;
+            display: inline-block;
+            margin-bottom: 35px;
+            width: 80%;
+        }
+
+        .event-section {
+            margin-bottom: 30px;
+            padding: 25px;
+            border-left: 5px solid #BF953F;
+            text-align: left;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 0 15px 15px 0;
+        }
+
+        .event-title {
+            color: #ffd700;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .event-btn {
+            color: #ffd700;
+            font-weight: bold;
+            text-decoration: none;
+            border: 1px solid #ffd700;
+            padding: 8px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            transition: all 0.3s ease;
+            margin-right: 15px;
+            margin-top: 10px;
+        }
+        
+        .event-btn:hover {
+            background: #ffd700;
+            color: #000;
+        }
+
+        /* ============================================
+           FOOTER - From about.html
+           ============================================ */
+        footer {
+            padding: 30px 20px;
+            text-align: center;
+            background: linear-gradient(to right, #1F0505, #3B0D0D, #1F0505);
+            border-top: 2px solid #BF953F;
+            margin-top: auto;
+        }
+        
+        footer p {
+            margin: 0;
+            font-weight: bold;
+            font-size: 1em;
+            line-height: 1.6;
+            color: #BF953F;
+            background: linear-gradient(to bottom, #BF953F, #FCF6BA, #B38728);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .footer-break {
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* ============================================
+           MOBILE STYLES
+           ============================================ */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 75px;
+                right: 10px;
+                width: 260px;
+                background-color: rgba(0, 0, 0, 0.95);
+                padding: 25px 0;
+                border: 1px solid #BF953F;
+                border-radius: 12px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+                z-index: 2000;
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 15px 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            nav a {
+                font-size: 1.2em;
+            }
+            
+            main {
+                padding: 20px 15px;
+                margin: 20px auto;
+                width: 95%;
+            }
+            
+            .event-section {
+                padding: 15px;
+            }
+            
+            .event-btn {
+                margin-right: 10px;
+                margin-bottom: 10px;
+            }
+            
+            footer p {
+                font-size: 1.1em;
+                line-height: 1.4;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <h1>SFGC IKS Forum</h1>
+        <nav>
+            <ul id="nav-menu">
+                <li><a href="home.html?fromnav=true">Home</a></li>
+                <li><a href="occasion.html?fromnav=true">Occasions</a></li>
+                <li><a href="proceedings-journal.html?fromnav=true">Proceedings & Journal</a></li>
+                <li><a href="committee.html?fromnav=true">Committee</a></li>
+                <li><a href="about us.html?fromnav=true">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        <h2 class="main-title">Event Curriculum</h2>
+        
+        <div class="event-section">
+            <p class="event-title">
+                IKS HORIZONS 2025 - INTERNATIONAL CONFERENCE on INDIAN KNOWLEDGE SYSTEM
+            </p>
+            <a href="https://drive.google.com/file/d/1TL5xug1Jgy4n2mnmJuXZfuGJwqIck21a/view?usp=drivesdk" 
+               target="_blank" class="event-btn">
+                PROSPECTUS
+            </a>
+            <a href="https://drive.google.com/drive/folders/1KHlqlGkWQ3xXBlPGiWZRhTSzLBiTzaB0" 
+               target="_blank" class="event-btn">
+                VIEW GALLERY
+            </a>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <p>
+            © All Copyrights Reserved 2026-27
+            <span class="footer-break">SFGC IKS FORUM - SRF INDIA</span>
+        </p>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        function toggleMenu() {
+            document.getElementById('nav-menu').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
