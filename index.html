@@ -3,372 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SFGC Hackathon 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>SFGC IKS FORUM</title>
     <style>
-        /* --- GLOBAL --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
-            background: #020412;
-            color: white;
-            font-family: 'Exo 2', sans-serif;
+            background-color: #4A0D0D;
+            background-image: url('launch_bg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            font-family: 'Georgia Pro', Georgia, serif;
             overflow: hidden;
             height: 100vh;
-        }
-
-        #bg-canvas {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .launch-container {
-            height: 100vh;
             display: flex;
-            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            align-items: center;
-            position: relative;
         }
 
-        /* --- BUTTON --- */
-        .launch-btn {
-            padding: 25px 80px;
-            border-radius: 60px;
-            font-family: 'Orbitron', sans-serif;
-            background: linear-gradient(135deg, #00eaff 0%, #0077ff 50%, #00eaff 100%);
-            background-size: 200% 200%;
-            color: white;
-            font-weight: 700;
-            font-size: 22px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 40px rgba(0, 234, 255, 0.5);
-            transition: all 0.4s ease;
-            border: 2px solid rgba(0, 234, 255, 0.8);
-            cursor: pointer;
-            z-index: 100;
-        }
-
-        .launch-btn:hover {
-            transform: scale(1.08);
-            box-shadow: 0 8px 60px rgba(0, 234, 255, 0.7);
-            background-position: 100% 100%;
-        }
-
-        .launch-btn.hidden {
-            opacity: 0;
-            transform: scale(0.5);
-            pointer-events: none;
-        }
-
-        /* --- COUNTDOWN --- */
-        .countdown {
-            position: absolute;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 150px;
-            font-weight: 900;
-            color: #00eaff;
-            text-shadow: 0 0 40px rgba(0, 234, 255, 0.8);
-            display: none;
-            z-index: 50;
-        }
-
-        .countdown.show {
-            display: block;
-            animation: pulse 0.8s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        /* --- COIN CONTAINER --- */
-        .toss-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            z-index: 60;
-        }
-
-        .toss-container.show {
-            display: flex;
-        }
-
-        /* --- COIN --- */
-        .coin {
-            width: 240px;
-            height: 240px;
-            position: relative;
-            transform-style: preserve-3d;
-        }
-
-        .coin-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(145deg, #0a1628 0%, #020412 100%);
-            border: 3px solid #00eaff;
-            box-shadow: 
-                0 0 30px rgba(0, 234, 255, 0.4),
-                inset 0 0 30px rgba(0, 234, 255, 0.05);
-        }
-
-        .coin-back {
-            transform: rotateY(180deg);
-        }
-
-        .coin-icon {
-            font-size: 75px;
-            margin-bottom: 8px;
-        }
-
-        .coin-label {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 20px;
-            font-weight: 700;
-            color: #00eaff;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* --- FINAL TEXT --- */
-        .final-text {
-            margin-top: 50px;
+        /* ENTERING SCREEN - Now set to display flex by default */
+        .entering-screen {
+            display: flex; 
             text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 1s ease;
+            z-index: 20;
+            background: radial-gradient(circle, #4A0D0D 0%, #2D0809 100%);
+            position: fixed;
+            inset: 0;
+            height: 100vh;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 25px solid #2D0809;
+            box-shadow: inset 0 0 150px rgba(0,0,0,0.9);
         }
 
-        .final-text.show {
-            opacity: 1;
-            transform: translateY(0);
+        .ornate-divider {
+            color: #AA771C;
+            font-size: 2rem;
+            opacity: 0.2;
+            margin: 20px 0;
+            letter-spacing: 10px;
         }
 
-        .final-text .year {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 52px;
+        .entering-text {
+            font-family: 'Georgia Pro', Georgia, serif;
+            font-size: 2.8rem;
             font-weight: 900;
-            color: #00eaff;
-            text-shadow: 0 0 30px rgba(0, 234, 255, 0.8);
-            letter-spacing: 8px;
-        }
-
-        .final-text .tagline {
-            font-size: 18px;
-            color: rgba(207, 239, 255, 0.75);
-            letter-spacing: 6px;
-            margin-top: 12px;
+            letter-spacing: 12px;
+            background: linear-gradient(to bottom, #BF953F 22%, #FCF6BA 45%, #B38728 50%, #FBF5B7 55%, #AA771C 78%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 15px rgba(191, 149, 63, 0.4));
             text-transform: uppercase;
         }
 
-        /* --- ANIMATIONS --- */
-        .coin.drop {
-            animation: dropIn 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        .progress-wrapper {
+            width: 600px;
+            max-width: 85vw;
         }
 
-        @keyframes dropIn {
-            0% {
-                top: -300px;
-                opacity: 0;
-                transform: scale(0.4);
-            }
-            60% {
-                opacity: 1;
-            }
-            100% {
-                top: 0;
-                opacity: 1;
-                transform: scale(1);
-            }
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(170, 119, 28, 0.2);
         }
 
-        .coin.spinning {
-            animation: spinFast 0.15s linear infinite;
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #BF953F, #FCF6BA, #AA771C);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            transition: width 0.1s linear;
         }
 
-        @keyframes spinFast {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
         }
 
-        .coin.land-heads {
-            transform: rotateY(1800deg);
-            transition: transform 2.5s cubic-bezier(0.15, 0, 0.15, 1);
+        .progress-text, .progress-percent {
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #AA771C;
+            font-weight: bold;
         }
 
-        /* --- RESPONSIVE --- */
+        .status-text {
+            color: rgba(170, 119, 28, 0.5);
+            font-size: 0.8rem;
+            margin-top: 30px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
         @media (max-width: 768px) {
-            .launch-btn {
-                padding: 20px 50px;
-                font-size: 16px;
-                letter-spacing: 2px;
-            }
+            .entering-text { font-size: 1.8rem; letter-spacing: 6px; }
+            .progress-wrapper { width: 80%; }
+            .progress-container { height: 8px; }
+        }
 
-            .countdown {
-                font-size: 100px;
-            }
-
-            .coin {
-                width: 180px;
-                height: 180px;
-            }
-
-            .coin-icon {
-                font-size: 55px;
-            }
-
-            .coin-label {
-                font-size: 14px;
-            }
-
-            .final-text .year {
-                font-size: 34px;
-                letter-spacing: 4px;
-            }
-
-            .final-text .tagline {
-                font-size: 14px;
-                letter-spacing: 3px;
-            }
-
-            .final-text {
-                margin-top: 35px;
-            }
+        @media (max-width: 480px) {
+            .entering-text { font-size: 1.4rem; letter-spacing: 4px; }
+            .progress-wrapper { width: 85%; }
+            .progress-container { height: 6px; }
         }
     </style>
 </head>
 <body>
-    <canvas id="bg-canvas"></canvas>
 
-    <div class="launch-container">
-        <!-- Launch Button -->
-        <button class="launch-btn" id="launchBtn" onclick="startLaunch()">Launch Now</button>
-        
-        <!-- Countdown -->
-        <div class="countdown" id="countdown">3</div>
-
-        <!-- Coin & Text Container -->
-        <div class="toss-container" id="tossContainer">
-            <div class="coin" id="coin">
-                <!-- Heads - Hackathon -->
-                <div class="coin-face coin-front">
-                    <div class="coin-icon">🏆</div>
-                    <div class="coin-label">Hackathon</div>
-                </div>
-                <!-- Tails - SFGC -->
-                <div class="coin-face coin-back">
-                    <div class="coin-icon">🎓</div>
-                    <div class="coin-label">SFGC</div>
-                </div>
-            </div>
-
-            <!-- Final Text -->
-            <div class="final-text" id="finalText">
-                <div class="year">HACKATHON 2026</div>
-                <div class="tagline">Innovate • Build • Transform</div>
-            </div>
+<div class="entering-screen" id="entering-screen">
+    <div class="entering-text">Entering The Forum</div>
+    <div class="ornate-divider">❧ ~~~~~~~~~~ ☙</div>
+    <div class="progress-wrapper">
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <div class="progress-info">
+            <span class="progress-text">Loading</span>
+            <span class="progress-percent" id="progress-percent">0%</span>
         </div>
     </div>
+    <div class="status-text" id="status-text">Please wait...</div>
+</div>
 
-    <script>
-        // Matrix Background Effect
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let width, height, drops;
+<script>
+    // Configuration
+    const redirectPage = 'home.html';
 
-        function init() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            drops = Array(Math.floor(width / 20)).fill(1);
-        }
+    // Start loading automatically when the window loads
+    window.onload = function() {
+        startProgressBar(redirectPage);
+    };
 
-        function draw() {
-            ctx.fillStyle = "rgba(2, 4, 18, 0.12)";
-            ctx.fillRect(0, 0, width, height);
-            ctx.fillStyle = "#00eaff";
-            ctx.font = "14px monospace";
-            for (let i = 0; i < drops.length; i++) {
-                ctx.fillText(Math.floor(Math.random() * 2), i * 20, drops[i] * 20);
-                if (drops[i] * 20 > height && Math.random() > 0.975) drops[i] = 0;
-                drops[i]++;
-            }
-        }
-
-        init();
-        setInterval(draw, 50);
-        window.addEventListener('resize', init);
-
-        // Launch Sequence
-        function startLaunch() {
-            const btn = document.getElementById('launchBtn');
-            const countdown = document.getElementById('countdown');
+    function startProgressBar(redirectTo) {
+        let width = 0;
+        const progressBar = document.getElementById('progress-bar');
+        const progressPercent = document.getElementById('progress-percent');
+        const statusText = document.getElementById('status-text');
+        
+        const statusMessages = ['Please wait...', 'Loading resources', 'Almost ready', 'Launching website'];
+        
+        const progressInterval = setInterval(() => {
+            width += 1;
+            progressBar.style.width = width + '%';
+            progressPercent.textContent = width + '%';
             
-            btn.classList.add('hidden');
+            if (width >= 25 && width < 50) statusText.textContent = statusMessages[1];
+            else if (width >= 50 && width < 85) statusText.textContent = statusMessages[2];
+            else if (width >= 85) statusText.textContent = statusMessages[3];
             
-            setTimeout(() => {
-                countdown.classList.add('show');
-                runCountdown(3);
-            }, 400);
-        }
-
-        function runCountdown(count) {
-            const countdown = document.getElementById('countdown');
-            if (count > 0) {
-                countdown.textContent = count;
-                setTimeout(() => runCountdown(count - 1), 1000);
-            } else {
-                countdown.classList.remove('show');
-                startCoinToss();
+            if (width >= 100) {
+                clearInterval(progressInterval);
+                setTimeout(() => { 
+                    window.location.href = redirectTo; 
+                }, 800);
             }
-        }
-
-        function startCoinToss() {
-            const container = document.getElementById('tossContainer');
-            const coin = document.getElementById('coin');
-            const finalText = document.getElementById('finalText');
-
-            // Show container and start drop animation
-            container.classList.add('show');
-            coin.classList.add('drop');
-
-            // After drop, start spinning
-            setTimeout(() => {
-                coin.classList.remove('drop');
-                coin.classList.add('spinning');
-            }, 1200);
-
-            // After spinning, land on heads (Hackathon)
-            setTimeout(() => {
-                coin.classList.remove('spinning');
-                coin.classList.add('land-heads');
-            }, 3200);
-
-            // Show final text
-            setTimeout(() => {
-                finalText.classList.add('show');
-            }, 5000);
-
-            // Redirect to home
-            setTimeout(() => {
-                window.location.href = 'home.html';
-            }, 8500);
-        }
-    </script>
+        }, 40); // Slightly faster interval (40ms) for a smoother feel
+    }
+</script>
 </body>
 </html>
