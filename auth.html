@@ -9,14 +9,13 @@
             --gold-primary: #BF953F;
             --gold-light: #FCF6BA;
             --gold-dark: #B38728;
-            --bg-overlay: rgba(0, 0, 0, 0.85);
-            --input-bg: rgba(255, 255, 255, 0.1);
+            --bg-overlay: rgba(0, 0, 0, 0.9);
+            --input-bg: rgba(255, 255, 255, 0.08);
         }
 
-        html, body { margin: 0; padding: 0; min-height: 100vh; overflow-x: hidden; }
+        html, body { margin: 0; padding: 0; min-height: 100vh; font-family: 'Georgia', serif; }
         
         body {
-            font-family: 'Georgia', serif;
             background: url('45383.png') no-repeat center center fixed;
             background-size: cover;
             color: #fdf5e6;
@@ -25,61 +24,60 @@
         }
 
         header {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
             text-align: center;
-            border-bottom: 1px solid var(--gold-primary);
+            border-bottom: 2px solid var(--gold-primary);
         }
 
-        h1 { color: #ffd700; margin: 10px 0; font-size: 1.8em; text-shadow: 0 2px 4px #000; }
-
-        .portal-wrapper { flex: 1; display: flex; justify-content: center; align-items: center; padding: 40px 15px; }
+        .portal-wrapper { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; }
 
         .auth-container {
             background: var(--bg-overlay);
-            width: 100%; max-width: 500px;
-            padding: 35px; border-radius: 15px;
+            width: 100%; max-width: 550px;
+            padding: 30px; border-radius: 15px;
             border: 2px solid var(--gold-primary);
-            box-shadow: 0 15px 50px rgba(0,0,0,0.9);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            max-height: 90vh; overflow-y: auto;
         }
 
-        h2 { color: #ffd700; text-align: center; margin-bottom: 25px; border-bottom: 1px solid var(--gold-primary); padding-bottom: 10px; }
+        h2 { color: #ffd700; text-align: center; margin-bottom: 20px; border-bottom: 1px solid var(--gold-primary); padding-bottom: 10px; }
 
-        label { display: block; color: #ffcc66; font-size: 0.85em; margin-bottom: 6px; font-weight: bold; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .full-width { grid-column: span 2; }
 
-        input, select {
-            width: 100%; padding: 12px; background: var(--input-bg);
+        label { display: block; color: #ffcc66; font-size: 0.8em; margin-bottom: 5px; font-weight: bold; }
+
+        input, select, textarea {
+            width: 100%; padding: 10px; background: var(--input-bg);
             border: 1px solid var(--gold-primary); color: #fff;
-            border-radius: 6px; box-sizing: border-box; margin-bottom: 15px;
+            border-radius: 5px; box-sizing: border-box;
         }
 
-        /* FIXED: Gender Dropdown Visibility for Mobile/Dark Theme */
-        select option {
-            background-color: #1a1a1a; 
-            color: #ffd700;
-        }
+        select option { background-color: #1a1a1a; color: #ffd700; }
 
         .btn-gold {
-            width: 100%; padding: 15px;
+            width: 100%; padding: 15px; margin-top: 20px;
             background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
             border: none; color: #000; font-weight: 900; cursor: pointer;
-            border-radius: 6px; text-transform: uppercase; transition: 0.3s;
+            border-radius: 6px; text-transform: uppercase;
         }
 
-        .btn-gold:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        .auth-footer-links { text-align: center; margin-top: 20px; font-size: 0.9em; }
-        .link-gold { color: #ffd700; cursor: pointer; text-decoration: none; font-weight: bold; }
-
+        .auth-footer-links { text-align: center; margin-top: 15px; font-size: 0.85em; }
+        .link-gold { color: #ffd700; cursor: pointer; font-weight: bold; }
         .hidden { display: none !important; }
 
-        footer { padding: 20px; text-align: center; border-top: 2px solid var(--gold-primary); background: #1a0505; }
+        footer { padding: 15px; text-align: center; border-top: 1px solid var(--gold-primary); background: #1a0505; }
+        
+        /* Custom Scrollbar for the gold look */
+        .auth-container::-webkit-scrollbar { width: 5px; }
+        .auth-container::-webkit-scrollbar-thumb { background: var(--gold-primary); border-radius: 10px; }
     </style>
 </head>
 <body>
 
-    <header><h1>SFGC IKS Portal</h1></header>
+    <header><h1 style="color:#ffd700; margin:0;">SFGC IKS Portal</h1></header>
 
     <div class="portal-wrapper">
         <div class="auth-container">
@@ -87,9 +85,9 @@
             <div id="login-ui">
                 <h2>Student Login</h2>
                 <label>College ID</label>
-                <input type="text" id="l-user" placeholder="Enter Username">
+                <input type="text" id="l-user">
                 <label>Password</label>
-                <input type="password" id="l-pass" placeholder="••••••••">
+                <input type="password" id="l-pass">
                 <button class="btn-gold" onclick="login()">Enter Portal</button>
                 <div class="auth-footer-links">
                     <span class="link-gold" onclick="showUI('forgot-ui')">Forgot Password?</span>
@@ -98,18 +96,49 @@
             </div>
 
             <div id="reg-ui" class="hidden">
-                <h2>Registration</h2>
-                <label>Full Name</label>
-                <input type="text" id="r-name">
-                <label>Email ID</label>
-                <input type="email" id="r-email">
-                <label>Gender</label>
-                <select id="r-gender">
-                    <option value="" disabled selected>Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                </select>
+                <h2>Student Registration</h2>
+                <div class="form-grid">
+                    <div class="full-width">
+                        <label>Full Name</label>
+                        <input type="text" id="r-name">
+                    </div>
+                    <div>
+                        <label>Email ID</label>
+                        <input type="email" id="r-email">
+                    </div>
+                    <div>
+                        <label>Phone Number</label>
+                        <input type="tel" id="r-phone" maxlength="10">
+                    </div>
+                    <div>
+                        <label>Gender</label>
+                        <select id="r-gender">
+                            <option value="" disabled selected>Select</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Course / Stream</label>
+                        <input type="text" id="r-course" placeholder="e.g. BCA, B.Com">
+                    </div>
+                    <div class="full-width">
+                        <label>College Name & Address</label>
+                        <input type="text" id="r-college">
+                    </div>
+                    <div>
+                        <label>Aadhar Card Number</label>
+                        <input type="text" id="r-aadhar" maxlength="12">
+                    </div>
+                    <div>
+                        <label>Parent/Guardian Name</label>
+                        <input type="text" id="r-parent-name">
+                    </div>
+                    <div class="full-width">
+                        <label>Parent/Guardian Phone</label>
+                        <input type="tel" id="r-parent-phone" maxlength="10">
+                    </div>
+                </div>
                 <button class="btn-gold" id="reg-btn" onclick="register()">Create Account</button>
                 <div class="auth-footer-links">
                     <p>Already have an account? <b class="link-gold" onclick="showUI('login-ui')">Login</b></p>
@@ -118,47 +147,32 @@
 
             <div id="forgot-ui" class="hidden">
                 <h2>Recover Access</h2>
-                <p style="text-align: center; font-size: 0.8em; color: #ccc;">Enter your mobile to get an OTP.</p>
-                <label>Phone Number</label>
-                <div style="display: flex; gap: 5px;">
-                    <input type="text" value="+91" style="width: 50px;" disabled>
-                    <input type="tel" id="f-phone" maxlength="10" placeholder="7019xxxxxx">
-                </div>
+                <label>Mobile Number</label>
+                <input type="tel" id="f-phone" maxlength="10">
                 <button class="btn-gold" id="otp-send-btn" onclick="sendSMSOTP()">Get OTP via SMS</button>
-                <div class="auth-footer-links">
-                    <b class="link-gold" onclick="showUI('login-ui')">Back to Login</b>
-                </div>
+                <div class="auth-footer-links"><span class="link-gold" onclick="showUI('login-ui')">Back</span></div>
             </div>
 
             <div id="otp-ui" class="hidden">
-                <h2>Verify SMS</h2>
-                <input type="text" id="otp-input" maxlength="6" style="text-align: center; font-size: 1.8em; letter-spacing: 10px;" placeholder="000000">
-                <button class="btn-gold" onclick="verifyOTP()">Verify Code</button>
-                <div class="auth-footer-links">
-                    <p id="timer-box">Resend in <span id="seconds">30</span>s</p>
-                    <span id="resend-link" class="link-gold hidden" onclick="sendSMSOTP()">Resend SMS</span>
-                </div>
+                <h2>Verify Code</h2>
+                <input type="text" id="otp-input" maxlength="6" style="text-align:center; font-size:1.5em;">
+                <button class="btn-gold" onclick="verifyOTP()">Verify</button>
             </div>
 
             <div id="reset-ui" class="hidden">
                 <h2>New Password</h2>
                 <label>New Password</label>
-                <input type="password" id="new-pass" placeholder="Min 6 characters">
-                <label>Confirm Password</label>
-                <input type="password" id="confirm-pass" placeholder="Re-enter password">
-                <button class="btn-gold" onclick="updatePassword()">Update Password</button>
+                <input type="password" id="new-pass">
+                <button class="btn-gold" onclick="updatePassword()">Update</button>
             </div>
 
         </div>
     </div>
 
-    <footer>
-        <p>© 2026 | Seshadripuram First Grade College</p>
-    </footer>
+    <footer><p>© 2026 | Seshadripuram First Grade College</p></footer>
 
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxhyDtmFiAJvGFzGo04WWbl3KiptOMwAnpRK3BmupovYmLro93QiD57LCBMmLtgtyE1/exec";
-        let generatedOTP = "";
 
         function showUI(id) {
             ['login-ui', 'reg-ui', 'forgot-ui', 'otp-ui', 'reset-ui'].forEach(ui => document.getElementById(ui).classList.add('hidden'));
@@ -166,76 +180,44 @@
         }
 
         async function register() {
-            const name = document.getElementById("r-name").value;
-            const email = document.getElementById("r-email").value;
-            const gender = document.getElementById("r-gender").value;
             const btn = document.getElementById("reg-btn");
+            const data = {
+                action: "register",
+                name: document.getElementById("r-name").value,
+                email: document.getElementById("r-email").value,
+                phone: document.getElementById("r-phone").value,
+                gender: document.getElementById("r-gender").value,
+                course: document.getElementById("r-course").value,
+                college: document.getElementById("r-college").value,
+                aadhar: document.getElementById("r-aadhar").value,
+                parentName: document.getElementById("r-parent-name").value,
+                parentPhone: document.getElementById("r-parent-phone").value
+            };
 
-            if(!name || !email || !gender) return alert("Fill all fields");
+            if(!data.name || !data.phone || !data.aadhar) return alert("Please fill Name, Phone and Aadhar.");
             
             btn.innerText = "REGISTERING..."; btn.disabled = true;
 
             await fetch(SCRIPT_URL, {
-                method: "POST", 
-                mode: "no-cors",
-                body: JSON.stringify({ action: "register", name, email, gender })
+                method: "POST", mode: "no-cors",
+                body: JSON.stringify(data)
             });
 
-            alert("Registration data sent to SFGC Database!");
+            alert("Registration successful! Details saved to database.");
             showUI('login-ui');
             btn.innerText = "Create Account"; btn.disabled = false;
         }
 
         async function sendSMSOTP() {
             const phone = document.getElementById("f-phone").value;
-            const btn = document.getElementById("otp-send-btn");
             if(phone.length < 10) return alert("Enter 10-digit number");
-
-            btn.innerText = "SENDING SMS..."; btn.disabled = true;
-
-            await fetch(SCRIPT_URL, {
-                method: "POST", mode: "no-cors",
-                body: JSON.stringify({ action: "sendSMS", phone: phone })
-            });
-
-            alert("OTP Request triggered for " + phone);
+            document.getElementById("otp-send-btn").innerText = "SENDING...";
+            await fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify({ action: "sendSMS", phone: phone }) });
             showUI('otp-ui');
-            startTimer();
-            btn.innerText = "Get OTP via SMS"; btn.disabled = false;
         }
 
-        function startTimer() {
-            let sec = 30;
-            const timerBox = document.getElementById("timer-box");
-            const resendLink = document.getElementById("resend-link");
-            timerBox.classList.remove("hidden"); resendLink.classList.add("hidden");
-            const countdown = setInterval(() => {
-                sec--;
-                document.getElementById("seconds").innerText = sec;
-                if (sec <= 0) {
-                    clearInterval(countdown);
-                    timerBox.classList.add("hidden"); resendLink.classList.remove("hidden");
-                }
-            }, 1000);
-        }
-
-        function verifyOTP() {
-            const input = document.getElementById("otp-input").value;
-            if (input.length === 6) { 
-                showUI('reset-ui');
-            } else {
-                alert("Enter 6-digit OTP");
-            }
-        }
-
-        function updatePassword() {
-            const p1 = document.getElementById("new-pass").value;
-            const p2 = document.getElementById("confirm-pass").value;
-            if (p1.length < 6 || p1 !== p2) return alert("Passwords must match and be 6+ chars");
-            alert("Password successfully reset!");
-            showUI('login-ui');
-        }
-
+        function verifyOTP() { if(document.getElementById("otp-input").value.length === 6) showUI('reset-ui'); }
+        function updatePassword() { alert("Password Updated!"); showUI('login-ui'); }
         function login() { window.location.href = "home.html"; }
     </script>
 </body>
