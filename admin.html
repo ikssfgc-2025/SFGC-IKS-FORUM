@@ -3,30 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SFGC IKS - Admin Portal</title>
+    <title>SFGC IKS - Secure Admin Portal</title>
     <style>
-        html, body { margin: 0; padding: 0; min-height: 100vh; font-family: 'Georgia Pro', serif; }
+        /* ============================================
+           GLOBAL STYLES & THEME
+           ============================================ */
+        html, body { margin: 0; padding: 0; min-height: 100vh; font-family: 'Georgia Pro', serif; overflow-x: hidden; }
         body {
             background: url('45383.png') no-repeat center center fixed;
             background-size: cover;
             color: #fdf5e6;
-            display: flex;
-            flex-direction: column;
         }
 
+        /* ============================================
+           LOGIN GATE STYLES
+           ============================================ */
+        #login-gate {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95); z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        .login-box {
+            background: rgba(20, 20, 20, 0.8);
+            padding: 40px; border-radius: 20px;
+            border: 2px solid #BF953F; width: 100%; max-width: 400px;
+            text-align: center; box-shadow: 0 0 30px rgba(191, 149, 63, 0.3);
+        }
+
+        .login-box input {
+            width: 100%; padding: 12px; margin: 10px 0;
+            background: rgba(0,0,0,0.5); border: 1px solid #BF953F;
+            color: #fff; border-radius: 5px; box-sizing: border-box;
+        }
+
+        /* ============================================
+           ADMIN PORTAL STYLES
+           ============================================ */
         header {
             background-color: rgba(0, 0, 0, 0.6);
             padding: 20px; text-align: center;
             border-bottom: 2px solid #BF953F;
         }
 
-        h1 { color: #ffd700; margin: 10px 0; }
+        h1 { color: #ffd700; margin: 10px 0; text-shadow: 0 0 10px #000; }
 
-        .portal-wrapper { flex: 1; display: flex; justify-content: center; align-items: center; padding: 40px 15px; }
+        .portal-wrapper { display: none; padding: 40px 15px; flex-direction: column; align-items: center; }
 
         .admin-container {
             background: rgba(0, 0, 0, 0.85);
-            width: 100%; max-width: 900px;
+            width: 100%; max-width: 1000px;
             padding: 35px; border-radius: 20px;
             border: 2px solid #BF953F;
             backdrop-filter: blur(10px);
@@ -36,7 +62,13 @@
             width: 100%; padding: 15px;
             background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 50%, #B38728 100%);
             border: none; color: #000; font-weight: 900; cursor: pointer;
-            border-radius: 8px; text-transform: uppercase;
+            border-radius: 8px; text-transform: uppercase; transition: 0.3s;
+        }
+        .btn-gold:hover { transform: scale(1.02); box-shadow: 0 0 15px #ffd700; }
+
+        .calendar-box {
+            width: 100%; background: #000; border: 1px solid #BF953F;
+            border-radius: 10px; overflow: hidden; margin-top: 30px;
         }
 
         /* MODAL STYLES */
@@ -54,9 +86,9 @@
             padding: 20px; border-radius: 10px; text-align: center; color: #ffd700;
         }
 
-        .table-wrapper { background: rgba(0,0,0,0.3); border-radius: 10px; border: 1px solid rgba(191, 149, 63, 0.2); }
+        .table-wrapper { background: rgba(0,0,0,0.3); border-radius: 10px; border: 1px solid rgba(191, 149, 63, 0.2); overflow-x: auto; }
 
-        .data-table { width: 100%; border-collapse: collapse; color: #fff; text-align: left; }
+        .data-table { width: 100%; border-collapse: collapse; color: #fff; text-align: left; min-width: 600px; }
 
         .data-table th { background: rgba(191, 149, 63, 0.2); padding: 15px; color: #ffd700; border-bottom: 2px solid #BF953F; }
 
@@ -65,15 +97,31 @@
 </head>
 <body>
 
-    <header><h1>SFGC IKS Forum</h1></header>
+    <div id="login-gate">
+        <div class="login-box">
+            <h2 style="color: #ffd700; margin-bottom: 20px;">SECURE ACCESS</h2>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button class="btn-gold" onclick="validateLogin()" style="margin-top: 20px;">Unlock Portal</button>
+            <p id="error-msg" style="color: #ff4d4d; font-size: 0.8em; margin-top: 15px; display: none;">Invalid Credentials. Access Denied.</p>
+        </div>
+    </div>
 
-    <div class="portal-wrapper">
+    <header><h1>SFGC IKS Forum - Admin Portal</h1></header>
+
+    <div class="portal-wrapper" id="main-portal">
         <div class="admin-container">
-            <h2 style="color: #ffd700; text-align: center;">Admin Control Center</h2>
+            <h2 style="color: #ffd700; text-align: center;">Control Center</h2>
+            
             <div style="margin-top: 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
                 <button class="btn-gold" onclick="openDashboard()">Upload Prospectus</button>
                 <button class="btn-gold">Book Event</button>
-                <a href="https://docs.google.com/spreadsheets/d/1r6NL7TxQC6kKEB0d-Am83rNvMC6Yax9AY9waGzmUHLc/edit" target="_blank" class="btn-gold" style="text-decoration:none; line-height:15px;">View Sheet</a>
+                <a href="https://docs.google.com/spreadsheets/d/1r6NL7TxQC6kKEB0d-Am83rNvMC6Yax9AY9waGzmUHLc/edit" target="_blank" class="btn-gold" style="text-decoration:none; line-height:15px; text-align:center;">View Sheet</a>
+            </div>
+
+            <div class="calendar-box">
+                <iframe src="https://calendar.google.com/calendar/embed?src=iks.sfgc%40gmail.com&ctz=Asia%2FKolkata" 
+                style="border: 0" width="100%" height="500" frameborder="0" scrolling="no"></iframe>
             </div>
         </div>
     </div>
@@ -114,6 +162,25 @@
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwL4YjeC8bwt4UL4GqlZT1B6FYmym9YyoaPlArLRajlRFQqyyOj7OeRBmv_RsPLj2O2Vg/exec";
 
+        // LOGIN LOGIC
+        function validateLogin() {
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            const error = document.getElementById('error-msg');
+
+            // Verification
+            if (user === "IKS_SFGC_ADMIN01" && pass === "IKS@$FGC.2026") {
+                document.getElementById('login-gate').style.display = 'none';
+                document.getElementById('main-portal').style.display = 'flex';
+            } else {
+                error.style.display = 'block';
+                // Reset fields
+                document.getElementById('username').value = "";
+                document.getElementById('password').value = "";
+            }
+        }
+
+        // DATABASE MODAL LOGIC
         function openDashboard() {
             document.getElementById('uploadDashboardModal').style.display = 'flex';
             loadData();
@@ -135,17 +202,18 @@
                         <td>${item.fileName}</td>
                         <td>${item.uploadDate}</td>
                         <td style="color:#00ff00;">LIVE</td>
-                        <td><button onclick="removeEntry('${item.fileName}', this)" style="background:red; color:white; border:none; border-radius:4px; cursor:pointer; padding:5px 10px;">REMOVE</button></td>
+                        <td><button onclick="removeEntry('${item.fileName}', this)" style="background:#ff4d4d; color:white; border:none; border-radius:4px; cursor:pointer; padding:5px 10px; font-weight:bold;">REMOVE</button></td>
                     </tr>`;
                 });
             } catch (e) {
-                listBody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:red;">Database Offline.</td></tr>';
+                listBody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#ff4d4d;">Database Offline.</td></tr>';
             }
         }
 
         async function removeEntry(name, btn) {
-            if(confirm("Delete " + name + "?")) {
+            if(confirm("Confirm: Delete " + name + " from IKS Database?")) {
                 btn.innerText = "Deleting...";
+                btn.disabled = true;
                 await fetch(SCRIPT_URL + "?action=delete&name=" + encodeURIComponent(name), { method: 'POST' });
                 loadData();
             }
