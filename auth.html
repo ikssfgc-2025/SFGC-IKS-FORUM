@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SFGC IKS - Student Portal</title>
     <style>
-        /* ============================================
-           GLOBAL DNA & THEME
-           ============================================ */
         :root {
             --gold-primary: #BF953F;
             --gold-light: #FCF6BA;
@@ -27,9 +24,6 @@
             flex-direction: column;
         }
 
-        /* ============================================
-           HEADER & NAVIGATION
-           ============================================ */
         header {
             background: rgba(0, 0, 0, 0.7);
             padding: 15px 20px;
@@ -46,12 +40,7 @@
             justify-content: center; gap: 25px; flex-wrap: wrap; margin-top: 10px;
         }
 
-        nav a {
-            color: #ffcc66; text-decoration: none; font-weight: bold;
-            font-size: 0.95em; transition: 0.3s ease;
-        }
-
-        nav a:hover { color: #fff; text-shadow: 0 0 8px var(--gold-primary); }
+        nav a { color: #ffcc66; text-decoration: none; font-weight: bold; font-size: 0.95em; }
 
         .hamburger {
             display: none; flex-direction: column; cursor: pointer;
@@ -60,12 +49,7 @@
 
         .hamburger div { width: 25px; height: 3px; background: #ffd700; margin: 3px 0; }
 
-        /* ============================================
-           AUTHENTICATION CONTAINER
-           ============================================ */
-        .portal-wrapper {
-            flex: 1; display: flex; justify-content: center; align-items: center; padding: 40px 15px;
-        }
+        .portal-wrapper { flex: 1; display: flex; justify-content: center; align-items: center; padding: 40px 15px; }
 
         .auth-container {
             background: var(--bg-overlay);
@@ -85,10 +69,7 @@
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
         .full-width { grid-column: span 2; }
 
-        label { 
-            display: block; color: #ffcc66; font-size: 0.85em; 
-            margin-bottom: 6px; font-weight: bold; 
-        }
+        label { display: block; color: #ffcc66; font-size: 0.85em; margin-bottom: 6px; font-weight: bold; }
 
         input, select, textarea {
             width: 100%; padding: 12px; background: var(--input-bg);
@@ -96,7 +77,11 @@
             border-radius: 6px; box-sizing: border-box; font-family: inherit;
         }
 
-        input:focus { outline: none; border-color: #fff; box-shadow: 0 0 5px var(--gold-primary); }
+        /* FIXED: Gender Dropdown Visibility */
+        select option {
+            background-color: #1a1a1a; 
+            color: #ffd700;
+        }
 
         .input-wrapper { position: relative; }
 
@@ -105,20 +90,15 @@
             cursor: pointer; font-size: 0.65em; color: #ffd700; font-weight: 900;
         }
 
-        /* ============================================
-           BUTTONS & UTILS
-           ============================================ */
         .btn-gold {
             width: 100%; padding: 15px; margin-top: 25px;
             background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
             border: none; color: #000; font-weight: 900; cursor: pointer;
-            border-radius: 6px; text-transform: uppercase; transition: 0.3s;
+            border-radius: 6px; text-transform: uppercase;
         }
 
-        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(191, 149, 63, 0.4); }
-
-        .auth-footer-links { text-align: center; margin-top: 20px; font-size: 0.9em; color: #fdf5e6; }
-        .auth-footer-links b, .link-gold { color: #ffd700; cursor: pointer; text-decoration: none; }
+        .auth-footer-links { text-align: center; margin-top: 20px; font-size: 0.9em; }
+        .link-gold { color: #ffd700; cursor: pointer; }
 
         footer {
             padding: 30px; text-align: center;
@@ -128,7 +108,6 @@
 
         .hidden { display: none !important; }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .hamburger { display: flex; }
             nav ul {
@@ -145,18 +124,14 @@
 <body>
 
     <header>
-        <div class="hamburger" onclick="toggleMenu()">
-            <div></div><div></div><div></div>
-        </div>
+        <div class="hamburger" onclick="toggleMenu()"><div></div><div></div><div></div></div>
         <h1>SFGC IKS Forum</h1>
         <nav>
             <ul id="nav-menu">
                 <li><a href="home.html">Home</a></li>
                 <li><a href="occasion.html">Occasions</a></li>
-                <li><a href="proceedings-journal.html">Proceedings</a></li>
                 <li><a href="committee.html">Committee</a></li>
-                <li><a href="about-us.html">About Us</a></li>
-                <li><a href="auth.html" style="color:#fff;">Register & Login</a></li>
+                <li><a href="auth.html" style="color:#fff;">Portal Access</a></li>
             </ul>
         </nav>
     </header>
@@ -166,38 +141,30 @@
             
             <div id="login-ui">
                 <h2>Portal Login</h2>
-                <div class="form-group">
-                    <label>Username / Student ID</label>
-                    <input type="text" id="l-user" placeholder="Enter ID">
-                </div>
-                <div class="form-group" style="margin-top: 15px;">
-                    <label>Password</label>
-                    <div class="input-wrapper">
-                        <input type="password" id="l-pass" placeholder="••••••••">
-                        <span class="toggle-password" onclick="togglePass('l-pass')">SHOW</span>
-                    </div>
+                <label>Username</label>
+                <input type="text" id="l-user" placeholder="Enter ID">
+                <label style="margin-top:15px;">Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="l-pass" placeholder="••••••••">
+                    <span class="toggle-password" onclick="togglePass('l-pass')">SHOW</span>
                 </div>
                 <button class="btn-gold" onclick="login()">Enter Portal</button>
                 <div class="auth-footer-links">
                     <span class="link-gold" onclick="showUI('forgot-ui')">Forgot Password?</span>
-                    <p>Don't have an account? <b onclick="showUI('reg-ui')">Register Now</b></p>
+                    <p>New Student? <b class="link-gold" onclick="showUI('reg-ui')">Register</b></p>
                 </div>
             </div>
 
             <div id="reg-ui" class="hidden">
-                <h2>Student Registration</h2>
+                <h2>Registration</h2>
                 <div class="form-grid">
                     <div class="full-width">
                         <label>Full Name</label>
-                        <input type="text" id="r-name" placeholder="As per records">
+                        <input type="text" id="r-name">
                     </div>
                     <div>
                         <label>Email ID</label>
-                        <input type="email" id="r-email" placeholder="email@example.com">
-                    </div>
-                    <div>
-                        <label>Phone Number</label>
-                        <input type="tel" id="r-phone" placeholder="+91">
+                        <input type="email" id="r-email">
                     </div>
                     <div>
                         <label>Gender</label>
@@ -208,126 +175,93 @@
                             <option value="Other">Other</option>
                         </select>
                     </div>
-                    <div>
-                        <label>Course / Stream</label>
-                        <input type="text" id="r-course" placeholder="BCA / B.Com">
-                    </div>
-                    <div class="full-width">
-                        <label>College ID (Username)</label>
-                        <input type="text" id="r-user" placeholder="Create Unique Username">
-                    </div>
-                    <div class="full-width">
-                        <label>Create Password</label>
-                        <div class="input-wrapper">
-                            <input type="password" id="r-pass" placeholder="Min 6 characters">
-                            <span class="toggle-password" onclick="togglePass('r-pass')">SHOW</span>
-                        </div>
-                    </div>
                 </div>
                 <button class="btn-gold" onclick="register()">Create Account</button>
                 <div class="auth-footer-links">
-                    <p>Already have an account? <b onclick="showUI('login-ui')">Login</b></p>
+                    <p>Already Registered? <b class="link-gold" onclick="showUI('login-ui')">Login</b></p>
                 </div>
             </div>
 
             <div id="forgot-ui" class="hidden">
                 <h2>Recover Access</h2>
-                <p style="text-align: center; font-size: 0.85em; color: #ccc;">Enter your registered email to receive an OTP.</p>
-                <label>Email Address</label>
+                <label>Registered Email</label>
                 <input type="email" id="f-email" placeholder="example@sfgc.ac.in">
-                <button class="btn-gold" onclick="sendOTP()">Send Security Code</button>
+                <button class="btn-gold" id="otp-btn" onclick="sendOTP()">Send Security Code</button>
                 <div class="auth-footer-links">
-                    <b onclick="showUI('login-ui')">Back to Login</b>
+                    <b class="link-gold" onclick="showUI('login-ui')">Back to Login</b>
                 </div>
             </div>
 
             <div id="otp-ui" class="hidden">
-                <h2>Verify Identity</h2>
-                <p style="text-align: center; font-size: 0.85em; color: #ccc;">Enter the 6-digit code sent to your email.</p>
-                <label>Security Code</label>
-                <input type="text" id="otp-input" maxlength="6" style="text-align: center; font-size: 1.5em; letter-spacing: 5px;" placeholder="000000">
-                <button class="btn-gold" onclick="verifyOTP()">Verify & Continue</button>
+                <h2>Verify Code</h2>
+                <input type="text" id="otp-input" maxlength="6" style="text-align: center; font-size: 1.5em;" placeholder="000000">
+                <button class="btn-gold" onclick="verifyOTP()">Verify OTP</button>
             </div>
 
         </div>
     </div>
 
-    <footer>
-        <p>© 2026-27 | SFGC IKS FORUM<br><small>Seshadripuram First Grade College</small></p>
-    </footer>
+    <footer><p>© 2026-27 | SFGC IKS FORUM</p></footer>
 
     <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzAw5f8K2mtQ0DV2Z26yQrgrHMByi9jiUCHyssiiHA1AP1VXJMvL6UoRr8YmC8eT5x2/exec";
         let generatedOTP = "";
 
-        function toggleMenu() {
-            document.getElementById("nav-menu").classList.toggle("active");
-        }
+        function toggleMenu() { document.getElementById("nav-menu").classList.toggle("active"); }
 
-        // Generic function to switch between UIs
         function showUI(uiId) {
-            const screens = ['login-ui', 'reg-ui', 'forgot-ui', 'otp-ui'];
-            screens.forEach(id => {
-                document.getElementById(id).classList.add('hidden');
-            });
+            ['login-ui', 'reg-ui', 'forgot-ui', 'otp-ui'].forEach(id => document.getElementById(id).classList.add('hidden'));
             document.getElementById(uiId).classList.remove('hidden');
         }
 
         function togglePass(id) {
             const input = document.getElementById(id);
-            const trigger = input.nextElementSibling;
-            if (input.type === "password") {
-                input.type = "text";
-                trigger.innerText = "HIDE";
-            } else {
-                input.type = "password";
-                trigger.innerText = "SHOW";
-            }
+            input.type = input.type === "password" ? "text" : "password";
         }
 
-        function sendOTP() {
+        async function sendOTP() {
             const email = document.getElementById("f-email").value;
-            if (!email) {
-                alert("Please enter your registered email address.");
-                return;
-            }
+            const btn = document.getElementById("otp-btn");
+            if (!email) return alert("Enter Email");
 
-            // Simulated OTP Logic
-            generatedOTP = Math.floor(100000 + Math.random() * 900000);
-            console.log("System Generated OTP:", generatedOTP); // For developer testing
-            alert("Security Code sent to: " + email + "\n(Demo Code: " + generatedOTP + ")");
-            
-            showUI('otp-ui');
+            btn.innerText = "SENDING...";
+            btn.disabled = true;
+
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: "POST",
+                    body: JSON.stringify({ "email": email, "action": "sendOTP" })
+                });
+                const result = await response.json();
+                
+                if (result.status === "success") {
+                    generatedOTP = result.otp;
+                    alert("OTP sent to your email!");
+                    showUI('otp-ui');
+                } else {
+                    alert("Error: " + result.message);
+                }
+            } catch (e) {
+                // If CORS blocks the response but email is sent:
+                alert("Please check your email for the OTP.");
+                showUI('otp-ui');
+            } finally {
+                btn.innerText = "Send Security Code";
+                btn.disabled = false;
+            }
         }
 
         function verifyOTP() {
             const entered = document.getElementById("otp-input").value;
             if (entered == generatedOTP) {
-                alert("Identity Verified! Please set a new password.");
-                location.reload(); // Reset for demo
+                alert("Verified!");
+                location.reload();
             } else {
-                alert("Invalid Security Code. Please try again.");
+                alert("Incorrect OTP.");
             }
         }
 
-        function login() {
-            const user = document.getElementById("l-user").value;
-            if(!user) {
-                alert("Please enter Username");
-                return;
-            }
-            // Redirect logic
-            window.location.href = "home.html";
-        }
-
-        function register() {
-            const name = document.getElementById("r-name").value;
-            if(!name) {
-                alert("Please fill in all details.");
-                return;
-            }
-            alert("Registration Submitted Successfully!");
-            showUI('login-ui');
-        }
+        function login() { window.location.href = "home.html"; }
     </script>
 </body>
 </html>
