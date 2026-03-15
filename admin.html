@@ -44,9 +44,16 @@
             background-color: rgba(0, 0, 0, 0.6);
             padding: 20px; text-align: center;
             border-bottom: 2px solid #BF953F;
+            position: relative;
         }
 
         h1 { color: #ffd700; margin: 10px 0; text-shadow: 0 0 10px #000; }
+
+        .btn-logout {
+            position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+            padding: 8px 15px; background: #ff4d4d; color: white; border: none;
+            border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.8em;
+        }
 
         .portal-wrapper { display: none; padding: 40px 15px; flex-direction: column; align-items: center; }
 
@@ -58,11 +65,22 @@
             backdrop-filter: blur(10px);
         }
 
+        /* CENTERED BUTTON GRID */
+        .action-grid {
+            margin: 30px auto; 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 20px; 
+            max-width: 600px; /* Constrains width to keep buttons same size */
+        }
+
         .btn-gold {
-            width: 100%; padding: 15px;
+            width: 100%; padding: 18px;
             background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 50%, #B38728 100%);
             border: none; color: #000; font-weight: 900; cursor: pointer;
             border-radius: 8px; text-transform: uppercase; transition: 0.3s;
+            text-decoration: none; text-align: center; font-size: 0.9em;
+            display: flex; align-items: center; justify-content: center;
         }
         .btn-gold:hover { transform: scale(1.02); box-shadow: 0 0 15px #ffd700; }
 
@@ -95,7 +113,7 @@
         .data-table td { padding: 15px; border-bottom: 1px solid rgba(191, 149, 63, 0.1); }
     </style>
 </head>
-<body>
+<body onload="checkSession()">
 
     <div id="login-gate">
         <div class="login-box">
@@ -107,16 +125,18 @@
         </div>
     </div>
 
-    <header><h1>SFGC IKS Forum - Admin Portal</h1></header>
+    <header>
+        <h1>SFGC IKS Forum - Admin Portal</h1>
+        <button class="btn-logout" onclick="logout()">Logout</button>
+    </header>
 
     <div class="portal-wrapper" id="main-portal">
         <div class="admin-container">
             <h2 style="color: #ffd700; text-align: center;">Control Center</h2>
             
-            <div style="margin-top: 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+            <div class="action-grid">
                 <button class="btn-gold" onclick="openDashboard()">Upload Prospectus</button>
-                <button class="btn-gold">Book Event</button>
-                <a href="https://docs.google.com/spreadsheets/d/1r6NL7TxQC6kKEB0d-Am83rNvMC6Yax9AY9waGzmUHLc/edit" target="_blank" class="btn-gold" style="text-decoration:none; line-height:15px; text-align:center;">View Sheet</a>
+                <a href="https://docs.google.com/spreadsheets/d/1r6NL7TxQC6kKEB0d-Am83rNvMC6Yax9AY9waGzmUHLc/edit" target="_blank" class="btn-gold">View Sheet</a>
             </div>
 
             <div class="calendar-box">
@@ -162,21 +182,36 @@
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwL4YjeC8bwt4UL4GqlZT1B6FYmym9YyoaPlArLRajlRFQqyyOj7OeRBmv_RsPLj2O2Vg/exec";
 
+        // CHECK IF ALREADY LOGGED IN
+        function checkSession() {
+            if (localStorage.getItem("admin_session") === "active") {
+                document.getElementById('login-gate').style.display = 'none';
+                document.getElementById('main-portal').style.display = 'flex';
+            }
+        }
+
         // LOGIN LOGIC
         function validateLogin() {
             const user = document.getElementById('username').value;
             const pass = document.getElementById('password').value;
             const error = document.getElementById('error-msg');
 
-            // Verification
             if (user === "IKS_SFGC_ADMIN01" && pass === "IKS@$FGC.2026") {
+                localStorage.setItem("admin_session", "active"); // Set session
                 document.getElementById('login-gate').style.display = 'none';
                 document.getElementById('main-portal').style.display = 'flex';
             } else {
                 error.style.display = 'block';
-                // Reset fields
                 document.getElementById('username').value = "";
                 document.getElementById('password').value = "";
+            }
+        }
+
+        // LOGOUT LOGIC
+        function logout() {
+            if(confirm("Are you sure you want to Logout?")) {
+                localStorage.removeItem("admin_session"); // Clear session
+                location.reload(); // Refresh to show login gate
             }
         }
 
