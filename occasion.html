@@ -24,13 +24,13 @@
             font-family: 'Georgia Pro', Georgia, serif;
             background: url('45383.png') no-repeat top center fixed;
             background-size: cover;
-            color: #fdf5e6;
+            color: #ffffff; /* Global text color set to White */
             display: flex;
             flex-direction: column;
         }
 
         /* ============================================
-           HEADER & NAVIGATION - From about.html
+           HEADER & NAVIGATION
            ============================================ */
         header {
             background-color: rgba(0, 0, 0, 0.6);
@@ -61,23 +61,7 @@
             font-weight: bold;
             position: relative;
             font-size: 1.1em;
-            font-family: 'Georgia Pro', Georgia, serif;
             display: inline-block;
-        }
-        
-        nav a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: #ffd700;
-            transition: width 0.3s ease;
-        }
-        
-        nav a:hover::after {
-            width: 100%;
         }
         
         nav a:hover {
@@ -112,7 +96,7 @@
             max-width: 900px;
             margin: 40px auto;
             padding: 40px 20px;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.6); /* Slightly darker for better text contrast */
             border-radius: 20px;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.2);
             text-align: center;
@@ -136,11 +120,19 @@
             border-radius: 0 15px 15px 0;
         }
 
+        /* Updated Title Colors to White */
         .event-title {
-            color: #ffd700;
+            color: #ffffff !important; 
             font-size: 1.2em;
             margin-bottom: 15px;
             font-weight: bold;
+        }
+
+        .event-description {
+            color: #ffffff !important;
+            font-size: 0.95em;
+            opacity: 1;
+            margin-bottom: 20px;
         }
 
         .event-btn {
@@ -162,7 +154,7 @@
         }
 
         /* ============================================
-           FOOTER - From about.html
+           FOOTER
            ============================================ */
         footer {
             padding: 30px 20px;
@@ -183,20 +175,12 @@
             -webkit-text-fill-color: transparent;
             display: inline-block;
         }
-        
-        .footer-break {
-            display: block;
-            margin-top: 5px;
-        }
 
         /* ============================================
            MOBILE STYLES
            ============================================ */
         @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
-            
+            .hamburger { display: flex; }
             nav ul {
                 display: none;
                 flex-direction: column;
@@ -208,48 +192,13 @@
                 padding: 25px 0;
                 border: 1px solid #BF953F;
                 border-radius: 12px;
-                box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-                z-index: 2000;
             }
-            
-            nav ul.active {
-                display: flex;
-            }
-            
-            nav ul li {
-                margin: 15px 0;
-                width: 100%;
-                text-align: center;
-            }
-            
-            nav a {
-                font-size: 1.2em;
-            }
-            
-            main {
-                padding: 20px 15px;
-                margin: 20px auto;
-                width: 95%;
-            }
-            
-            .event-section {
-                padding: 15px;
-            }
-            
-            .event-btn {
-                margin-right: 10px;
-                margin-bottom: 10px;
-            }
-            
-            footer p {
-                font-size: 1.1em;
-                line-height: 1.4;
-            }
+            nav ul.active { display: flex; }
+            main { width: 95%; margin: 20px auto; }
         }
     </style>
 </head>
 <body>
-    <!-- Header & Navigation -->
     <header>
         <div class="hamburger" onclick="toggleMenu()">
             <div></div>
@@ -268,56 +217,36 @@
         </nav>
     </header>
     
-    <!-- Main Content -->
     <main>
         <h2 class="main-title">Event Curriculum</h2>
         
         <div class="event-section">
-            <p class="event-title">
-                IKS 2026
-            </p>
-            <a href="https://drive.google.com/file/d/1TL5xug1Jgy4n2mnmJuXZfuGJwqIck21a/view?usp=drivesdk" 
-               target="_blank" class="event-btn">
-                PROSPECTUS
-            </a>
-            <a href="https://drive.google.com/drive/folders/1KHlqlGkWQ3xXBlPGiWZRhTSzLBiTzaB0" 
-               target="_blank" class="event-btn">
-                REGISTER NOW
-            </a>
+            <p class="event-title">IKS 2026</p>
+            <a href="https://drive.google.com/file/d/1TL5xug1Jgy4n2mnmJuXZfuGJwqIck21a/view?usp=drivesdk" target="_blank" class="event-btn">PROSPECTUS</a>
+            <a href="https://drive.google.com/drive/folders/1KHlqlGkWQ3xXBlPGiWZRhTSzLBiTzaB0" target="_blank" class="event-btn">REGISTER NOW</a>
         </div>
+
         <div class="event-section">
-            <p class="event-title">
-                IKS HORIZONS 2025 - INTERNATIONAL CONFERENCE on INDIAN KNOWLEDGE SYSTEM
+            <p class="event-title">IKS HORIZONS 2025 - INTERNATIONAL CONFERENCE on INDIAN KNOWLEDGE SYSTEM</p>
+            <a href="https://drive.google.com/file/d/1TL5xug1Jgy4n2mnmJuXZfuGJwqIck21a/view?usp=drivesdk" target="_blank" class="event-btn">PROSPECTUS</a>
+            <a href="https://drive.google.com/drive/folders/1KHlqlGkWQ3xXBlPGiWZRhTSzLBiTzaB0" target="_blank" class="event-btn">VIEW GALLERY</a>
+        </div>
+
+        <div class="event-section">
+            <p class="event-title">Registration & Booking</p>
+            <p class="event-description">
+                View our upcoming events below. Click on any event to see the registration link in the details.
             </p>
-            <a href="https://drive.google.com/file/d/1TL5xug1Jgy4n2mnmJuXZfuGJwqIck21a/view?usp=drivesdk" 
-               target="_blank" class="event-btn">
-                PROSPECTUS
-            </a>
-            <a href="https://drive.google.com/drive/folders/1KHlqlGkWQ3xXBlPGiWZRhTSzLBiTzaB0" 
-               target="_blank" class="event-btn">
-                VIEW GALLERY
-            </a>
+            
+            <div class="calendar-container" style="margin-bottom: 20px; border-radius: 12px; overflow: hidden; border: 1px solid #BF953F; background: #fff;">
+                <iframe src="https://calendar.google.com/calendar/embed?src=iks.sfgc%40gmail.com&ctz=Asia%2FKolkata&showTitle=0&showNav=1&showPrint=0&showTabs=1&showCalendars=0&showTz=0" 
+                        style="border: 0" width="100%" height="500" frameborder="0" scrolling="no"></iframe>
+            </div>
+
+            <a href="https://calendar.google.com/calendar/u/0/r?cid=iks.sfgc@gmail.com" target="_blank" class="event-btn">BOOK EVENT</a>
         </div>
     </main>
 
-    <div class="event-section">
-    <p class="event-title">Registration & Booking</p>
-    <p style="margin-bottom: 20px; color: #fdf5e6; font-size: 0.95em; opacity: 0.9;">
-        View our upcoming events below. Click on any event to see the registration link in the details.
-    </p>
-    
-    <div class="calendar-container" style="margin-bottom: 20px; border-radius: 12px; overflow: hidden; border: 1px solid #BF953F; background: #fff;">
-        <iframe src="https://calendar.google.com/calendar/embed?src=iks.sfgc%40gmail.com&ctz=Asia%2FKolkata&showTitle=0&showNav=1&showPrint=0&showTabs=1&showCalendars= &showTz=0" 
-                style="border: 0" width="100%" height="500" frameborder="0" scrolling="no"></iframe>
-    </div>
-
-    <a href="https://calendar.google.com/calendar/u/0/r?cid=iks.sfgc@gmail.com" 
-       target="_blank" class="event-btn">
-       BOOK EVENT
-    </a>
-</div>
-    
-    <!-- Footer -->
     <footer>
         <p>
             © All Copyrights Reserved 2026-27
@@ -325,7 +254,6 @@
         </p>
     </footer>
     
-    <!-- JavaScript -->
     <script>
         function toggleMenu() {
             document.getElementById('nav-menu').classList.toggle('active');
