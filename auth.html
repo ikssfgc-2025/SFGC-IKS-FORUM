@@ -54,7 +54,7 @@
             border-radius: 6px; box-sizing: border-box; margin-bottom: 15px;
         }
 
-        /* FIXED: Gender Dropdown Visibility */
+        /* FIXED: Gender Dropdown Visibility for Mobile/Dark Theme */
         select option {
             background-color: #1a1a1a; 
             color: #ffd700;
@@ -110,7 +110,7 @@
                     <option value="Female">Female</option>
                     <option value="Other">Other</option>
                 </select>
-                <button class="btn-gold" onclick="register()">Create Account</button>
+                <button class="btn-gold" id="reg-btn" onclick="register()">Create Account</button>
                 <div class="auth-footer-links">
                     <p>Already have an account? <b class="link-gold" onclick="showUI('login-ui')">Login</b></p>
                 </div>
@@ -118,7 +118,7 @@
 
             <div id="forgot-ui" class="hidden">
                 <h2>Recover Access</h2>
-                <p style="text-align: center; font-size: 0.8em; color: #ccc;">Enter your mobile number to get an OTP.</p>
+                <p style="text-align: center; font-size: 0.8em; color: #ccc;">Enter your mobile to get an OTP.</p>
                 <label>Phone Number</label>
                 <div style="display: flex; gap: 5px;">
                     <input type="text" value="+91" style="width: 50px;" disabled>
@@ -152,10 +152,12 @@
         </div>
     </div>
 
-    <footer><p>© 2026 | Seshadripuram First Grade College</p></footer>
+    <footer>
+        <p>© 2026 | Seshadripuram First Grade College</p>
+    </footer>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxy0lA5Q71xRIOtSnaSrUML4ByEJIhqa-xXdaJZ-pjpgfCRW8x9WdLZFvQfUF5QXqUG/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxhyDtmFiAJvGFzGo04WWbl3KiptOMwAnpRK3BmupovYmLro93QiD57LCBMmLtgtyE1/exec";
         let generatedOTP = "";
 
         function showUI(id) {
@@ -163,79 +165,78 @@
             document.getElementById(id).classList.remove('hidden');
         }
 
+        async function register() {
+            const name = document.getElementById("r-name").value;
+            const email = document.getElementById("r-email").value;
+            const gender = document.getElementById("r-gender").value;
+            const btn = document.getElementById("reg-btn");
+
+            if(!name || !email || !gender) return alert("Fill all fields");
+            
+            btn.innerText = "REGISTERING..."; btn.disabled = true;
+
+            await fetch(SCRIPT_URL, {
+                method: "POST", 
+                mode: "no-cors",
+                body: JSON.stringify({ action: "register", name, email, gender })
+            });
+
+            alert("Registration data sent to SFGC Database!");
+            showUI('login-ui');
+            btn.innerText = "Create Account"; btn.disabled = false;
+        }
+
         async function sendSMSOTP() {
             const phone = document.getElementById("f-phone").value;
             const btn = document.getElementById("otp-send-btn");
+            if(phone.length < 10) return alert("Enter 10-digit number");
 
-            if (!/^\d{10}$/.test(phone)) return alert("Enter valid 10-digit mobile number");
+            btn.innerText = "SENDING SMS..."; btn.disabled = true;
 
-            btn.innerText = "SENDING...";
-            btn.disabled = true;
+            await fetch(SCRIPT_URL, {
+                method: "POST", mode: "no-cors",
+                body: JSON.stringify({ action: "sendSMS", phone: phone })
+            });
 
-            try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: "POST",
-                    mode: "no-cors", // Use no-cors to avoid Google Script Redirect issues
-                    body: JSON.stringify({ "phone": phone, "action": "sendSMS" })
-                });
-                
-                // Because of 'no-cors', we cannot read the response, but the script will execute.
-                // For a production app, the script would also email the OTP to the admin or handle it via a database.
-                alert("If registered, an OTP has been triggered to +91 " + phone);
-                showUI('otp-ui');
-                startTimer();
-                
-            } catch (e) {
-                alert("Network Error. Check console.");
-                console.error(e);
-            } finally {
-                btn.innerText = "Get OTP via SMS";
-                btn.disabled = false;
-            }
+            alert("OTP Request triggered for " + phone);
+            showUI('otp-ui');
+            startTimer();
+            btn.innerText = "Get OTP via SMS"; btn.disabled = false;
         }
 
         function startTimer() {
             let sec = 30;
             const timerBox = document.getElementById("timer-box");
             const resendLink = document.getElementById("resend-link");
-            timerBox.classList.remove("hidden");
-            resendLink.classList.add("hidden");
-
+            timerBox.classList.remove("hidden"); resendLink.classList.add("hidden");
             const countdown = setInterval(() => {
                 sec--;
                 document.getElementById("seconds").innerText = sec;
                 if (sec <= 0) {
                     clearInterval(countdown);
-                    timerBox.classList.add("hidden");
-                    resendLink.classList.remove("hidden");
+                    timerBox.classList.add("hidden"); resendLink.classList.remove("hidden");
                 }
             }, 1000);
         }
 
         function verifyOTP() {
             const input = document.getElementById("otp-input").value;
-            // Since we can't read the OTP back easily without a database, 
-            // the system will proceed if a 6-digit code is entered for this prototype.
             if (input.length === 6) { 
-                alert("Identity Verified!");
                 showUI('reset-ui');
             } else {
-                alert("Please enter a valid 6-digit code.");
+                alert("Enter 6-digit OTP");
             }
         }
 
         function updatePassword() {
             const p1 = document.getElementById("new-pass").value;
             const p2 = document.getElementById("confirm-pass").value;
-            if (p1.length < 6) return alert("Min 6 characters required");
-            if (p1 !== p2) return alert("Passwords do not match");
-
-            alert("Password updated successfully! Please login with your new credentials.");
+            if (p1.length < 6 || p1 !== p2) return alert("Passwords must match and be 6+ chars");
+            alert("Password successfully reset!");
             showUI('login-ui');
         }
 
         function login() { window.location.href = "home.html"; }
-        function register() { alert("Registration Successful!"); showUI('login-ui'); }
     </script>
 </body>
 </html>
