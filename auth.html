@@ -3,222 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SFGC IKS - Student Portal</title>
+    <title>SFGC IKS Student Portal</title>
     <style>
-        :root {
-            --gold-primary: #BF953F;
-            --gold-light: #FCF6BA;
-            --gold-dark: #B38728;
-            --bg-overlay: rgba(0, 0, 0, 0.9);
-            --input-bg: rgba(255, 255, 255, 0.08);
+        :root { --gold: #BF953F; --gold-light: #ffd700; }
+        body { margin: 0; font-family: Georgia; background: url('45383.png') center/cover fixed; color: white; }
+        header { background: black; padding: 15px; text-align: center; border-bottom: 2px solid var(--gold); }
+        header h1 { margin: 0; color: var(--gold-light); }
+        .portal-wrapper { display: flex; justify-content: center; align-items: center; min-height: 85vh; padding: 20px; }
+        .auth-container { 
+            background: rgba(0,0,0,0.9); width: 100%; max-width: 520px; 
+            padding: 30px; border-radius: 12px; border: 2px solid var(--gold); 
+            max-height: 85vh; overflow-y: auto; 
         }
-
-        html, body { margin: 0; padding: 0; min-height: 100vh; font-family: 'Georgia', serif; }
-        
-        body {
-            background: url('45383.png') no-repeat center center fixed;
-            background-size: cover;
-            color: #fdf5e6;
-            display: flex;
-            flex-direction: column;
-        }
-
-        header {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px;
-            text-align: center;
-            border-bottom: 2px solid var(--gold-primary);
-        }
-
-        .portal-wrapper { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; }
-
-        .auth-container {
-            background: var(--bg-overlay);
-            width: 100%; max-width: 550px;
-            padding: 30px; border-radius: 15px;
-            border: 2px solid var(--gold-primary);
-            backdrop-filter: blur(15px);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-            max-height: 90vh; overflow-y: auto;
-        }
-
-        h2 { color: #ffd700; text-align: center; margin-bottom: 20px; border-bottom: 1px solid var(--gold-primary); padding-bottom: 10px; }
-
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .full-width { grid-column: span 2; }
-
-        label { display: block; color: #ffcc66; font-size: 0.8em; margin-bottom: 5px; font-weight: bold; }
-
-        input, select, textarea {
-            width: 100%; padding: 10px; background: var(--input-bg);
-            border: 1px solid var(--gold-primary); color: #fff;
-            border-radius: 5px; box-sizing: border-box;
-        }
-
-        select option { background-color: #1a1a1a; color: #ffd700; }
-
-        .btn-gold {
-            width: 100%; padding: 15px; margin-top: 20px;
-            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
-            border: none; color: #000; font-weight: 900; cursor: pointer;
-            border-radius: 6px; text-transform: uppercase;
-        }
-
-        .auth-footer-links { text-align: center; margin-top: 15px; font-size: 0.85em; }
-        .link-gold { color: #ffd700; cursor: pointer; font-weight: bold; }
-        .hidden { display: none !important; }
-
-        footer { padding: 15px; text-align: center; border-top: 1px solid var(--gold-primary); background: #1a0505; }
-        
-        /* Custom Scrollbar for the gold look */
-        .auth-container::-webkit-scrollbar { width: 5px; }
-        .auth-container::-webkit-scrollbar-thumb { background: var(--gold-primary); border-radius: 10px; }
+        h2 { text-align: center; color: #ffd700; margin-bottom: 20px; }
+        label { display: block; color: #ffcc66; font-size: 0.8em; margin-top: 10px; }
+        input, select { width: 100%; padding: 10px; margin-top: 5px; background: #111; border: 1px solid var(--gold); color: white; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: linear-gradient(45deg,#BF953F,#ffd700); border: none; font-weight: bold; cursor: pointer; border-radius: 5px; margin-top: 20px; }
+        .link { color: #ffd700; cursor: pointer; text-decoration: underline; font-size: 0.9em; }
+        .hidden { display: none; }
+        /* Dashboard Styles */
+        .navbar { display: flex; justify-content: space-between; align-items: center; background: black; padding: 15px 20px; border-bottom: 2px solid var(--gold); }
+        .menu { display: flex; gap: 20px; }
+        .menu a { color: #ffd700; text-decoration: none; cursor: pointer; font-weight: bold; }
+        .page { display: none; padding: 40px; }
+        .active { display: block; }
+        footer { text-align: center; padding: 15px; background: #0b0000; border-top: 1px solid var(--gold); }
     </style>
 </head>
 <body>
 
-    <header><h1 style="color:#ffd700; margin:0;">SFGC IKS Portal</h1></header>
-
+<div id="auth-view">
+    <header><h1>SFGC IKS Portal</h1></header>
     <div class="portal-wrapper">
         <div class="auth-container">
-            
             <div id="login-ui">
                 <h2>Student Login</h2>
-                <label>College ID</label>
-                <input type="text" id="l-user">
-                <label>Password</label>
-                <input type="password" id="l-pass">
-                <button class="btn-gold" onclick="login()">Enter Portal</button>
-                <div class="auth-footer-links">
-                    <span class="link-gold" onclick="showUI('forgot-ui')">Forgot Password?</span>
-                    <p>New here? <b class="link-gold" onclick="showUI('reg-ui')">Register Now</b></p>
-                </div>
+                <label>College ID</label><input type="text" id="l-user">
+                <label>Password</label><input type="password" id="l-pass">
+                <button onclick="login()">Enter Portal</button>
+                <p style="text-align:center;"><span class="link" onclick="showUI('forgot-ui')">Forgot Password?</span> | <span class="link" onclick="showUI('reg-ui')">Register</span></p>
             </div>
 
             <div id="reg-ui" class="hidden">
                 <h2>Student Registration</h2>
-                <div class="form-grid">
-                    <div class="full-width">
-                        <label>Full Name</label>
-                        <input type="text" id="r-name">
-                    </div>
-                    <div>
-                        <label>Email ID</label>
-                        <input type="email" id="r-email">
-                    </div>
-                    <div>
-                        <label>Phone Number</label>
-                        <input type="tel" id="r-phone" maxlength="10">
-                    </div>
-                    <div>
-                        <label>Gender</label>
-                        <select id="r-gender">
-                            <option value="" disabled selected>Select</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label>Course / Stream</label>
-                        <input type="text" id="r-course" placeholder="e.g. BCA, B.Com">
-                    </div>
-                    <div class="full-width">
-                        <label>College Name & Address</label>
-                        <input type="text" id="r-college">
-                    </div>
-                    <div>
-                        <label>Aadhar Card Number</label>
-                        <input type="text" id="r-aadhar" maxlength="12">
-                    </div>
-                    <div>
-                        <label>Parent/Guardian Name</label>
-                        <input type="text" id="r-parent-name">
-                    </div>
-                    <div class="full-width">
-                        <label>Parent/Guardian Phone</label>
-                        <input type="tel" id="r-parent-phone" maxlength="10">
-                    </div>
-                </div>
-                <button class="btn-gold" id="reg-btn" onclick="register()">Create Account</button>
-                <div class="auth-footer-links">
-                    <p>Already have an account? <b class="link-gold" onclick="showUI('login-ui')">Login</b></p>
-                </div>
+                <label>Full Name</label><input type="text" id="r-name">
+                <label>Email</label><input type="email" id="r-email">
+                <label>Phone</label><input type="text" id="r-phone">
+                <label>Gender</label><select id="r-gender"><option>Male</option><option>Female</option></select>
+                <label>Course</label><input type="text" id="r-course">
+                <label>College</label><input type="text" id="r-college">
+                <label>Aadhar Number</label><input type="text" id="r-aadhar">
+                <label>Parent Name</label><input type="text" id="r-parent-name">
+                <label>Parent Phone</label><input type="text" id="r-parent-phone">
+                <button id="reg-btn" onclick="register()">Create Account</button>
+                <p style="text-align:center;"><span class="link" onclick="showUI('login-ui')">Back to Login</span></p>
             </div>
 
             <div id="forgot-ui" class="hidden">
                 <h2>Recover Access</h2>
-                <label>Mobile Number</label>
-                <input type="tel" id="f-phone" maxlength="10">
-                <button class="btn-gold" id="otp-send-btn" onclick="sendSMSOTP()">Get OTP via SMS</button>
-                <div class="auth-footer-links"><span class="link-gold" onclick="showUI('login-ui')">Back</span></div>
+                <label>Registered Email</label><input type="email" id="f-email">
+                <label>Phone Number</label><input type="text" id="f-phone">
+                <button id="otp-btn" onclick="sendOTP()">Send OTP</button>
             </div>
 
             <div id="otp-ui" class="hidden">
-                <h2>Verify Code</h2>
-                <input type="text" id="otp-input" maxlength="6" style="text-align:center; font-size:1.5em;">
-                <button class="btn-gold" onclick="verifyOTP()">Verify</button>
+                <h2>Verify OTP</h2>
+                <input type="text" id="otp-input" placeholder="Enter 6-digit Code">
+                <button onclick="verifyOTP()">Verify</button>
             </div>
 
             <div id="reset-ui" class="hidden">
-                <h2>New Password</h2>
-                <label>New Password</label>
-                <input type="password" id="new-pass">
-                <button class="btn-gold" onclick="updatePassword()">Update</button>
+                <h2>Reset Password</h2>
+                <input type="password" id="new-pass" placeholder="New Password">
+                <button onclick="updatePassword()">Update Password</button>
             </div>
-
         </div>
     </div>
+</div>
 
-    <footer><p>© 2026 | Seshadripuram First Grade College</p></footer>
+<div id="dashboard-view" class="hidden">
+    <div class="navbar">
+        <div style="color:#ffd700;font-weight:bold;font-size:18px;">SFGC IKS Portal</div>
+        <div class="menu">
+            <a onclick="showPage('home')">Home</a>
+            <a onclick="showPage('occasion')">Occasion</a>
+            <a onclick="showPage('participation')">Participation</a>
+            <a onclick="showPage('journal')">Journal</a>
+            <a onclick="logout()">Logout</a>
+        </div>
+    </div>
+    <div id="home" class="page active"><h2>Dashboard Home</h2><p>Welcome to the secure student portal.</p></div>
+    <div id="occasion" class="page"><h2>Events</h2><p>Upcoming SFGC occasions.</p></div>
+    <div id="participation" class="page"><h2>Participation</h2><p>Track your workshop status.</p></div>
+    <div id="journal" class="page"><h2>Proceedings</h2><p>Access IKS Journals.</p></div>
+</div>
 
-    <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxhyDtmFiAJvGFzGo04WWbl3KiptOMwAnpRK3BmupovYmLro93QiD57LCBMmLtgtyE1/exec";
+<footer>© 2026 | Seshadripuram First Grade College</footer>
 
-        function showUI(id) {
-            ['login-ui', 'reg-ui', 'forgot-ui', 'otp-ui', 'reset-ui'].forEach(ui => document.getElementById(ui).classList.add('hidden'));
-            document.getElementById(id).classList.remove('hidden');
-        }
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxhyDtmFiAJvGFzGo04WWbl3KiptOMwAnpRK3BmupovYmLro93QiD57LCBMmLtgtyE1/exec";
 
-        async function register() {
-            const btn = document.getElementById("reg-btn");
-            const data = {
-                action: "register",
-                name: document.getElementById("r-name").value,
-                email: document.getElementById("r-email").value,
-                phone: document.getElementById("r-phone").value,
-                gender: document.getElementById("r-gender").value,
-                course: document.getElementById("r-course").value,
-                college: document.getElementById("r-college").value,
-                aadhar: document.getElementById("r-aadhar").value,
-                parentName: document.getElementById("r-parent-name").value,
-                parentPhone: document.getElementById("r-parent-phone").value
-            };
+function showUI(id) {
+    ["login-ui","reg-ui","forgot-ui","otp-ui","reset-ui"].forEach(el=>document.getElementById(el).classList.add("hidden"));
+    document.getElementById(id).classList.remove("hidden");
+}
 
-            if(!data.name || !data.phone || !data.aadhar) return alert("Please fill Name, Phone and Aadhar.");
-            
-            btn.innerText = "REGISTERING..."; btn.disabled = true;
+async function register() {
+    const btn = document.getElementById("reg-btn");
+    const data = {
+        action: "register",
+        name: document.getElementById("r-name").value,
+        email: document.getElementById("r-email").value,
+        phone: document.getElementById("r-phone").value,
+        gender: document.getElementById("r-gender").value,
+        course: document.getElementById("r-course").value,
+        college: document.getElementById("r-college").value,
+        aadhar: document.getElementById("r-aadhar").value,
+        parentName: document.getElementById("r-parent-name").value,
+        parentPhone: document.getElementById("r-parent-phone").value
+    };
 
-            await fetch(SCRIPT_URL, {
-                method: "POST", mode: "no-cors",
-                body: JSON.stringify(data)
-            });
+    if(!data.name || !data.email) return alert("Name and Email are required");
+    btn.innerText = "Processing..."; btn.disabled = true;
 
-            alert("Registration successful! Details saved to database.");
-            showUI('login-ui');
-            btn.innerText = "Create Account"; btn.disabled = false;
-        }
+    await fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(data) });
+    alert("Registration Successful! Saved to Sheet.");
+    showUI("login-ui");
+    btn.innerText = "Create Account"; btn.disabled = false;
+}
 
-        async function sendSMSOTP() {
-            const phone = document.getElementById("f-phone").value;
-            if(phone.length < 10) return alert("Enter 10-digit number");
-            document.getElementById("otp-send-btn").innerText = "SENDING...";
-            await fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify({ action: "sendSMS", phone: phone }) });
-            showUI('otp-ui');
-        }
+async function sendOTP() {
+    const email = document.getElementById("f-email").value;
+    const phone = document.getElementById("f-phone").value;
+    if(!email || !phone) return alert("Enter Email and Phone");
 
-        function verifyOTP() { if(document.getElementById("otp-input").value.length === 6) showUI('reset-ui'); }
-        function updatePassword() { alert("Password Updated!"); showUI('login-ui'); }
-        function login() { window.location.href = "home.html"; }
-    </script>
+    document.getElementById("otp-btn").innerText = "Sending...";
+    await fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify({ action: "sendOTP", email, phone }) });
+    alert("OTP sent to your Email and Mobile.");
+    showUI("otp-ui");
+}
+
+function verifyOTP() { showUI("reset-ui"); }
+function updatePassword() { alert("Password Updated"); showUI("login-ui"); }
+
+function login() {
+    document.getElementById("auth-view").classList.add("hidden");
+    document.getElementById("dashboard-view").classList.remove("hidden");
+}
+
+function showPage(page) {
+    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+    document.getElementById(page).classList.add("active");
+}
+
+function logout() { location.reload(); }
+</script>
 </body>
 </html>
