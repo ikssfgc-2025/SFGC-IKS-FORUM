@@ -35,6 +35,7 @@
             width: 100%; padding: 12px; margin: 10px 0;
             background: rgba(0,0,0,0.5); border: 1px solid #BF953F;
             color: #fff; border-radius: 5px; box-sizing: border-box;
+            font-family: 'Georgia Pro', serif;
         }
 
         /* ============================================
@@ -51,8 +52,12 @@
 
         .btn-logout {
             position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
-            padding: 8px 15px; background: #ff4d4d; color: white; border: none;
-            border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.8em;
+            padding: 10px 20px; background: #ff4d4d; color: white; border: none;
+            border-radius: 5px; cursor: pointer; 
+            font-weight: 900; /* Extra Bold */
+            font-size: 14px;
+            font-family: 'Georgia Pro', serif;
+            text-transform: uppercase;
         }
 
         .portal-wrapper { display: none; padding: 40px 15px; flex-direction: column; align-items: center; }
@@ -71,17 +76,34 @@
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
             gap: 20px; 
-            max-width: 600px; /* Constrains width to keep buttons same size */
+            max-width: 600px; 
         }
 
+        /* UPDATED GOLD BUTTON STYLE */
         .btn-gold {
-            width: 100%; padding: 18px;
+            width: 100%; 
+            padding: 18px 10px;
             background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 50%, #B38728 100%);
-            border: none; color: #000; font-weight: 900; cursor: pointer;
-            border-radius: 8px; text-transform: uppercase; transition: 0.3s;
-            text-decoration: none; text-align: center; font-size: 0.9em;
-            display: flex; align-items: center; justify-content: center;
+            border: none; 
+            color: #000; 
+            cursor: pointer;
+            border-radius: 8px; 
+            text-transform: uppercase; 
+            transition: 0.3s;
+            text-decoration: none; 
+            text-align: center; 
+            
+            /* Font Enhancements */
+            font-family: 'Georgia Pro', serif;
+            font-weight: 900; /* Bold */
+            font-size: 16px;  /* Standardized Size */
+            letter-spacing: 1px;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            box-sizing: border-box;
         }
+        
         .btn-gold:hover { transform: scale(1.02); box-shadow: 0 0 15px #ffd700; }
 
         .calendar-box {
@@ -108,9 +130,15 @@
 
         .data-table { width: 100%; border-collapse: collapse; color: #fff; text-align: left; min-width: 600px; }
 
-        .data-table th { background: rgba(191, 149, 63, 0.2); padding: 15px; color: #ffd700; border-bottom: 2px solid #BF953F; }
+        .data-table th { background: rgba(191, 149, 63, 0.2); padding: 15px; color: #ffd700; border-bottom: 2px solid #BF953F; font-weight: 900; }
 
         .data-table td { padding: 15px; border-bottom: 1px solid rgba(191, 149, 63, 0.1); }
+        
+        .btn-remove {
+            background: #ff4d4d; color: white; border: none; border-radius: 4px; 
+            cursor: pointer; padding: 8px 12px; font-weight: 900; 
+            font-family: 'Georgia Pro', serif; text-transform: uppercase; font-size: 12px;
+        }
     </style>
 </head>
 <body onload="checkSession()">
@@ -121,7 +149,7 @@
             <input type="text" id="username" placeholder="Username">
             <input type="password" id="password" placeholder="Password">
             <button class="btn-gold" onclick="validateLogin()" style="margin-top: 20px;">Unlock Portal</button>
-            <p id="error-msg" style="color: #ff4d4d; font-size: 0.8em; margin-top: 15px; display: none;">Invalid Credentials. Access Denied.</p>
+            <p id="error-msg" style="color: #ff4d4d; font-size: 0.8em; margin-top: 15px; display: none; font-weight: bold;">Invalid Credentials. Access Denied.</p>
         </div>
     </div>
 
@@ -132,11 +160,11 @@
 
     <div class="portal-wrapper" id="main-portal">
         <div class="admin-container">
-            <h2 style="color: #ffd700; text-align: center;">Control Center</h2>
+            <h2 style="color: #ffd700; text-align: center;">Admin Access</h2>
             
             <div class="action-grid">
-                <button class="btn-gold" onclick="openDashboard()">Upload Prospectus</button>
-                <a href="https://docs.google.com/spreadsheets/d/1r6NL7TxQC6kKEB0d-Am83rNvMC6Yax9AY9waGzmUHLc/edit" target="_blank" class="btn-gold">View Sheet</a>
+                <button class="btn-gold" onclick="openDashboard()">View Registration</button>
+                <a href="https://docs.google.com/spreadsheets/d/1r6NL7TxQC6kKEB0d-Am83rNvMC6Yax9AY9waGzmUHLc/edit" target="_blank" class="btn-gold">View Database</a>
             </div>
 
             <div class="calendar-box">
@@ -154,9 +182,9 @@
             </div>
 
             <div class="stats-row">
-                <div class="stat-card">📑<br><small>Total Files</small><div id="stat-total">0</div></div>
-                <div class="stat-card">✅<br><small>Verified</small><div>01</div></div>
-                <div class="stat-card">⏳<br><small>Recent</small><div>New</div></div>
+                <div class="stat-card">📑<br><small>Total Files</small><div id="stat-total" style="font-weight:900; font-size: 20px;">0</div></div>
+                <div class="stat-card">✅<br><small>Verified</small><div style="font-weight:900; font-size: 20px;">01</div></div>
+                <div class="stat-card">⏳<br><small>Recent</small><div style="font-weight:900; font-size: 20px;">New</div></div>
             </div>
 
             <div class="table-wrapper">
@@ -175,14 +203,13 @@
                     </tbody>
                 </table>
             </div>
-            <button class="btn-gold" style="margin-top:20px; width:auto; padding:10px 20px;" onclick="loadData()">REFRESH DATA</button>
+            <button class="btn-gold" style="margin-top:20px; width:auto; padding:12px 25px;" onclick="loadData()">REFRESH DATA</button>
         </div>
     </div>
 
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwL4YjeC8bwt4UL4GqlZT1B6FYmym9YyoaPlArLRajlRFQqyyOj7OeRBmv_RsPLj2O2Vg/exec";
 
-        // CHECK IF ALREADY LOGGED IN
         function checkSession() {
             if (localStorage.getItem("admin_session") === "active") {
                 document.getElementById('login-gate').style.display = 'none';
@@ -190,14 +217,13 @@
             }
         }
 
-        // LOGIN LOGIC
         function validateLogin() {
             const user = document.getElementById('username').value;
             const pass = document.getElementById('password').value;
             const error = document.getElementById('error-msg');
 
             if (user === "IKS_SFGC_ADMIN01" && pass === "IKS@$FGC.2026") {
-                localStorage.setItem("admin_session", "active"); // Set session
+                localStorage.setItem("admin_session", "active");
                 document.getElementById('login-gate').style.display = 'none';
                 document.getElementById('main-portal').style.display = 'flex';
             } else {
@@ -207,15 +233,13 @@
             }
         }
 
-        // LOGOUT LOGIC
         function logout() {
             if(confirm("Are you sure you want to Logout?")) {
-                localStorage.removeItem("admin_session"); // Clear session
-                location.reload(); // Refresh to show login gate
+                localStorage.removeItem("admin_session");
+                location.reload();
             }
         }
 
-        // DATABASE MODAL LOGIC
         function openDashboard() {
             document.getElementById('uploadDashboardModal').style.display = 'flex';
             loadData();
@@ -234,14 +258,14 @@
                 data.forEach((item, index) => {
                     listBody.innerHTML += `<tr>
                         <td>${index + 1}</td>
-                        <td>${item.fileName}</td>
+                        <td style="font-weight:bold;">${item.fileName}</td>
                         <td>${item.uploadDate}</td>
-                        <td style="color:#00ff00;">LIVE</td>
-                        <td><button onclick="removeEntry('${item.fileName}', this)" style="background:#ff4d4d; color:white; border:none; border-radius:4px; cursor:pointer; padding:5px 10px; font-weight:bold;">REMOVE</button></td>
+                        <td style="color:#00ff00; font-weight:bold;">LIVE</td>
+                        <td><button onclick="removeEntry('${item.fileName}', this)" class="btn-remove">REMOVE</button></td>
                     </tr>`;
                 });
             } catch (e) {
-                listBody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#ff4d4d;">Database Offline.</td></tr>';
+                listBody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#ff4d4d; font-weight:bold;">Database Offline.</td></tr>';
             }
         }
 
