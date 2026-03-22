@@ -147,6 +147,47 @@ window.logout = function() {
     });
 }
 </script>
+ <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } 
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+// Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyAkoWeMnqL9sN-Ghxcwq1wye8iml06qBEg",
+  authDomain: "iks-portal.firebaseapp.com",
+  projectId: "iks-portal",
+  storageBucket: "iks-portal.firebasestorage.app",
+  messagingSenderId: "850853533746",
+  appId: "1:850853533746:web:a224e31b38d784f39a042b"
+};
+
+// Init
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Toggle navbar links
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        document.getElementById("loginLink").style.display = "none";
+        document.getElementById("registerLink").style.display = "none";
+        document.getElementById("dashboardLink").style.display = "inline";
+        document.getElementById("logoutLink").style.display = "inline";
+    } else {
+        document.getElementById("loginLink").style.display = "inline";
+        document.getElementById("registerLink").style.display = "inline";
+        document.getElementById("dashboardLink").style.display = "none";
+        document.getElementById("logoutLink").style.display = "none";
+    }
+});
+
+// Logout
+window.logout = function() {
+    signOut(auth).then(() => {
+        window.location.href = "index.html";
+    });
+}
+</script>
 
 </body>
 </html>

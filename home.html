@@ -321,22 +321,30 @@
     
     <!-- Header & Navigation -->
     <header>
-        <div class="hamburger" onclick="toggleMenu()">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-        <h1>SFGC IKS Forum Welcomes You</h1>
-        <nav>
-            <ul id="nav-menu">
-                <li><a href="home.html?fromnav=true">Home</a></li>
-                <li><a href="occasion.html?fromnav=true">Occasions</a></li>
-                <li><a href="proceedings-journal.html?fromnav=true">Proceedings & Journal</a></li>
-                <li><a href="committee.html?fromnav=true">Committee</a></li>
-                <li><a href="about us.html?fromnav=true">About Us</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div class="hamburger" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <h1>SFGC IKS Forum</h1>
+
+    <nav>
+        <ul id="nav-menu">
+            <li><a href="home.html?fromnav=true">Home</a></li>
+            <li><a href="occasion.html?fromnav=true">Occasions</a></li>
+            <li><a href="proceedings-journal.html?fromnav=true">Proceedings & Journal</a></li>
+            <li><a href="committee.html?fromnav=true">Committee</a></li>
+            <li><a href="about us.html?fromnav=true">About Us</a></li>
+
+            <!-- AUTH LINKS -->
+            <li><a href="login.html" id="loginLink">Login</a></li>
+            <li><a href="register.html" id="registerLink">Register</a></li>
+            <li><a href="dashboard.html" id="dashboardLink" style="display:none;">Dashboard</a></li>
+            <li><a href="#" onclick="logout()" id="logoutLink" style="display:none;">Logout</a></li>
+        </ul>
+    </nav>
+</header>
     
     <!-- Main Content -->
     <main>
@@ -434,5 +442,46 @@
         // Auto-slide every 4 seconds
         setInterval(nextSlide, 4000);
     </script>
+ <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } 
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+// Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyAkoWeMnqL9sN-Ghxcwq1wye8iml06qBEg",
+  authDomain: "iks-portal.firebaseapp.com",
+  projectId: "iks-portal",
+  storageBucket: "iks-portal.firebasestorage.app",
+  messagingSenderId: "850853533746",
+  appId: "1:850853533746:web:a224e31b38d784f39a042b"
+};
+
+// Init
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Toggle navbar links
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        document.getElementById("loginLink").style.display = "none";
+        document.getElementById("registerLink").style.display = "none";
+        document.getElementById("dashboardLink").style.display = "inline";
+        document.getElementById("logoutLink").style.display = "inline";
+    } else {
+        document.getElementById("loginLink").style.display = "inline";
+        document.getElementById("registerLink").style.display = "inline";
+        document.getElementById("dashboardLink").style.display = "none";
+        document.getElementById("logoutLink").style.display = "none";
+    }
+});
+
+// Logout
+window.logout = function() {
+    signOut(auth).then(() => {
+        window.location.href = "index.html";
+    });
+}
+</script>
 </body>
 </html>
