@@ -3,75 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IKS Login & Register</title>
+    <title>IKS Portal | Student Access</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0b2a4a;
-            color: white;
+            background: url('45383.png') no-repeat center center fixed;
+            background-size: cover;
+            color: #e0e0e0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
+            overflow-y: auto;
+        }
+
+        /* Dark overlay to make text pop against the BG image */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 11, 20, 0.7);
+            z-index: -1;
         }
 
         .container {
             width: 90%;
-            max-width: 450px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 30px;
+            max-width: 480px;
+            background: rgba(11, 26, 43, 0.85);
+            padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            margin: 40px 0;
         }
 
-        h2 { text-align: center; color: #f39c12; margin-bottom: 20px; }
+        h2 { text-align: center; color: #00d2ff; margin-bottom: 25px; letter-spacing: 2px; text-transform: uppercase; }
+
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-size: 12px; color: #00d2ff; margin-bottom: 5px; margin-left: 5px; }
 
         input {
             width: 100%;
             padding: 12px;
-            margin: 10px 0;
             border-radius: 5px;
-            border: none;
+            border: 1px solid #1a2a3a;
             box-sizing: border-box;
-            background: #f0f0f0;
+            background: #020b14;
+            color: white;
+            outline: none;
+            transition: 0.3s;
         }
+
+        input:focus { border-color: #00d2ff; box-shadow: 0 0 10px rgba(0, 210, 255, 0.2); }
 
         button {
             width: 100%;
-            padding: 12px;
-            background: #f39c12;
-            color: white;
+            padding: 14px;
+            background: #00d2ff;
+            color: #020b14;
             border: none;
             border-radius: 5px;
             font-weight: bold;
             font-size: 16px;
             cursor: pointer;
-            margin-top: 15px;
+            margin-top: 20px;
+            text-transform: uppercase;
             transition: 0.3s;
         }
 
-        button:hover { background: #e67e22; }
+        button:hover { background: #0099cc; transform: translateY(-2px); }
 
         .toggle {
             text-align: center;
-            margin-top: 15px;
+            margin-top: 20px;
             cursor: pointer;
-            color: #3498db;
+            color: #00d2ff;
             font-size: 14px;
+            text-decoration: underline;
         }
 
         .hidden { display: none; }
         
-        .forgot-pass {
-            text-align: right;
-            font-size: 13px;
-            color: #bdc3c7;
-            cursor: pointer;
-            margin-top: -5px;
-        }
+        /* Custom Scrollbar for registration form */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #020b14; }
+        ::-webkit-scrollbar-thumb { background: #00d2ff; border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -79,33 +97,39 @@
 <div class="container">
     <div id="loginBox">
         <h2>Student Login</h2>
-        <input type="text" id="loginUsername" placeholder="UUCMS Number">
-        <input type="password" id="loginPassword" placeholder="DOB (DD-MM-YYYY)">
-        <button onclick="login()">Log In</button>
-        <div class="toggle" onclick="showRegister()">Register</div>
+        <div class="input-group">
+            <label>UUCMS NUMBER</label>
+            <input type="text" id="loginUsername" placeholder="Enter UUCMS Number">
+        </div>
+        <div class="input-group">
+            <label>DATE OF BIRTH</label>
+            <input type="password" id="loginPassword" placeholder="DD-MM-YYYY">
+        </div>
+        <button onclick="login()">Access Portal</button>
+        <div class="toggle" onclick="showRegister()">New Student? Register Here</div>
     </div>
 
     <div id="registerBox" class="hidden">
-        <h2>Student Registration</h2>
-        <input type="text" id="name" placeholder="Full Name">
-        <input type="email" id="email" placeholder="Email Address">
-        <input type="text" id="phone" placeholder="Phone Number">
-        <input type="text" id="username" placeholder="ID Card / UUCMS Number">
-        <input type="password" id="password" placeholder="DOB (DD-MM-YYYY)">
-        <input type="text" id="gender" placeholder="Gender">
-        <input type="text" id="course" placeholder="Course/Stream">
-        <input type="text" id="college" placeholder="College Name & Address">
-        <input type="text" id="aadhar" placeholder="Aadhar Number">
-        <input type="text" id="parent" placeholder="Parent/Guardian Phone">
-        <button onclick="register()">Register</button>
-        <div class="toggle" onclick="showLogin()">Already have an account? Login</div>
+        <h2>Registration</h2>
+        <div class="input-group"><label>FULL NAME</label><input type="text" id="name" placeholder="As per records"></div>
+        <div class="input-group"><label>EMAIL ADDRESS</label><input type="email" id="email" placeholder="example@mail.com"></div>
+        <div class="input-group"><label>PHONE NUMBER</label><input type="text" id="phone" placeholder="10-digit mobile"></div>
+        <div class="input-group"><label>UUCMS / ID NUMBER</label><input type="text" id="username" placeholder="UUCMS Number"></div>
+        <div class="input-group"><label>SET PASSWORD (DOB)</label><input type="password" id="password" placeholder="DD-MM-YYYY"></div>
+        <div class="input-group"><label>GENDER</label><input type="text" id="gender" placeholder="Male/Female"></div>
+        <div class="input-group"><label>COURSE/STREAM</label><input type="text" id="course" placeholder="B.Com / B.Sc / BCA"></div>
+        <div class="input-group"><label>COLLEGE NAME</label><input type="text" id="college" placeholder="Full College Address"></div>
+        <div class="input-group"><label>AADHAR NUMBER</label><input type="text" id="aadhar" placeholder="12-digit number"></div>
+        <div class="input-group"><label>PARENT PHONE</label><input type="text" id="parent" placeholder="Guardian contact"></div>
+        
+        <button onclick="register()">Create Account</button>
+        <div class="toggle" onclick="showLogin()">Already registered? Login</div>
     </div>
 </div>
 
 <script type="module">
-    // Using a more stable Firebase version (10.8.0)
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
     import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -114,18 +138,17 @@
         projectId: "iks-portal",
         storageBucket: "iks-portal.firebasestorage.app",
         messagingSenderId: "850853533746",
-        appId: "1:850853533746:web:a224e31b38d784f39a042b",
-        measurementId: "G-HTK6G58N60"
+        appId: "1:850853533746:web:a224e31b38d784f39a042b"
     };
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // TOGGLE BOXES
     window.showRegister = () => {
         document.getElementById("loginBox").classList.add("hidden");
         document.getElementById("registerBox").classList.remove("hidden");
+        window.scrollTo(0,0);
     };
 
     window.showLogin = () => {
@@ -133,89 +156,64 @@
         document.getElementById("loginBox").classList.remove("hidden");
     };
 
-    // AUTO-DETECT FROM NAV LINK (Login/Register)
-    window.addEventListener('DOMContentLoaded', () => {
-        const params = new URLSearchParams(window.location.search);
-        if (params.get('mode') === 'register') showRegister();
-        else showLogin();
-    });
-
     // REGISTER LOGIC
     window.register = async () => {
-        const email = document.getElementById("email").value;
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
+        const username = document.getElementById("username").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
 
-        if(!email || !username || !password) return alert("Please fill basic fields!");
-
-        const userRef = doc(db, "users", username);
-        const existing = await getDoc(userRef);
-
-        if (existing.exists()) {
-            alert("UUCMS Number already registered!");
-            return;
-        }
+        if(!email || !username || !password) return alert("Please fill in Name, UUCMS, and DOB!");
 
         try {
+            const userRef = doc(db, "users", username);
+            const existing = await getDoc(userRef);
+            if (existing.exists()) return alert("UUCMS Number already registered!");
+
+            // Create Firebase Auth User
             await createUserWithEmailAndPassword(auth, email, password);
+
+            // Store detailed data in Firestore
             await setDoc(userRef, {
                 name: document.getElementById("name").value,
                 email: email,
-                phone: Number(document.getElementById("phone").value),
+                phone: document.getElementById("phone").value,
                 username: username,
                 gender: document.getElementById("gender").value,
                 course: document.getElementById("course").value,
                 college: document.getElementById("college").value,
-                aadhar: Number(document.getElementById("aadhar").value),
-                parent: Number(document.getElementById("parent").value),
+                aadhar: document.getElementById("aadhar").value,
+                parent: document.getElementById("parent").value,
                 createdAt: new Date()
             });
+
             alert("Registration Successful!");
             window.location.href = "dashboard.html";
         } catch (err) {
-            alert("Error: " + err.message);
+            alert("Registration Error: " + err.message);
         }
     };
 
     // LOGIN LOGIC
     window.login = async () => {
-        const username = document.getElementById("loginUsername").value;
-        const password = document.getElementById("loginPassword").value;
+        const username = document.getElementById("loginUsername").value.trim();
+        const password = document.getElementById("loginPassword").value.trim();
 
-        if(!username) return alert("Enter your UUCMS Number");
-
-        const userRef = doc(db, "users", username);
-        const snap = await getDoc(userRef);
-
-        if (!snap.exists()) {
-            alert("Account not found. Please Register first.");
-            return;
-        }
+        if(!username || !password) return alert("Enter UUCMS and DOB");
 
         try {
+            const userRef = doc(db, "users", username);
+            const snap = await getDoc(userRef);
+
+            if (!snap.exists()) {
+                alert("UUCMS Number not found. Please register first.");
+                return;
+            }
+
             const email = snap.data().email;
             await signInWithEmailAndPassword(auth, email, password);
             window.location.href = "dashboard.html";
         } catch (err) {
-            alert("Login Failed: Please check your password (DOB).");
-        }
-    };
-
-    // FORGOT PASSWORD
-    window.forgotPassword = async () => {
-        const username = document.getElementById("loginUsername").value;
-        if (!username) return alert("Enter Username/ID Card Number first");
-
-        const userRef = doc(db, "users", username);
-        const snap = await getDoc(userRef);
-
-        if (!snap.exists()) return alert("User not found");
-
-        try {
-            await sendPasswordResetEmail(auth, snap.data().email);
-            alert("Reset link sent to your registered email!");
-        } catch (err) {
-            alert(err.message);
+            alert("Login Failed: Please check your UUCMS or DOB format.");
         }
     };
 </script>
