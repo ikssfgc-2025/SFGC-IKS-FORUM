@@ -7,7 +7,6 @@
     <style>
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            /* Improved visibility for the temple background */
             background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('45383.png') no-repeat center center fixed; 
             background-size: cover;
             color: #ffffff; 
@@ -22,7 +21,6 @@
             display: flex; justify-content: center; align-items: center; z-index: 2000;
         }
         
-        /* Updated Login Box to Refined Grey & Golden */
         .login-box { 
             background: rgba(45, 55, 65, 0.95); 
             padding: 40px; 
@@ -46,9 +44,7 @@
             font-weight: bold; cursor: pointer; border-radius: 5px; margin-top: 15px; 
             text-transform: uppercase; transition: 0.3s;
         }
-        .login-box button:hover { background: #f1c40f; transform: translateY(-2px); }
 
-        /* Dashboard Content Styling */
         .content { display: none; max-width: 95%; margin: auto; }
         .header { 
             display: flex; justify-content: space-between; align-items: center; 
@@ -58,6 +54,8 @@
             margin-bottom: 20px; 
         }
         
+        .header-actions { display: flex; gap: 10px; }
+
         .controls-row { 
             display: flex; gap: 15px; margin-bottom: 20px; 
             background: rgba(45, 55, 65, 0.8); 
@@ -68,10 +66,10 @@
             padding: 12px; border-radius: 5px; border: 1px solid #1a2a3a; 
             background: #020b14; color: white; flex-grow: 1; outline: none;
         }
-        .search-input:focus { border-color: #d4af37; }
         
-        .btn-export { padding: 12px 20px; border: none; background: #28a745; color: white; cursor: pointer; border-radius: 5px; font-weight: bold; text-transform: uppercase; transition: 0.3s; }
-        .btn-export:hover { background: #218838; }
+        .btn-export { padding: 12px 20px; border: none; background: #28a745; color: white; cursor: pointer; border-radius: 5px; font-weight: bold; text-transform: uppercase; }
+        .btn-sync { background: #d4af37; color: #020b14; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .btn-logout { background: #ff4b2b; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
 
         .table-wrapper {
             background: rgba(45, 55, 65, 0.95);
@@ -92,9 +90,6 @@
         td { padding: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); font-size: 13px; white-space: nowrap; color: #ffffff; }
         tr:hover { background: rgba(212, 175, 55, 0.1); }
         
-        .btn-logout { background: #ff4b2b; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .btn-logout:hover { background: #c0392b; }
-
         /* Custom Golden Scrollbar */
         .table-wrapper::-webkit-scrollbar { height: 8px; }
         .table-wrapper::-webkit-scrollbar-track { background: #020b14; }
@@ -108,19 +103,22 @@
             <h2>IKS ADMIN GATE</h2>
             <input type="text" id="adminUser" placeholder="Username">
             <input type="password" id="adminPass" placeholder="Password">
-            <button onclick="checkGate()">UNSEAL DASHBOARD</button>
+            <button id="gateBtn">UNSEAL DASHBOARD</button>
         </div>
     </div>
 
     <div class="content" id="adminContent">
         <div class="header">
             <h1 style="margin:0; font-size: 22px; color: #ffffff;">IKS PORTAL // DATABASE ADMIN</h1>
-            <button class="btn-logout" onclick="logout()">LOGOUT</button>
+            <div class="header-actions">
+                <button class="btn-sync" id="syncBtn">SYNC DATABASE</button>
+                <button class="btn-logout" id="logoutBtn">LOGOUT</button>
+            </div>
         </div>
 
         <div class="controls-row">
-            <input type="text" id="searchInput" class="search-input" placeholder="Search (Name, College, Aadhar)..." onkeyup="searchTable()">
-            <button class="btn-export" onclick="exportToCSV()">EXPORT CSV</button>
+            <input type="text" id="searchInput" class="search-input" placeholder="Search (Name, College, Aadhar)...">
+            <button class="btn-export" id="exportBtn">EXPORT CSV</button>
             <div style="margin-left:auto; color:#d4af37; font-weight:bold; font-size: 18px;">Total Entries: <span id="totalCount">0</span></div>
         </div>
 
@@ -141,7 +139,7 @@
                     </tr>
                 </thead>
                 <tbody id="userTableBody">
-                    <tr><td colspan="10" style="text-align:center; padding: 50px;">Initializing secure connection...</td></tr>
+                    <tr><td colspan="10" style="text-align:center; padding: 50px;">Waiting for command...</td></tr>
                 </tbody>
             </table>
         </div>
@@ -164,31 +162,23 @@
     const db = getFirestore(app);
     let allUsers = [];
 
-    if (sessionStorage.getItem("iks_is_logged_in") === "true") {
+    // Initialize Page
+    window.addEventListener('load', () => {
+        if (sessionStorage.getItem("iks_is_logged_in") === "true") {
+            showDashboard();
+            loadData(); 
+        }
+    });
+
+    function showDashboard() {
         document.getElementById("adminGate").style.display = "none";
         document.getElementById("adminContent").style.display = "block";
-        loadData(); 
     }
 
-    window.checkGate = function() {
-        const u = document.getElementById("adminUser").value;
-        const p = document.getElementById("adminPass").value;
-        if (u === "IKS_SFGC" && p === "IKS@$FGC.2026") {
-            sessionStorage.setItem("iks_is_logged_in", "true");
-            document.getElementById("adminGate").style.display = "none";
-            document.getElementById("adminContent").style.display = "block";
-            loadData();
-        } else { alert("Access Denied. Incorrect Credentials."); }
-    };
-
-    window.logout = function() {
-        if(confirm("Are you sure you want to logout?")) {
-            sessionStorage.removeItem("iks_is_logged_in");
-            location.reload();
-        }
-    };
-
-    window.loadData = async function() {
+    async function loadData() {
+        const tableBody = document.getElementById("userTableBody");
+        tableBody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding: 50px;">Syncing with Firebase...</td></tr>`;
+        
         try {
             const querySnapshot = await getDocs(collection(db, "users"));
             allUsers = [];
@@ -198,16 +188,16 @@
             renderTable(allUsers);
         } catch (error) {
             console.error("Firebase Error:", error);
-            document.getElementById("userTableBody").innerHTML = `<tr><td colspan="10" style="text-align:center; color:#ff4b2b; padding:20px;">Failed to sync with database.</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="10" style="text-align:center; color:#ff4b2b; padding:20px;">Connection Error: Check console.</td></tr>`;
         }
-    };
+    }
 
     function renderTable(dataList) {
         const tableBody = document.getElementById("userTableBody");
         tableBody.innerHTML = "";
         
         if (dataList.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding: 50px; color:#aaa;">No records found in the database.</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding: 50px; color:#aaa;">No records found.</td></tr>`;
             document.getElementById("totalCount").innerText = "0";
             return;
         }
@@ -230,15 +220,35 @@
         document.getElementById("totalCount").innerText = dataList.length;
     }
 
-    window.searchTable = function() {
-        const term = document.getElementById("searchInput").value.toLowerCase();
+    // --- Button Event Listeners ---
+    document.getElementById("gateBtn").addEventListener("click", () => {
+        const u = document.getElementById("adminUser").value;
+        const p = document.getElementById("adminPass").value;
+        if (u === "IKS_SFGC" && p === "IKS@$FGC.2026") {
+            sessionStorage.setItem("iks_is_logged_in", "true");
+            showDashboard();
+            loadData();
+        } else { alert("Access Denied."); }
+    });
+
+    document.getElementById("syncBtn").addEventListener("click", loadData);
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+        if(confirm("Sign out of Admin Session?")) {
+            sessionStorage.clear();
+            window.location.reload();
+        }
+    });
+
+    document.getElementById("searchInput").addEventListener("keyup", (e) => {
+        const term = e.target.value.toLowerCase();
         const filtered = allUsers.filter(u => 
             Object.values(u).some(val => val?.toString().toLowerCase().includes(term))
         );
         renderTable(filtered);
-    };
+    });
 
-    window.exportToCSV = function() {
+    document.getElementById("exportBtn").addEventListener("click", () => {
         if (allUsers.length === 0) return;
         const headers = ["Name", "Username", "Gender", "College", "Aadhar", "Phone", "Parent Phone", "Email", "Course"];
         const rows = allUsers.map(u => [
@@ -249,9 +259,9 @@
         let csvContent = "data:text/csv;charset=utf-8," + headers.join(",") + "\n" + rows.map(e => e.join(",")).join("\n");
         const link = document.createElement("a");
         link.href = encodeURI(csvContent);
-        link.download = "IKS_Full_Database_Export.csv";
+        link.download = "IKS_Database_Export.csv";
         link.click();
-    };
+    });
 </script>
 </body>
 </html>
