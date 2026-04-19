@@ -6,12 +6,11 @@
     <title>SFGC IKS Forum - Events</title>
     <style>
         /* ============================================
-            GLOBAL DNA - Standardized for all pages
+            GLOBAL STYLES
            ============================================ */
         html, body { 
             margin: 0;
             padding: 0;
-            overscroll-behavior-x: none;
             overflow-x: hidden;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
@@ -29,13 +28,10 @@
             flex-direction: column;
         }
 
-        /* Header & Navigation */
         header {
             background-color: rgba(0, 0, 0, 0.6);
             padding: 20px;
             text-align: center;
-            position: relative;
-            z-index: 1000;
         }
         
         h1 {
@@ -49,7 +45,6 @@
             padding: 0;
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
             gap: 20px;
         }
         
@@ -60,7 +55,7 @@
             font-size: 1.1em;
         }
 
-        /* Main Container - Full Width Restored */
+        /* Container size restored to full width */
         main {
             flex: 1;
             max-width: 900px;
@@ -92,12 +87,13 @@
         }
 
         .event-title {
-            color: #ffffff !important; 
+            color: #ffffff; 
             font-size: 1.2em;
             margin-bottom: 15px;
             font-weight: bold;
         }
 
+        /* Fixed Button Styling for Visibility */
         .event-btn {
             color: #ffd700;
             font-weight: bold;
@@ -109,6 +105,7 @@
             transition: all 0.3s ease;
             margin-right: 15px;
             margin-top: 10px;
+            background: transparent;
         }
         
         .event-btn:hover {
@@ -116,7 +113,6 @@
             color: #000;
         }
 
-        /* Calendar Styling */
         .calendar-container {
             margin-top: 20px;
             border-radius: 12px;
@@ -160,7 +156,7 @@
             <p class="event-title">IKS 2026</p>
             <a href="https://drive.google.com/file/d/1TL5xug1Jgy4n2mnmJuXZfuGJwqIck21a/view" target="_blank" class="event-btn">PROSPECTUS</a>
             
-            <a href="#" id="dynamic-register-btn" target="_blank" class="event-btn" style="opacity: 0.5;">REGISTER NOW</a>
+            <a href="#" id="dynamic-register-btn" target="_blank" class="event-btn">REGISTER NOW</a>
         </div>
 
         <div class="event-section">
@@ -183,14 +179,15 @@
     </footer>
 
     <script>
-        // CONFIGURATION
+        // CONFIGURATION - Verified from your GitHub screenshots
         const GITHUB_USER = "ikssfgc.2025"; 
         const REPO_NAME = "SFGC-IKS-FORUM";
         const FILE_NAME = "link.txt"; 
 
         async function syncLink() {
             const btn = document.getElementById('dynamic-register-btn');
-            // Cache-busting URL to fetch fresh content
+            
+            // Forces the browser to ignore old cached versions of link.txt
             const fetchUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${REPO_NAME}/main/${FILE_NAME}?v=${new Date().getTime()}`;
 
             try {
@@ -201,13 +198,20 @@
                     
                     if (cleanLink.startsWith("http")) {
                         btn.href = cleanLink;
-                        btn.style.opacity = "1";
+                        console.log("Link loaded successfully!");
                     } else {
-                        btn.onclick = () => { alert("Registration link is not yet updated in link.txt"); return false; };
+                        // Action if link.txt is blank or has no link
+                        btn.onclick = (e) => { 
+                            e.preventDefault(); 
+                            alert("Registration link is not yet updated. Please check back later."); 
+                        };
                     }
+                } else {
+                    // Action if file is not found on GitHub
+                    console.error("link.txt not found.");
                 }
             } catch (err) {
-                console.error("Failed to load link from GitHub.");
+                console.error("Fetch error:", err);
             }
         }
 
