@@ -29,9 +29,6 @@
             flex-direction: column;
         }
 
-        /* ============================================
-            HEADER & NAVIGATION
-           ============================================ */
         header {
             background-color: rgba(0, 0, 0, 0.6);
             padding: 20px;
@@ -87,9 +84,6 @@
             margin: 3px 0;
         }
 
-        /* ============================================
-            MAIN CONTENT
-           ============================================ */
         main {
             flex: 1;
             max-width: 900px;
@@ -126,12 +120,6 @@
             font-weight: bold;
         }
 
-        .event-description {
-            color: #ffffff !important;
-            font-size: 0.95em;
-            margin-bottom: 20px;
-        }
-
         .event-btn {
             color: #ffd700;
             font-weight: bold;
@@ -150,9 +138,6 @@
             color: #000;
         }
 
-        /* ============================================
-            FOOTER
-           ============================================ */
         footer {
             padding: 30px 20px;
             text-align: center;
@@ -173,9 +158,6 @@
             display: inline-block;
         }
 
-        /* ============================================
-            MOBILE STYLES
-           ============================================ */
         @media (max-width: 768px) {
             .hamburger { display: flex; }
             nav ul {
@@ -198,13 +180,9 @@
 <body>
     <header>
         <div class="hamburger" onclick="toggleMenu()">
-            <div></div>
-            <div></div>
-            <div></div>
+            <div></div><div></div><div></div>
         </div>
-
         <h1>SFGC IKS Forum</h1>
-
         <nav>
             <ul id="nav-menu">
                 <li><a href="home.html?fromnav=true">Home</a></li>
@@ -226,7 +204,7 @@
             <p class="event-title">IKS 2026</p>
             <a href="https://drive.google.com/file/d/1TL5xug1Jgy4n2mnmJuXZfuGJwqIck21a/view?usp=drivesdk" target="_blank" class="event-btn">PROSPECTUS</a>
             
-            <a href="#" id="dynamic-register-btn" target="_blank" class="event-btn" style="display: none;">REGISTER NOW</a>
+            <a href="#" id="dynamic-register-btn" target="_blank" class="event-btn">REGISTER NOW</a>
         </div>
 
         <div class="event-section">
@@ -245,16 +223,11 @@
     </main>
 
     <footer>
-        <p>
-            © All Copyrights Reserved 2026-27<br>
-            <span class="footer-break">SFGC IKS FORUM - SRF INDIA</span>
-        </p>
+        <p>© All Copyrights Reserved 2026-27<br>SFGC IKS FORUM - SRF INDIA</p>
     </footer>
     
     <script>
-        function toggleMenu() {
-            document.getElementById('nav-menu').classList.toggle('active');
-        }
+        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('active'); }
     </script>
 
     <script type="module">
@@ -276,42 +249,35 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        // 1. Authentication Logic (Navbar update)
+        // 1. Navbar Auth
         onAuthStateChanged(auth, (user) => {
-            const loginLink = document.getElementById("loginLink");
-            const dashboardLink = document.getElementById("dashboardLink");
-            const logoutLink = document.getElementById("logoutLink");
-
             if (user) {
-                if(loginLink) loginLink.style.display = "none";
-                if(dashboardLink) dashboardLink.style.display = "inline";
-                if(logoutLink) logoutLink.style.display = "inline";
+                document.getElementById("loginLink").style.display = "none";
+                document.getElementById("dashboardLink").style.display = "inline";
+                document.getElementById("logoutLink").style.display = "inline";
             } else {
-                if(loginLink) loginLink.style.display = "inline";
-                if(dashboardLink) dashboardLink.style.display = "none";
-                if(logoutLink) logoutLink.style.display = "none";
+                document.getElementById("loginLink").style.display = "inline";
+                document.getElementById("dashboardLink").style.display = "none";
+                document.getElementById("logoutLink").style.display = "none";
             }
         });
 
-        window.logout = function() {
-            signOut(auth).then(() => {
-                window.location.href = "home.html";
-            });
-        }
+        window.logout = function() { signOut(auth).then(() => { window.location.href = "home.html"; }); }
 
-        // 2. Dynamic Register Button Logic
+        // 2. CONNECT REGISTER BUTTON TO ADMIN DATA
         const registerBtn = document.getElementById('dynamic-register-btn');
         const formRef = ref(db, 'currentForm');
 
         onValue(formRef, (snapshot) => {
             const formUrl = snapshot.val();
-            // Only show button if a non-empty link exists in the database
             if (formUrl && formUrl.trim() !== "") {
                 registerBtn.href = formUrl;
-                registerBtn.style.display = "inline-block";
+                registerBtn.style.opacity = "1";
+                registerBtn.style.pointerEvents = "auto";
             } else {
-                // Keep hidden or hide if link is deleted by admin
-                registerBtn.style.display = "none";
+                // If no link is in admin, button stays but doesn't go anywhere
+                registerBtn.href = "javascript:void(0)";
+                registerBtn.style.opacity = "0.5";
             }
         });
     </script>
