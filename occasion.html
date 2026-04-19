@@ -9,12 +9,9 @@
             GLOBAL STYLES
            ============================================ */
         html, body { 
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             overflow-x: hidden;
             min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
             font-size: 11pt;
             line-height: 1.2;
         }
@@ -28,34 +25,12 @@
             flex-direction: column;
         }
 
-        header {
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 20px;
-            text-align: center;
-        }
-        
-        h1 {
-            color: #ffd700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-            margin: 10px 0;
-        }
-        
-        nav ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        
-        nav a {
-            color: #ffcc66;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
+        header { background-color: rgba(0, 0, 0, 0.6); padding: 20px; text-align: center; }
+        h1 { color: #ffd700; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); margin: 10px 0; }
+        nav ul { list-style: none; padding: 0; display: flex; justify-content: center; gap: 20px; }
+        nav a { color: #ffcc66; text-decoration: none; font-weight: bold; font-size: 1.1em; }
 
-        /* Container size restored to full width */
+        /* Main Container */
         main {
             flex: 1;
             max-width: 900px;
@@ -69,70 +44,37 @@
         }
 
         h2.main-title {
-            font-size: 1.8em;
-            color: #ffd700;
+            font-size: 1.8em; color: #ffd700;
             border-bottom: 1px solid #ffcc66;
-            display: inline-block;
-            margin-bottom: 35px;
-            width: 80%;
+            display: inline-block; margin-bottom: 35px; width: 80%;
         }
 
         .event-section {
-            margin-bottom: 30px;
-            padding: 25px;
+            margin-bottom: 30px; padding: 25px;
             border-left: 5px solid #BF953F;
-            text-align: left;
-            background: rgba(0, 0, 0, 0.3);
+            text-align: left; background: rgba(0, 0, 0, 0.3);
             border-radius: 0 15px 15px 0;
         }
 
-        .event-title {
-            color: #ffffff; 
-            font-size: 1.2em;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
+        .event-title { color: #ffffff; font-size: 1.2em; margin-bottom: 15px; font-weight: bold; }
 
-        /* Fixed Button Styling for Visibility */
         .event-btn {
-            color: #ffd700;
-            font-weight: bold;
-            text-decoration: none;
-            border: 1px solid #ffd700;
-            padding: 10px 20px;
-            border-radius: 5px;
-            display: inline-block;
-            transition: all 0.3s ease;
-            margin-right: 15px;
-            margin-top: 10px;
+            color: #ffd700; font-weight: bold; text-decoration: none;
+            border: 1px solid #ffd700; padding: 10px 20px;
+            border-radius: 5px; display: inline-block;
+            transition: all 0.3s ease; margin-right: 15px; margin-top: 10px;
             background: transparent;
         }
         
-        .event-btn:hover {
-            background: #ffd700;
-            color: #000;
-        }
+        .event-btn:hover { background: #ffd700; color: #000; }
 
         .calendar-container {
-            margin-top: 20px;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid #BF953F;
-            background: #fff;
+            margin-top: 20px; border-radius: 12px; overflow: hidden;
+            border: 1px solid #BF953F; background: #fff;
         }
 
-        footer {
-            padding: 30px 20px;
-            text-align: center;
-            background: #1F0505;
-            border-top: 2px solid #BF953F;
-            margin-top: auto;
-        }
-        
-        footer p {
-            color: #BF953F;
-            font-weight: bold;
-        }
+        footer { padding: 30px 20px; text-align: center; background: #1F0505; border-top: 2px solid #BF953F; margin-top: auto; }
+        footer p { color: #BF953F; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -160,12 +102,6 @@
         </div>
 
         <div class="event-section">
-            <p class="event-title">IKS HORIZONS 2025</p>
-            <a href="https://drive.google.com/file/d/1TL5xug1Jgy4n2mnmJuXZfuGJwqIck21a/view" target="_blank" class="event-btn">PROSPECTUS</a>
-            <a href="https://drive.google.com/drive/folders/1KHlqlGkWQ3xXBlPGiWZRhTSzLBiTzaB0" target="_blank" class="event-btn">VIEW GALLERY</a>
-        </div>
-
-        <div class="event-section">
             <p class="event-title">UPCOMING EVENTS CALENDAR</p>
             <div class="calendar-container">
                 <iframe src="https://calendar.google.com/calendar/embed?src=iks.sfgc%40gmail.com&ctz=Asia%2FKolkata&showTitle=0&showNav=1&showPrint=0&showTabs=1&showCalendars=0&showTz=0" 
@@ -174,20 +110,15 @@
         </div>
     </main>
 
-    <footer>
-        <p>© All Copyrights Reserved 2026-27<br>SFGC IKS FORUM - SRF INDIA</p>
-    </footer>
+    <footer><p>© All Copyrights Reserved 2026-27<br>SFGC IKS FORUM - SRF INDIA</p></footer>
 
     <script>
-        // CONFIGURATION - Verified from your GitHub screenshots
-        const GITHUB_USER = "ikssfgc.2025"; 
+        const GITHUB_USER = "ikssfgc-2025"; 
         const REPO_NAME = "SFGC-IKS-FORUM";
         const FILE_NAME = "link.txt"; 
 
         async function syncLink() {
             const btn = document.getElementById('dynamic-register-btn');
-            
-            // Forces the browser to ignore old cached versions of link.txt
             const fetchUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${REPO_NAME}/main/${FILE_NAME}?v=${new Date().getTime()}`;
 
             try {
@@ -198,23 +129,19 @@
                     
                     if (cleanLink.startsWith("http")) {
                         btn.href = cleanLink;
-                        console.log("Link loaded successfully!");
                     } else {
-                        // Action if link.txt is blank or has no link
                         btn.onclick = (e) => { 
                             e.preventDefault(); 
-                            alert("Registration link is not yet updated. Please check back later."); 
+                            alert("Registration link is not properly set in GitHub."); 
                         };
                     }
-                } else {
-                    // Action if file is not found on GitHub
-                    console.error("link.txt not found.");
                 }
             } catch (err) {
-                console.error("Fetch error:", err);
+                console.error("Link fetch failed.");
             }
         }
 
+        // Run sync on load
         window.onload = syncLink;
     </script>
 </body>
