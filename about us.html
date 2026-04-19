@@ -6,7 +6,7 @@
     <title>SFGC IKS Forum - About Us</title>
     <style>
         /* ============================================
-           GLOBAL DNA - Standardized for all pages
+            GLOBAL DNA - Standardized for all pages
            ============================================ */
         html, body {
             margin: 0;
@@ -30,7 +30,7 @@
         }
 
         /* ============================================
-           HEADER & NAVIGATION
+            HEADER & NAVIGATION
            ============================================ */
         header {
             background-color: rgba(0, 0, 0, 0.6);
@@ -104,7 +104,7 @@
         }
 
         /* ============================================
-           MAIN CONTENT - Standardized Box
+            MAIN CONTENT
            ============================================ */
         main {
             flex: 1;
@@ -148,7 +148,6 @@
             color: #fff;
         }
 
-        /* SFGC college image - larger size */
         .college-img {
             max-width: 700px;
             width: 100%;
@@ -166,7 +165,7 @@
         }
 
         /* ============================================
-           FOOTER
+            FOOTER
            ============================================ */
         footer {
             padding: 30px 20px;
@@ -195,13 +194,10 @@
         }
 
         /* ============================================
-           MOBILE STYLES
+            MOBILE STYLES
            ============================================ */
         @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
-
+            .hamburger { display: flex; }
             nav ul {
                 display: none;
                 flex-direction: column;
@@ -216,81 +212,32 @@
                 box-shadow: 0 10px 40px rgba(0,0,0,0.8);
                 z-index: 2000;
             }
-
-            nav ul.active {
-                display: flex;
-            }
-
-            nav ul li {
-                margin: 15px 0;
-                width: 100%;
-                text-align: center;
-            }
-
-            nav a {
-                font-size: 1.2em;
-            }
-
-            main {
-                width: 92%;
-                padding: 20px 15px;
-                margin: 20px auto;
-            }
-
-            .about-section {
-                padding: 5px;
-                margin-bottom: 40px;
-            }
-
-            .about-section h2 {
-                font-size: 1.2em;
-            }
-
-            .about-section p {
-                font-size: 10pt;
-                text-align: justify;
-            }
-
-            h2.main-title {
-                font-size: 1.5em;
-            }
-
-            .college-img {
-                max-width: 100%;
-            }
-
-            footer p {
-                font-size: 1.1em;
-                line-height: 1.4;
-            }
+            nav ul.active { display: flex; }
+            nav ul li { margin: 15px 0; width: 100%; text-align: center; }
+            main { width: 92%; padding: 20px 15px; margin: 20px auto; }
         }
     </style>
 </head>
 <body>
     <header>
-    <div class="hamburger" onclick="toggleMenu()">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
 
-    <h1>SFGC IKS Forum</h1>
+        <h1>SFGC IKS Forum</h1>
 
-    <nav>
-        <ul id="nav-menu">
-            <li><a href="home.html?fromnav=true">Home</a></li>
-            <li><a href="occasion.html?fromnav=true">Occasions</a></li>
-            <li><a href="proceedings-journal.html?fromnav=true">Proceedings & Journal</a></li>
-            <li><a href="committee.html?fromnav=true">Committee</a></li>
-            <li><a href="about us.html?fromnav=true">About Us</a></li>
-
-            <!-- AUTH LINKS -->
-            <li><a href="auth.html" id="loginLink">Register & Login</a></li>
-            <li><a href="dashboard.html" id="dashboardLink" style="display:none;">Dashboard</a></li>
-            <li><a href="#" onclick="logout()" id="logoutLink" style="display:none;">Logout</a></li>
-        </ul>
-    </nav>
-</header>
+        <nav>
+            <ul id="nav-menu">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="occasion.html">Occasions</a></li>
+                <li><a href="proceedings-journal.html">Proceedings & Journal</a></li>
+                <li><a href="committee.html">Committee</a></li>
+                <li><a href="about us.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <main>
         <h2 class="main-title">About Us</h2>
@@ -298,18 +245,13 @@
         <div class="about-section">
             <h2>Seshadripuram Educational Trust (SET)</h2>
             <img src="44967.png" alt="SET Logo" width="130">
-            <p>The Seshadripuram Educational Trust (SET) stands as a landmark of academic heritage in Karnataka, tracing its origins back to a modest primary school founded in 1930 by two visionary women, Smt. Anandamma and Smt. Seethamma. Over nearly a century, it has grown from a tiny two-room setup into a sprawling network of 34 institutions that serve approximately 24,500 students from kindergarten through to doctoral research. Headquartered in Bengaluru, the Trust operates on the democratic principle of being "by the people, for the people," prioritizing affordable, high-quality education for all socio-economic backgrounds.
-
-Beyond its impressive scale, SET is distinguished by its commitment to holistic development and global standards. Its institutions—ranging from prestigious commerce colleges to law schools and postgraduate centers—are supported by a dedicated faculty of over 1,500 staff members. The Trust has earned significant accolades, including the National Award for the Best NSS Unit, and maintains international collaborations with universities across the UK, USA, and Europe to ensure its students are globally competitive. By blending modern infrastructure with a deep-rooted sense of social responsibility, SET continues to be a driving force in shaping the intellectual and moral fabric of the nation.</p>
+            <p>The Seshadripuram Educational Trust (SET) stands as a landmark of academic heritage in Karnataka, tracing its origins back to a modest primary school founded in 1930 by two visionary women, Smt. Anandamma and Smt. Seethamma. Over nearly a century, it has grown from a tiny two-room setup into a sprawling network of 34 institutions that serve approximately 24,500 students from kindergarten through to doctoral research. Headquartered in Bengaluru, the Trust operates on the democratic principle of being "by the people, for the people," prioritizing affordable, high-quality education for all socio-economic backgrounds. Beyond its impressive scale, SET is distinguished by its commitment to holistic development and global standards. Its institutions—ranging from prestigious commerce colleges to law schools and postgraduate centers—are supported by a dedicated faculty of over 1,500 staff members. The Trust has earned significant accolades, including the National Award for the Best NSS Unit, and maintains international collaborations with universities across the UK, USA, and Europe to ensure its students are globally competitive. By blending modern infrastructure with a deep-rooted sense of social responsibility, SET continues to be a driving force in shaping the intellectual and moral fabric of the nation.</p>
         </div>
 
         <div class="about-section">
             <h2>Seshadripuram First Grade College (SFGC)</h2>
             <img src="sfgc-image.png" alt="SFGC College" class="college-img">
-            <p>Seshadripuram First Grade College (SFGC), located in Yelahanka, Bengaluru, is a premier institution under the Seshadripuram Educational Trust that has been a cornerstone of higher education since its inception in 1992. Accredited with a prestigious NAAC A+ grade, the college is widely recognized for its academic rigor and holistic development approach, consistently ranking among the top private colleges in India by publications like India Today. It offers a diverse range of undergraduate and postgraduate programs, including popular courses like B.Com, BCA, BBA (with specialized streams like Aviation), B.Sc, and M.Com, all affiliated with Bengaluru City University.
-The campus is equipped with modern infrastructure, featuring state-of-the-art laboratories, a vast digital library, and a massive 1,000-seat auditorium that serves as a hub for cultural and academic events.
-
- Beyond the classroom, SFGC emphasizes social responsibility and leadership through its active NCC and NSS units, as well as dedicated research centers like the Gandhi Study Centre. With a strong focus on placement through its dedicated cell, the college bridges the gap between academic learning and industry requirements, making it a highly sought-after destination for students in Southern India.</p>
+            <p>Seshadripuram First Grade College (SFGC), located in Yelahanka, Bengaluru, is a premier institution under the Seshadripuram Educational Trust that has been a cornerstone of higher education since its inception in 1992. Accredited with a prestigious NAAC A+ grade, the college is widely recognized for its academic rigor and holistic development approach, consistently ranking among the top private colleges in India by publications like India Today. It offers a diverse range of undergraduate and postgraduate programs, including popular courses like B.Com, BCA, BBA (with specialized streams like Aviation), B.Sc, and M.Com, all affiliated with Bengaluru City University. The campus is equipped with modern infrastructure, featuring state-of-the-art laboratories, a vast digital library, and a massive 1,000-seat auditorium that serves as a hub for cultural and academic events. Beyond the classroom, SFGC emphasizes social responsibility and leadership through its active NCC and NSS units, as well as dedicated research centers like the Gandhi Study Centre. With a strong focus on placement through its dedicated cell, the college bridges the gap between academic learning and industry requirements, making it a highly sought-after destination for students in Southern India.</p>
         </div>
 
         <div class="about-section">
@@ -327,16 +269,13 @@ The campus is equipped with modern infrastructure, featuring state-of-the-art la
         <div class="about-section">
             <h2>About AICTE</h2>
             <img src="45368.png" alt="AICTE Logo" width="160">
-            <p>The All India Council for Technical Education (AICTE) is India's premier statutory body responsible for the strategic planning, regulation, and quality enhancement of the technical education system. Established in 1945 and later granted statutory status in 1987, it operates under the Ministry of Education to ensure that institutions offering programs in engineering, management, pharmacy, and architecture adhere to rigorous national standards.
-In 2026, AICTE has evolved beyond its traditional regulatory role to become a central "facilitator" of the Viksit Bharat @ 2047 vision, focusing heavily on industry-readiness and digital transformation. Key modern initiatives include the Project PRACTICE, which targets pedagogical reforms in 1,000 tier-2 and tier-3 colleges, and the mandatory integration of Artificial Intelligence across all engineering disciplines to ensure graduates are proficient in domain-specific AI applications. By managing national portals for internships, research fellowships, and the APAAR digital identity system, AICTE creates a unified ecosystem that bridges the gap between academic theory and global industrial requirements.</p>
+            <p>The All India Council for Technical Education (AICTE) is India's premier statutory body responsible for the strategic planning, regulation, and quality enhancement of the technical education system. Established in 1945 and later granted statutory status in 1987, it operates under the Ministry of Education to ensure that institutions offering programs in engineering, management, pharmacy, and architecture adhere to rigorous national standards. In 2026, AICTE has evolved beyond its traditional regulatory role to become a central "facilitator" of the Viksit Bharat @ 2047 vision, focusing heavily on industry-readiness and digital transformation. Key modern initiatives include the Project PRACTICE, which targets pedagogical reforms in 1,000 tier-2 and tier-3 colleges, and the mandatory integration of Artificial Intelligence across all engineering disciplines to ensure graduates are proficient in domain-specific AI applications. By managing national portals for internships, research fellowships, and the APAAR digital identity system, AICTE creates a unified ecosystem that bridges the gap between academic theory and global industrial requirements.</p>
         </div>
 
         <div class="about-section">
             <h2>Indian Knowledge Systems (IKS)</h2>
             <img src="45352.png" alt="IKS Logo" width="180">
-            <p>The Indian Knowledge System (IKS) is a sophisticated and holistic framework of indigenous knowledge that has evolved over millennia, seamlessly blending the spiritual with the scientific. Unlike fragmented modern disciplines, IKS approaches subjects like mathematics, metallurgy, linguistics, and medicine as interconnected parts of a larger cosmic order. From the pioneering concept of zero and the decimal system to the surgical precision found in the Sushruta Samhita, these traditions emphasize empirical observation rooted in a sustainable worldview. By integrating ancient wisdom—such as the grammatical logic of Panini or the ecological harmony of traditional water harvesting—with contemporary needs, IKS offers a unique "Indian way" to solve global challenges like mental health and climate change.
-A Modern Resurgence
-Today, IKS is transitioning from historical texts to classroom curriculum through the National Education Policy (NEP) 2020. This movement aims to foster a "decolonized mind," encouraging students to apply traditional ethical frameworks and logic to modern fields like AI, sustainable architecture, and holistic wellness.</p>
+            <p>The Indian Knowledge System (IKS) is a sophisticated and holistic framework of indigenous knowledge that has evolved over millennia, seamlessly blending the spiritual with the scientific. Unlike fragmented modern disciplines, IKS approaches subjects like mathematics, metallurgy, linguistics, and medicine as interconnected parts of a larger cosmic order. From the pioneering concept of zero and the decimal system to the surgical precision found in the Sushruta Samhita, these traditions emphasize empirical observation rooted in a sustainable worldview. By integrating ancient wisdom—such as the grammatical logic of Panini or the ecological harmony of traditional water harvesting—with contemporary needs, IKS offers a unique "Indian way" to solve global challenges like mental health and climate change. A Modern Resurgence Today, IKS is transitioning from historical texts to classroom curriculum through the National Education Policy (NEP) 2020. This movement aims to foster a "decolonized mind," encouraging students to apply traditional ethical frameworks and logic to modern fields like AI, sustainable architecture, and holistic wellness.</p>
         </div>
 
         <div class="about-section">
@@ -347,60 +286,16 @@ Today, IKS is transitioning from historical texts to classroom curriculum throug
         <div class="about-section">
             <h2>IKS Horizons 2025 (Conference)</h2>
             <img src="horizons.png" alt="IKS Horizons Logo" width="180">
-            <p>The International Conference – IKS Horizons 2025, organized by the Seshadripuram Research Foundation (SRF) at Seshadripuram First Grade College (SFGC), Yelahanka, stood out as a prestigious academic gathering that celebrated the integration of the Indian Knowledge System (IKS) with contemporary global scholarship. The conference served as a vibrant platform for academicians, researchers, and practitioners to engage in meaningful discussions across disciplines including Science, Technology, Humanities, Commerce, and Management.
-
-The conference was graced by the distinguished presence of the Chief Guest, Dr. Anil D. Sahasrabudhe Chairman of NETF/ EC-NAAC & NBA /Former Chairman, AICTE., whose inaugural address set a strong intellectual tone for the event. The Chief Guest emphasized the relevance of Indian knowledge traditions in addressing present-day global challenges and highlighted the need for interdisciplinary research rooted in indigenous wisdom. The keynote insights inspired participants to explore innovative research pathways while preserving the richness of India's intellectual heritage.
-
-IKS Horizons 2025 witnessed enthusiastic participation from over 250 delegates, featuring 120 research paper presentations and 80 poster presentations by scholars from reputed institutions across India and abroad. The sessions were marked by dynamic academic exchanges, thought-provoking presentations, and interactive discussions that enriched the research experience of all participants. The hybrid mode of the conference enabled broader outreach and inclusive participation.
-
-A major highlight of the conference was the launch of key academic initiatives, including the release of the e-conference proceedings, the introduction of a seshadripuram Global Journal Multilinguistic(SJGML) Research Journal, and the formal establishment of the IKS Forum at SFGC. These milestones reflect SRF's continued commitment to promoting research excellence, fostering interdisciplinary collaboration, and strengthening the academic ecosystem.
-
-Through the successful organization of IKS Horizons 2025, the Seshadripuram Research Foundation reaffirmed its vision of nurturing research that harmoniously blends tradition with innovation. The conference laid a strong foundation for future scholarly collaborations and reinforced SRF's role as a catalyst for knowledge creation and academic leadership.</p>
+            <p>The International Conference – IKS Horizons 2025, organized by the Seshadripuram Research Foundation (SRF) at Seshadripuram First Grade College (SFGC), Yelahanka, stood out as a prestigious academic gathering that celebrated the integration of the Indian Knowledge System (IKS) with contemporary global scholarship. The conference served as a vibrant platform for academicians, researchers, and practitioners to engage in meaningful discussions across disciplines including Science, Technology, Humanities, Commerce, and Management. The conference was graced by the distinguished presence of the Chief Guest, Dr. Anil D. Sahasrabudhe Chairman of NETF/ EC-NAAC & NBA /Former Chairman, AICTE., whose inaugural address set a strong intellectual tone for the event. The Chief Guest emphasized the relevance of Indian knowledge traditions in addressing present-day global challenges and highlighted the need for interdisciplinary research rooted in indigenous wisdom. The keynote insights inspired participants to explore innovative research pathways while preserving the richness of India's intellectual heritage. IKS Horizons 2025 witnessed enthusiastic participation from over 250 delegates, featuring 120 research paper presentations and 80 poster presentations by scholars from reputed institutions across India and abroad. The sessions were marked by dynamic academic exchanges, thought-provoking presentations, and interactive discussions that enriched the research experience of all participants. The hybrid mode of the conference enabled broader outreach and inclusive participation. A major highlight of the conference was the launch of key academic initiatives, including the release of the e-conference proceedings, the introduction of a seshadripuram Global Journal Multilinguistic(SJGML) Research Journal, and the formal establishment of the IKS Forum at SFGC. These milestones reflect SRF's continued commitment to promoting research excellence, fostering interdisciplinary collaboration, and strengthening the academic ecosystem. Through the successful organization of IKS Horizons 2025, the Seshadripuram Research Foundation reaffirmed its vision of nurturing research that harmoniously blends tradition with innovation. The conference laid a strong foundation for future scholarly collaborations and reinforced SRF's role as a catalyst for knowledge creation and academic leadership.</p>
         </div>
     </main>
 
     <footer><p>© All Copyrights Reserved 2026-27 <span class="footer-break">SFGC IKS FORUM - SRF INDIA</span></p></footer>
-    <script>function toggleMenu() { document.getElementById('nav-menu').classList.toggle('active'); }</script>
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } 
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
-// Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyAkoWeMnqL9sN-Ghxcwq1wye8iml06qBEg",
-  authDomain: "iks-portal.firebaseapp.com",
-  projectId: "iks-portal",
-  storageBucket: "iks-portal.firebasestorage.app",
-  messagingSenderId: "850853533746",
-  appId: "1:850853533746:web:a224e31b38d784f39a042b"
-};
-
-// Init
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-// Toggle navbar links
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        document.getElementById("loginLink").style.display = "none";
-        document.getElementById("registerLink").style.display = "none";
-        document.getElementById("dashboardLink").style.display = "inline";
-        document.getElementById("logoutLink").style.display = "inline";
-    } else {
-        document.getElementById("loginLink").style.display = "inline";
-        document.getElementById("registerLink").style.display = "inline";
-        document.getElementById("dashboardLink").style.display = "none";
-        document.getElementById("logoutLink").style.display = "none";
-    }
-});
-
-// Logout
-window.logout = function() {
-    signOut(auth).then(() => {
-        window.location.href = "index.html";
-    });
-}
-</script>
+    <script>
+        function toggleMenu() { 
+            document.getElementById('nav-menu').classList.toggle('active'); 
+        }
+    </script>
 </body>
 </html>
