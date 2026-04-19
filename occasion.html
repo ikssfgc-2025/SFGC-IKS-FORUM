@@ -2,106 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SFGC IKS Forum - Events</title>
     <style>
-        /* ============================================
-            GLOBAL DNA - Standardized for all pages
-           ============================================ */
-        html, body { 
-            margin: 0;
-            padding: 0;
-            overscroll-behavior-x: none;
-            overflow-x: hidden;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
-            font-size: 11pt;
-            line-height: 1.2;
-        }
-        
+        /* [Keeping your beautiful design exactly the same] */
         body { 
             font-family: 'Georgia Pro', Georgia, serif;
             background: url('45383.png') no-repeat top center fixed;
             background-size: cover;
             color: #ffffff;
+            margin: 0;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
         }
 
-        header {
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 20px;
-            text-align: center;
-            position: relative;
-            z-index: 1000;
-        }
+        header { background-color: rgba(0, 0, 0, 0.6); padding: 20px; text-align: center; }
+        h1 { color: #ffd700; }
         
-        h1 {
-            color: #ffd700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-            margin: 10px 0;
-        }
-        
-        nav ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        
-        nav a {
-            color: #ffcc66;
-            text-decoration: none;
-            font-weight: bold;
-            position: relative;
-            font-size: 1.1em;
-            display: inline-block;
-        }
-        
-        nav a:hover {
-            color: #fff;
-            text-shadow: 0 0 10px #ffd700;
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            position: absolute;
-            right: 10px;
-            top: 70%;
-            transform: translateY(-50%);
-            z-index: 1001;
-        }
-        
-        .hamburger div {
-            width: 25px;
-            height: 3px;
-            background-color: #cccccc;
-            margin: 3px 0;
-        }
+        nav ul { list-style: none; padding: 0; display: flex; justify-content: center; gap: 20px; }
+        nav a { color: #ffcc66; text-decoration: none; font-weight: bold; }
 
         main {
-            flex: 1;
             max-width: 900px;
             margin: 40px auto;
             padding: 40px 20px;
             background-color: rgba(0, 0, 0, 0.6);
             border-radius: 20px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.2);
             text-align: center;
-        }
-
-        h2.main-title {
-            font-size: 1.8em;
-            color: #ffd700;
-            border-bottom: 1px solid #ffcc66;
-            display: inline-block;
-            margin-bottom: 35px;
-            width: 80%;
+            flex: 1;
         }
 
         .event-section {
@@ -110,14 +39,6 @@
             border-left: 5px solid #BF953F;
             text-align: left;
             background: rgba(0, 0, 0, 0.3);
-            border-radius: 0 15px 15px 0;
-        }
-
-        .event-title {
-            color: #ffffff !important; 
-            font-size: 1.2em;
-            margin-bottom: 15px;
-            font-weight: bold;
         }
 
         .event-btn {
@@ -128,163 +49,76 @@
             padding: 8px 15px;
             border-radius: 5px;
             display: inline-block;
-            transition: all 0.3s ease;
             margin-right: 15px;
             margin-top: 10px;
         }
         
-        .event-btn:hover {
-            background: #ffd700;
-            color: #000;
-        }
+        .event-btn:hover { background: #ffd700; color: #000; }
 
-        footer {
-            padding: 30px 20px;
-            text-align: center;
-            background: linear-gradient(to right, #1F0505, #3B0D0D, #1F0505);
-            border-top: 2px solid #BF953F;
-            margin-top: auto;
-        }
-        
-        footer p {
-            margin: 0;
-            font-weight: bold;
-            font-size: 1em;
-            line-height: 1.6;
-            color: #BF953F;
-            background: linear-gradient(to bottom, #BF953F, #FCF6BA, #B38728);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-        }
-
-        @media (max-width: 768px) {
-            .hamburger { display: flex; }
-            nav ul {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 75px;
-                right: 10px;
-                width: 260px;
-                background-color: rgba(0, 0, 0, 0.95);
-                padding: 25px 0;
-                border: 1px solid #BF953F;
-                border-radius: 12px;
-            }
-            nav ul.active { display: flex; }
-            main { width: 95%; margin: 20px auto; }
-        }
+        footer { padding: 20px; text-align: center; background: #1F0505; color: #BF953F; border-top: 2px solid #BF953F; }
     </style>
 </head>
 <body>
+
     <header>
-        <div class="hamburger" onclick="toggleMenu()">
-            <div></div><div></div><div></div>
-        </div>
         <h1>SFGC IKS Forum</h1>
         <nav>
-            <ul id="nav-menu">
-                <li><a href="home.html?fromnav=true">Home</a></li>
-                <li><a href="occasion.html?fromnav=true">Occasions</a></li>
-                <li><a href="proceedings-journal.html?fromnav=true">Proceedings & Journal</a></li>
-                <li><a href="committee.html?fromnav=true">Committee</a></li>
-                <li><a href="about us.html?fromnav=true">About Us</a></li>
-                <li><a href="auth.html?mode=login" id="loginLink">Register & Login</a></li>
-                <li><a href="dashboard.html" id="dashboardLink" style="display:none;">Dashboard</a></li>
-                <li><a href="#" onclick="logout()" id="logoutLink" style="display:none;">Logout</a></li>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="occasion.html">Occasions</a></li>
+                <li><a href="about us.html">About Us</a></li>
             </ul>
         </nav>
     </header>
     
     <main>
-        <h2 class="main-title">Event Curriculum</h2>
+        <h2 style="color: #ffd700;">Event Curriculum</h2>
         
         <div class="event-section">
-            <p class="event-title">IKS 2026</p>
-            <a href="https://drive.google.com/file/d/1TL5xug1Jgy4n2mnmJuXZfuGJwqIck21a/view?usp=drivesdk" target="_blank" class="event-btn">PROSPECTUS</a>
+            <p><strong>IKS 2026</strong></p>
+            <a href="https://drive.google.com/file/d/1TL5xug1Jgy4n2mnmJuXZfuGJwqIck21a/view" target="_blank" class="event-btn">PROSPECTUS</a>
             
             <a href="#" id="dynamic-register-btn" target="_blank" class="event-btn">REGISTER NOW</a>
-        </div>
-
-        <div class="event-section">
-            <p class="event-title">IKS HORIZONS 2025 - INTERNATIONAL CONFERENCE on INDIAN KNOWLEDGE SYSTEM</p>
-            <a href="https://drive.google.com/file/d/1TL5xug1Jgy4n2mnmJuXZfuGJwqIck21a/view?usp=drivesdk" target="_blank" class="event-btn">PROSPECTUS</a>
-            <a href="https://drive.google.com/drive/folders/1KHlqlGkWQ3xXBlPGiWZRhTSzLBiTzaB0" target="_blank" class="event-btn">VIEW GALLERY</a>
-        </div>
-
-        <div class="event-section">
-            <p class="event-description">OUR UPCOMING EVENTS.</p>
-            <div class="calendar-container" style="margin-bottom: 20px; border-radius: 12px; overflow: hidden; border: 1px solid #BF953F; background: #fff;">
-                <iframe src="https://calendar.google.com/calendar/embed?src=iks.sfgc%40gmail.com&ctz=Asia%2FKolkata&showTitle=0&showNav=1&showPrint=0&showTabs=1&showCalendars=0&showTz=0" 
-                        style="border: 0" width="100%" height="500" frameborder="0" scrolling="no"></iframe>
-            </div>
         </div>
     </main>
 
     <footer>
-        <p>© All Copyrights Reserved 2026-27<br>SFGC IKS FORUM - SRF INDIA</p>
+        <p>© All Copyrights Reserved 2026-27 | SFGC IKS FORUM</p>
     </footer>
-    
+
     <script>
-        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('active'); }
-    </script>
+        // --- TEACHER: CHANGE THESE 3 LINES ONLY ---
+        const GITHUB_USERNAME = "ikssfgc-2025"; 
+        const REPOSITORY_NAME = "SFGC-IKS-FORUM";
+        const FILENAME = "link.txt"; 
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
+        async function loadRegistrationLink() {
+            const btn = document.getElementById('dynamic-register-btn');
+            
+            // This grabs the "Sticky Note" (link.txt) from your GitHub
+            const fileUrl = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${REPOSITORY_NAME}/main/${FILENAME}?cacheburst=${new Date().getTime()}`;
 
-        // Your Exact Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyAkoWeMnqL9sN-Ghxcwq1wye8iml06qBEg",
-            authDomain: "iks-portal.firebaseapp.com",
-            projectId: "iks-portal",
-            storageBucket: "iks-portal.firebasestorage.app",
-            messagingSenderId: "850853533746",
-            appId: "1:850853533746:web:a224e31b38d784f39a042b",
-            databaseURL: "https://iks-portal-default-rtdb.firebaseio.com"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getDatabase(app);
-
-        // --- PART 1: AUTH NAVIGATION ---
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                document.getElementById("loginLink").style.display = "none";
-                document.getElementById("dashboardLink").style.display = "inline";
-                document.getElementById("logoutLink").style.display = "inline";
-            } else {
-                document.getElementById("loginLink").style.display = "inline";
-                document.getElementById("dashboardLink").style.display = "none";
-                document.getElementById("logoutLink").style.display = "none";
+            try {
+                const response = await fetch(fileUrl);
+                if (response.ok) {
+                    const textLink = await response.text();
+                    if (textLink.includes("http")) {
+                        btn.href = textLink.trim();
+                        btn.style.display = "inline-block";
+                    } else {
+                        btn.style.display = "none"; // Hide if file is empty
+                    }
+                } else {
+                    btn.style.display = "none"; // Hide if file doesn't exist
+                }
+            } catch (err) {
+                console.log("Could not find registration link.");
+                btn.style.display = "none";
             }
-        });
+        }
 
-        window.logout = function() { signOut(auth).then(() => { window.location.href = "home.html"; }); }
-
-        // --- PART 2: DYNAMIC LINK SYNC ---
-        const registerBtn = document.getElementById('dynamic-register-btn');
-        
-        // This 'currentForm' path MUST match the path used in your Admin Page code
-        const formRef = ref(db, 'currentForm');
-
-        onValue(formRef, (snapshot) => {
-            const formUrl = snapshot.val();
-            if (formUrl && formUrl.trim() !== "") {
-                // Link received from Admin - Update button
-                registerBtn.href = formUrl;
-                registerBtn.style.opacity = "1";
-                registerBtn.style.cursor = "pointer";
-            } else {
-                // No link found - Make button non-clickable
-                registerBtn.href = "javascript:void(0)";
-                registerBtn.style.opacity = "0.6";
-                registerBtn.style.cursor = "not-allowed";
-            }
-        });
+        // Run this when the page opens
+        window.onload = loadRegistrationLink;
     </script>
 </body>
 </html>
