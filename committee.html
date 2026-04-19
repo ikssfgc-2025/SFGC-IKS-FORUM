@@ -124,7 +124,6 @@
         /* MOBILE STYLES */
         @media (max-width: 768px) {
             .hamburger { display: flex; }
-            
             nav ul { 
                 display: none; 
                 flex-direction: column; 
@@ -139,28 +138,15 @@
                 box-shadow: 0 10px 40px rgba(0,0,0,0.8); 
                 z-index: 2000; 
             }
-            
             nav ul.active { display: flex; }
             nav ul li { margin: 15px 0; width: 100%; text-align: center; }
-            nav a { font-size: 1.2em; }
-            
-            main {
-                padding: 20px 15px;
-                margin: 20px auto;
-                width: 95%;
-            }
-            
-            .committee-section {
-                padding: 15px;
-            }
-            
-            footer p { font-size: 1.1em; line-height: 1.4; }
+            main { padding: 20px 15px; margin: 20px auto; width: 95%; }
         }
     </style>
 </head>
 <body>
 
-    <header>
+<header>
     <div class="hamburger" onclick="toggleMenu()">
         <div></div>
         <div></div>
@@ -171,24 +157,19 @@
 
     <nav>
         <ul id="nav-menu">
-            <li><a href="home.html?fromnav=true">Home</a></li>
-            <li><a href="occasion.html?fromnav=true">Occasions</a></li>
-            <li><a href="proceedings-journal.html?fromnav=true">Proceedings & Journal</a></li>
-            <li><a href="committee.html?fromnav=true">Committee</a></li>
-            <li><a href="about us.html?fromnav=true">About Us</a></li>
-
-            <!-- AUTH LINKS -->
-            <li><a href="auth.html" id="loginLink">Register & Login</a></li>
-            <li><a href="dashboard.html" id="dashboardLink" style="display:none;">Dashboard</a></li>
-            <li><a href="#" onclick="logout()" id="logoutLink" style="display:none;">Logout</a></li>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="occasion.html">Occasions</a></li>
+            <li><a href="proceedings-journal.html">Proceedings & Journal</a></li>
+            <li><a href="committee.html">Committee</a></li>
+            <li><a href="about us.html">About Us</a></li>
         </ul>
     </nav>
 </header>
 
-    <main>
-        <h2 class="main-title">BOARD OF EXECUTIVES</h2>
+<main>
+    <h2 class="main-title">BOARD OF EXECUTIVES</h2>
 
-        <div class="committee-section">
+    <div class="committee-section">
             <h3>Chief Patrons</h3>
             <div class="member-box">
                 <span class="member-name">
@@ -467,53 +448,12 @@
         </div>
     </main>
 
-    <footer><p>© All Copyrights Reserved 2026-27 <span class="footer-break">SFGC IKS FORUM - SRF INDIA</span></p></footer>
+<footer><p>© All Copyrights Reserved 2026-27 <span class="footer-break">SFGC IKS FORUM - SRF INDIA</span></p></footer>
 
-    <script>
-        function toggleMenu() { 
-            document.getElementById('nav-menu').classList.toggle('active'); 
-        }
-    </script>
- <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } 
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-
-// Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyAkoWeMnqL9sN-Ghxcwq1wye8iml06qBEg",
-  authDomain: "iks-portal.firebaseapp.com",
-  projectId: "iks-portal",
-  storageBucket: "iks-portal.firebasestorage.app",
-  messagingSenderId: "850853533746",
-  appId: "1:850853533746:web:a224e31b38d784f39a042b"
-};
-
-// Init
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-// Toggle navbar links
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        document.getElementById("loginLink").style.display = "none";
-        document.getElementById("registerLink").style.display = "none";
-        document.getElementById("dashboardLink").style.display = "inline";
-        document.getElementById("logoutLink").style.display = "inline";
-    } else {
-        document.getElementById("loginLink").style.display = "inline";
-        document.getElementById("registerLink").style.display = "inline";
-        document.getElementById("dashboardLink").style.display = "none";
-        document.getElementById("logoutLink").style.display = "none";
+<script>
+    function toggleMenu() { 
+        document.getElementById('nav-menu').classList.toggle('active'); 
     }
-});
-
-// Logout
-window.logout = function() {
-    signOut(auth).then(() => {
-        window.location.href = "index.html";
-    });
-}
 </script>
 </body>
 </html>
