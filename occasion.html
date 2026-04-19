@@ -235,6 +235,7 @@
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
 
+        // Your Exact Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyAkoWeMnqL9sN-Ghxcwq1wye8iml06qBEg",
             authDomain: "iks-portal.firebaseapp.com",
@@ -249,7 +250,7 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        // 1. Navbar Auth
+        // --- PART 1: AUTH NAVIGATION ---
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 document.getElementById("loginLink").style.display = "none";
@@ -264,20 +265,24 @@
 
         window.logout = function() { signOut(auth).then(() => { window.location.href = "home.html"; }); }
 
-        // 2. CONNECT REGISTER BUTTON TO ADMIN DATA
+        // --- PART 2: DYNAMIC LINK SYNC ---
         const registerBtn = document.getElementById('dynamic-register-btn');
+        
+        // This 'currentForm' path MUST match the path used in your Admin Page code
         const formRef = ref(db, 'currentForm');
 
         onValue(formRef, (snapshot) => {
             const formUrl = snapshot.val();
             if (formUrl && formUrl.trim() !== "") {
+                // Link received from Admin - Update button
                 registerBtn.href = formUrl;
                 registerBtn.style.opacity = "1";
-                registerBtn.style.pointerEvents = "auto";
+                registerBtn.style.cursor = "pointer";
             } else {
-                // If no link is in admin, button stays but doesn't go anywhere
+                // No link found - Make button non-clickable
                 registerBtn.href = "javascript:void(0)";
-                registerBtn.style.opacity = "0.5";
+                registerBtn.style.opacity = "0.6";
+                registerBtn.style.cursor = "not-allowed";
             }
         });
     </script>
