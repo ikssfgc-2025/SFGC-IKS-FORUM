@@ -2,60 +2,95 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>SFGC IKS Forum - Events</title>
     <style>
-        /* [Keeping your beautiful design exactly the same] */
+        /* ============================================
+            GLOBAL DNA - Standardized for all pages
+           ============================================ */
+        html, body { 
+            margin: 0; padding: 0;
+            overscroll-behavior-x: none;
+            overflow-x: hidden;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            font-size: 11pt;
+            line-height: 1.2;
+        }
+        
         body { 
             font-family: 'Georgia Pro', Georgia, serif;
             background: url('45383.png') no-repeat top center fixed;
             background-size: cover;
             color: #ffffff;
-            margin: 0;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
         }
 
-        header { background-color: rgba(0, 0, 0, 0.6); padding: 20px; text-align: center; }
-        h1 { color: #ffd700; }
+        header {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1000;
+        }
         
-        nav ul { list-style: none; padding: 0; display: flex; justify-content: center; gap: 20px; }
-        nav a { color: #ffcc66; text-decoration: none; font-weight: bold; }
+        h1 { color: #ffd700; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); margin: 10px 0; }
+        
+        nav ul {
+            list-style: none; padding: 0;
+            display: flex; justify-content: center;
+            flex-wrap: wrap; gap: 20px;
+        }
+        
+        nav a {
+            color: #ffcc66; text-decoration: none;
+            font-weight: bold; font-size: 1.1em;
+        }
 
         main {
+            flex: 1;
             max-width: 900px;
             margin: 40px auto;
             padding: 40px 20px;
             background-color: rgba(0, 0, 0, 0.6);
             border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
             text-align: center;
-            flex: 1;
+        }
+
+        h2.main-title {
+            font-size: 1.8em; color: #ffd700;
+            border-bottom: 1px solid #ffcc66;
+            display: inline-block; margin-bottom: 35px; width: 80%;
         }
 
         .event-section {
-            margin-bottom: 30px;
-            padding: 25px;
+            margin-bottom: 30px; padding: 25px;
             border-left: 5px solid #BF953F;
-            text-align: left;
-            background: rgba(0, 0, 0, 0.3);
+            text-align: left; background: rgba(0, 0, 0, 0.3);
+            border-radius: 0 15px 15px 0;
         }
 
+        .event-title { color: #ffffff !important; font-size: 1.2em; font-weight: bold; margin-bottom: 15px; }
+
         .event-btn {
-            color: #ffd700;
-            font-weight: bold;
-            text-decoration: none;
-            border: 1px solid #ffd700;
-            padding: 8px 15px;
-            border-radius: 5px;
-            display: inline-block;
-            margin-right: 15px;
-            margin-top: 10px;
+            color: #ffd700; font-weight: bold; text-decoration: none;
+            border: 1px solid #ffd700; padding: 8px 15px;
+            border-radius: 5px; display: inline-block;
+            transition: all 0.3s ease; margin-right: 15px; margin-top: 10px;
         }
         
         .event-btn:hover { background: #ffd700; color: #000; }
 
-        footer { padding: 20px; text-align: center; background: #1F0505; color: #BF953F; border-top: 2px solid #BF953F; }
+        footer {
+            padding: 30px 20px; text-align: center;
+            background: linear-gradient(to right, #1F0505, #3B0D0D, #1F0505);
+            border-top: 2px solid #BF953F; margin-top: auto;
+        }
+        
+        footer p { color: #BF953F; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -66,59 +101,63 @@
             <ul>
                 <li><a href="home.html">Home</a></li>
                 <li><a href="occasion.html">Occasions</a></li>
+                <li><a href="committee.html">Committee</a></li>
                 <li><a href="about us.html">About Us</a></li>
             </ul>
         </nav>
     </header>
     
     <main>
-        <h2 style="color: #ffd700;">Event Curriculum</h2>
+        <h2 class="main-title">Event Curriculum</h2>
         
         <div class="event-section">
-            <p><strong>IKS 2026</strong></p>
+            <p class="event-title">IKS 2026</p>
             <a href="https://drive.google.com/file/d/1TL5xug1Jgy4n2mnmJuXZfuGJwqIck21a/view" target="_blank" class="event-btn">PROSPECTUS</a>
             
             <a href="#" id="dynamic-register-btn" target="_blank" class="event-btn">REGISTER NOW</a>
         </div>
+
+        <div class="event-section">
+            <p class="event-title">IKS HORIZONS 2025</p>
+            <a href="https://drive.google.com/file/d/1TL5xug1Jgy4n2mnmJuXZfuGJwqIck21a/view" target="_blank" class="event-btn">PROSPECTUS</a>
+            <a href="https://drive.google.com/drive/folders/..." target="_blank" class="event-btn">VIEW GALLERY</a>
+        </div>
     </main>
 
     <footer>
-        <p>© All Copyrights Reserved 2026-27 | SFGC IKS FORUM</p>
+        <p>© All Copyrights Reserved 2026-27<br>SFGC IKS FORUM - SRF INDIA</p>
     </footer>
 
     <script>
-        // --- TEACHER: CHANGE THESE 3 LINES ONLY ---
-        const GITHUB_USERNAME = "ikssfgc-2025"; 
-        const REPOSITORY_NAME = "SFGC-IKS-FORUM";
-        const FILENAME = "link.txt"; 
+        // CONFIGURATION
+        const GITHUB_USER = "ikssfgc-2025"; 
+        const REPO_NAME = "SFGC-IKS-FORUM";
+        const FILE_NAME = "link.txt"; 
 
-        async function loadRegistrationLink() {
+        async function syncLink() {
             const btn = document.getElementById('dynamic-register-btn');
-            
-            // This grabs the "Sticky Note" (link.txt) from your GitHub
-            const fileUrl = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${REPOSITORY_NAME}/main/${FILENAME}?cacheburst=${new Date().getTime()}`;
+            // Adding a random number at the end (?v=...) forces the browser to check for the NEW link
+            const fetchUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${REPO_NAME}/main/${FILE_NAME}?v=${Math.random()}`;
 
             try {
-                const response = await fetch(fileUrl);
+                const response = await fetch(fetchUrl);
                 if (response.ok) {
-                    const textLink = await response.text();
-                    if (textLink.includes("http")) {
-                        btn.href = textLink.trim();
+                    const latestLink = await response.text();
+                    if (latestLink.trim().startsWith("http")) {
+                        btn.href = latestLink.trim();
                         btn.style.display = "inline-block";
                     } else {
-                        btn.style.display = "none"; // Hide if file is empty
+                        btn.style.display = "none"; // Hide if link is invalid
                     }
                 } else {
-                    btn.style.display = "none"; // Hide if file doesn't exist
+                    btn.style.display = "none"; // Hide if link.txt is missing
                 }
             } catch (err) {
-                console.log("Could not find registration link.");
                 btn.style.display = "none";
             }
         }
 
-        // Run this when the page opens
-        window.onload = loadRegistrationLink;
+        window.onload = syncLink;
     </script>
 </body>
 </html>
