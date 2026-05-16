@@ -3,269 +3,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>SFGC IKS Forum - Proceedings & Journal</title>
+    <title>SFGC IKS Forum - Proceedings &amp; Journal</title>
     <style>
-        /* ============================================
-           GLOBAL SETTINGS
-           ============================================ */
         html, body {
-            margin: 0;
-            padding: 0;
-            overscroll-behavior-x: none;
-            overflow-x: hidden;
+            margin: 0; padding: 0;
+            overscroll-behavior-x: none; overflow-x: hidden;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
             text-rendering: optimizeLegibility;
-            font-size: 11pt;
-            line-height: 1.2;
+            font-size: 11pt; line-height: 1.2;
         }
-
         body {
             font-family: 'Georgia Pro', Georgia, serif;
             background: url('45383.png') no-repeat top center fixed;
+            background-color: #1a0a00;
             background-size: cover;
             color: #fdf5e6;
-            display: flex;
-            flex-direction: column;
+            display: flex; flex-direction: column;
         }
 
         /* ============================================
-           HEADER & NAVIGATION
+           UNIFORM HEADER & NAV
            ============================================ */
         header {
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.75);
+            padding: 16px 20px 14px;
             text-align: center;
             position: relative;
             z-index: 1000;
         }
-
+        .header-logo-wrap {
+            display: flex; align-items: center;
+            justify-content: center; gap: 14px;
+            margin-bottom: 10px;
+        }
+        .header-logo-wrap img {
+            width: 54px; height: 54px;
+            object-fit: contain; display: block; border-radius: 6px;
+        }
         h1 {
             color: #ffd700;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-            margin: 10px 0;
+            margin: 0; font-size: 1.6em; letter-spacing: 1px;
         }
-
+        nav { margin-top: 10px; }
         nav ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
+            list-style: none; padding: 0; margin: 0;
+            display: flex; justify-content: center;
+            flex-wrap: wrap; gap: 20px;
         }
-
+        nav ul li { margin: 0; }
         nav a {
-            color: #ffcc66;
-            text-decoration: none;
-            font-weight: bold;
-            position: relative;
+            color: #ffcc66; text-decoration: none;
+            font-weight: bold; position: relative;
             font-size: 1.1em;
             font-family: 'Georgia Pro', Georgia, serif;
-            display: inline-block;
+            display: inline-block; padding-bottom: 2px;
         }
-
         nav a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: #ffd700;
-            transition: width 0.3s ease;
+            content: ''; position: absolute;
+            width: 0; height: 2px; bottom: -4px; left: 0;
+            background-color: #ffd700; transition: width 0.3s ease;
         }
-
         nav a:hover::after { width: 100%; }
         nav a:hover { color: #fff; text-shadow: 0 0 10px #ffd700; }
-
+        nav a.active { color: #fff; }
+        nav a.active::after { width: 100%; }
         .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            position: absolute;
-            right: 10px;
-            top: 70%;
-            transform: translateY(-50%);
-            z-index: 1001;
+            display: none; flex-direction: column; cursor: pointer;
+            position: absolute; right: 14px; top: 50%;
+            transform: translateY(-50%); z-index: 1001; padding: 4px;
         }
-
         .hamburger div {
-            width: 25px;
-            height: 3px;
-            background-color: #cccccc;
-            margin: 3px 0;
+            width: 25px; height: 3px; background-color: #cccccc;
+            margin: 4px 0; border-radius: 2px; transition: background-color 0.2s;
         }
+        .hamburger:hover div { background-color: #ffd700; }
 
         /* ============================================
            MAIN CONTENT
            ============================================ */
         main {
-            flex: 1;
-            max-width: 900px;
-            margin: 40px auto;
+            flex: 1; max-width: 900px; margin: 40px auto;
             padding: 40px 20px;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0,0,0,0.5);
             border-radius: 20px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0,0,0,0.8), 0 0 20px rgba(255,215,0,0.2);
             text-align: center;
         }
-
         h2.main-title {
-            color: #ffd700;
-            border-bottom: 1px solid #ffcc66;
-            display: inline-block;
-            margin-bottom: 35px;
-            width: 80%;
-            font-size: 1.8em;
+            color: #ffd700; border-bottom: 1px solid #ffcc66;
+            display: inline-block; margin-bottom: 35px;
+            width: 80%; font-size: 1.8em;
         }
-
         .info-section {
-            margin-bottom: 30px;
-            padding: 25px;
+            margin-bottom: 30px; padding: 25px;
             border-left: 5px solid #BF953F;
-            text-align: left;
-            background: rgba(0, 0, 0, 0.3);
+            text-align: left; background: rgba(0,0,0,0.3);
             border-radius: 0 15px 15px 0;
         }
-
         .section-title {
-            color: #ffd700;
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 1.4em;
-            letter-spacing: 1px;
+            color: #ffd700; margin-top: 0; margin-bottom: 15px;
+            font-size: 1.4em; letter-spacing: 1px;
         }
-
         .section-text {
-            display: block;
-            color: #fdf5e6;
-            font-size: 1.05em;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            opacity: 0.95;
+            display: block; color: #fdf5e6;
+            font-size: 1.05em; line-height: 1.7;
+            margin-bottom: 20px; opacity: 0.95;
         }
-
         .action-link {
-            color: #ffd700;
-            font-weight: bold;
-            text-decoration: none;
-            border: 1px solid #ffd700;
-            padding: 10px 20px;
-            border-radius: 5px;
-            display: inline-block;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            font-size: 0.9em;
-            letter-spacing: 1px;
+            color: #ffd700; font-weight: bold; text-decoration: none;
+            border: 1px solid #ffd700; padding: 10px 20px;
+            border-radius: 5px; display: inline-block;
+            transition: all 0.3s ease; text-transform: uppercase;
+            font-size: 0.9em; letter-spacing: 1px;
+            font-family: 'Georgia Pro', Georgia, serif;
         }
-
         .action-link:hover {
-            background: #ffd700;
-            color: #000;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+            background: #ffd700; color: #000;
+            box-shadow: 0 0 10px rgba(255,215,0,0.4);
         }
 
         /* ============================================
            FOOTER
            ============================================ */
         footer {
-            padding: 30px 20px;
-            text-align: center;
+            padding: 30px 20px; text-align: center;
             background: linear-gradient(to right, #1F0505, #3B0D0D, #1F0505);
-            border-top: 2px solid #BF953F;
-            margin-top: auto;
+            border-top: 2px solid #BF953F; margin-top: auto;
         }
-
         footer p {
-            margin: 0;
-            font-weight: bold;
-            font-size: 1em;
-            line-height: 1.6;
-            color: #BF953F;
+            margin: 0; font-weight: bold; font-size: 1em; line-height: 1.6;
             background: linear-gradient(to bottom, #BF953F, #FCF6BA, #B38728);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             display: inline-block;
         }
-
         .footer-break { display: block; margin-top: 5px; }
 
+        /* ============================================
+           MOBILE
+           ============================================ */
         @media (max-width: 768px) {
             .hamburger { display: flex; }
             nav ul {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 75px;
-                right: 10px;
-                width: 260px;
-                background-color: rgba(0, 0, 0, 0.95);
-                padding: 25px 0;
-                border: 1px solid #BF953F;
+                display: none; flex-direction: column;
+                position: absolute; top: 100%; right: 10px;
+                width: 260px; background-color: rgba(0,0,0,0.97);
+                padding: 20px 0; border: 1px solid #BF953F;
                 border-radius: 12px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.9);
                 z-index: 2000;
             }
             nav ul.active { display: flex; }
-            main { width: 95%; padding: 20px 15px; }
+            nav ul li {
+                margin: 0; width: 100%; text-align: center;
+                padding: 10px 0;
+                border-bottom: 1px solid rgba(191,149,63,0.15);
+            }
+            nav ul li:last-child { border-bottom: none; }
+            nav a {
+                font-size: 1.1em;
+                font-family: 'Georgia Pro', Georgia, serif;
+                font-weight: bold; color: #ffcc66;
+                display: inline-block; padding: 0 10px;
+            }
+            nav a::after { display: none; }
+            nav a:hover, nav a.active { color: #ffd700; text-shadow: 0 0 8px rgba(255,215,0,0.5); }
+            h1 { font-size: 1.3em; }
+            .header-logo-wrap img { width: 42px; height: 42px; }
+            main { width: 92%; padding: 20px 15px; margin: 20px auto; }
             h2.main-title { font-size: 1.5em; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="hamburger" onclick="toggleMenu()">
-            <div></div><div></div><div></div>
-        </div>
+<header>
+    <div class="hamburger" onclick="toggleMenu()">
+        <div></div><div></div><div></div>
+    </div>
+    <div class="header-logo-wrap">
+        <img src="44967.png" alt="SFGC Logo">
         <h1>SFGC IKS Forum</h1>
-        <nav>
-            <ul id="nav-menu">
-                <li><a href="home.html">Home</a></li>
-                <li><a href="occasion.html">Occasions</a></li>
-                <li><a href="proceedings-journal.html">Proceedings & Journal</a></li>
-                <li><a href="committee.html">Committee</a></li>
-                <li><a href="about us.html">About Us</a></li>
-            </ul>
-        </nav>
-    </header>
+    </div>
+    <nav>
+        <ul id="nav-menu">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="occasion.html">Occasions</a></li>
+            <li><a href="proceedings-journal.html" class="active">Proceedings &amp; Journal</a></li>
+            <li><a href="committee.html">Committee</a></li>
+            <li><a href="about_us.html">About Us</a></li>
+        </ul>
+    </nav>
+</header>
 
-    <main>
-        <h2 class="main-title">Proceedings & Journal</h2>
+<main>
+    <h2 class="main-title">Proceedings &amp; Journal</h2>
 
-        <div class="info-section">
-            <h3 class="section-title">Conference Proceedings</h3>
-            <span class="section-text">
-                Access the proceedings from our past conferences on Indian Knowledge Systems. 
-                These documents include peer-reviewed research papers, keynote presentations, 
-                and detailed discussions from experts in Ayurveda, Sanskrit, and ancient Indian sciences.
-            </span>
-            <a href="https://zenodo.org/records/17774153" target="_blank" class="action-link">
-                View Proceedings
-            </a>
-        </div>
+    <div class="info-section">
+        <h3 class="section-title">Conference Proceedings</h3>
+        <span class="section-text">
+            Access the proceedings from our past conferences on Indian Knowledge Systems.
+            These documents include peer-reviewed research papers, keynote presentations,
+            and detailed discussions from experts in Ayurveda, Sanskrit, and ancient Indian sciences.
+        </span>
+        <a href="https://zenodo.org/records/17774153" target="_blank" class="action-link">View Proceedings</a>
+    </div>
 
-        <div class="info-section">
-            <h3 class="section-title">SJSS Journal</h3>
-            <span class="section-text">
-                The Seshadripuram Journal of Social Sciences (SJSS) publishes interdisciplinary 
-                research focused on IKS, Yoga, Mathematics, and Cultural Heritage. 
-                Our journal provides a platform for scholars to bridge traditional wisdom with 
-                contemporary scientific inquiry.
-            </span>
-            <a href="https://srf.set.edu.in/journal-issue" target="_blank" class="action-link">
-                View Latest Issue
-            </a>
-        </div>
-    </main>
+    <div class="info-section">
+        <h3 class="section-title">SJSS Journal</h3>
+        <span class="section-text">
+            The Seshadripuram Journal of Social Sciences (SJSS) publishes interdisciplinary
+            research focused on IKS, Yoga, Mathematics, and Cultural Heritage.
+            Our journal provides a platform for scholars to bridge traditional wisdom with
+            contemporary scientific inquiry.
+        </span>
+        <a href="https://srf.set.edu.in/journal-issue" target="_blank" class="action-link">View Latest Issue</a>
+    </div>
+</main>
 
-    <footer>
-        <p>© All Copyrights Reserved 2026-27 <span class="footer-break">SFGC IKS FORUM - SRF INDIA</span></p>
-    </footer>
+<footer>
+    <p>© All Copyrights Reserved 2026-27 <span class="footer-break">SFGC IKS FORUM - SRF INDIA</span></p>
+</footer>
 
-    <script>
-        function toggleMenu() {
-            document.getElementById('nav-menu').classList.toggle('active');
+<script>
+    function toggleMenu() {
+        document.getElementById('nav-menu').classList.toggle('active');
+    }
+    document.addEventListener('click', function(e) {
+        const menu = document.getElementById('nav-menu');
+        const hamburger = document.querySelector('.hamburger');
+        if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
+            menu.classList.remove('active');
         }
-    </script>
+    });
+</script>
 </body>
 </html>
