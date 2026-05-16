@@ -2,318 +2,365 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Committee - SFGC Hackathon 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>SFGC IKS Forum - Committee</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        html, body {
+            margin: 0; padding: 0;
+            overscroll-behavior-x: none; overflow-x: hidden;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            font-size: 11pt; line-height: 1.2;
         }
-
         body {
-            background: #020412;
-            color: white;
-            font-family: 'Georgia', serif;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
+            font-family: 'Georgia Pro', Georgia, serif;
+            background: url('45383.png') no-repeat top center fixed;
+            background-color: #1a0a00;
+            background-size: cover;
+            color: #fdf5e6;
+            display: flex; flex-direction: column;
         }
 
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 25px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(2, 4, 18, 0.95);
+        /* ============================================
+           UNIFORM HEADER & NAV
+           ============================================ */
+        header {
+            background-color: rgba(0, 0, 0, 0.75);
+            padding: 16px 20px 14px;
+            text-align: center;
+            position: relative;
             z-index: 1000;
-            font-family: 'Exo 2', sans-serif;
-            border-bottom: 1px solid rgba(0, 234, 255, 0.3);
         }
-
-        .logo {
-            color: #00eaff;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: bold;
-            font-size: 24px;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            color: #cfefff;
-            text-decoration: none;
-            font-size: 18px;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: #00eaff;
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border: 2px solid #00eaff;
-            border-radius: 8px;
-            background: rgba(0, 234, 255, 0.08);
-            backdrop-filter: blur(6px);
-            box-shadow: 0 0 15px rgba(0, 234, 255, 0.5);
-            transition: 0.3s ease;
-        }
-
-        .hamburger:hover {
-            transform: scale(1.08);
-            box-shadow: 0 0 25px #00eaff;
-        }
-
-        .hamburger div {
-            width: 20px;
-            height: 2.5px;
-            background: #00eaff;
-            margin: 3px 0;
-            border-radius: 4px;
-            transition: 0.3s;
-        }
-
-        .container {
-            max-width: 950px;
-            margin: 0 auto;
-            padding: 120px 20px 60px;
-        }
-
-        .sub-section {
-            background: rgba(0, 234, 255, 0.05);
-            border: 1px solid rgba(0, 234, 255, 0.2);
-            border-left: 5px solid #00eaff;
-            padding: 40px;
-            border-radius: 15px;
-            margin-bottom: 60px;
-            backdrop-filter: blur(8px);
-            text-align: center;
-        }
-
-        .sub-section h2 {
-            font-family: 'Exo 2', sans-serif;
-            color: #00eaff;
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
-
-        .committee-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .committee-member {
-            background: rgba(0, 234, 255, 0.1);
-            border: 1px solid #00eaff;
-            border-radius: 12px;
-            padding: 25px;
-            width: 250px;
-        }
-
-        .committee-member h3 {
-            font-family: 'Exo 2', sans-serif;
-            color: #00eaff;
+        .header-logo-wrap {
+            display: flex; align-items: center;
+            justify-content: center; gap: 14px;
             margin-bottom: 10px;
-            font-size: 18px;
         }
-
-        .committee-member p {
-            font-family: 'Georgia', serif;
-            color: #cfefff;
-            font-size: 15px;
+        .header-logo-wrap img {
+            width: 54px; height: 54px;
+            object-fit: contain; display: block; border-radius: 6px;
         }
+        h1 {
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            margin: 0; font-size: 1.6em; letter-spacing: 1px;
+        }
+        nav { margin-top: 10px; }
+        nav ul {
+            list-style: none; padding: 0; margin: 0;
+            display: flex; justify-content: center;
+            flex-wrap: wrap; gap: 20px;
+        }
+        nav ul li { margin: 0; }
+        nav a {
+            color: #ffcc66; text-decoration: none;
+            font-weight: bold; position: relative;
+            font-size: 1.1em;
+            font-family: 'Georgia Pro', Georgia, serif;
+            display: inline-block; padding-bottom: 2px;
+        }
+        nav a::after {
+            content: ''; position: absolute;
+            width: 0; height: 2px; bottom: -4px; left: 0;
+            background-color: #ffd700; transition: width 0.3s ease;
+        }
+        nav a:hover::after { width: 100%; }
+        nav a:hover { color: #fff; text-shadow: 0 0 10px #ffd700; }
+        nav a.active { color: #fff; }
+        nav a.active::after { width: 100%; }
+        .hamburger {
+            display: none; flex-direction: column; cursor: pointer;
+            position: absolute; right: 14px; top: 50%;
+            transform: translateY(-50%); z-index: 1001; padding: 4px;
+        }
+        .hamburger div {
+            width: 25px; height: 3px; background-color: #cccccc;
+            margin: 4px 0; border-radius: 2px; transition: background-color 0.2s;
+        }
+        .hamburger:hover div { background-color: #ffd700; }
 
-        footer {
+        /* ============================================
+           MAIN CONTENT
+           ============================================ */
+        main {
+            flex: 1; max-width: 900px; margin: 40px auto;
+            padding: 40px 20px;
+            background-color: rgba(0,0,0,0.5);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0,0,0,0.8), 0 0 20px rgba(255,215,0,0.2);
             text-align: center;
-            padding: 40px;
-            border-top: 1px solid rgba(0, 234, 255, 0.2);
-            font-size: 14px;
+        }
+        h2.main-title {
+            font-size: 1.8em; color: #ffd700;
+            border-bottom: 1px solid #ffcc66;
+            display: inline-block; margin-bottom: 35px; width: 100%;
+        }
+        .committee-section {
+            margin-bottom: 50px; padding: 25px;
+            border-left: 4px solid #BF953F;
+            text-align: left; background: rgba(0,0,0,0.25);
+            border-radius: 0 15px 15px 0;
+        }
+        h3 {
+            color: #ffd700; margin-top: 0; margin-bottom: 25px;
+            font-size: 1.3em;
+            border-bottom: 1px solid rgba(255,215,0,0.2);
+            padding-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .member-box { margin-bottom: 20px; }
+        .member-name {
+            display: block; color: #ffd700;
+            font-weight: bold; font-size: 1.15em; margin-bottom: 2px;
+        }
+        .member-name a { color: #ffd700; text-decoration: none; }
+        .member-name a:hover { text-decoration: underline; color: #fff; }
+        .member-post {
+            display: block; color: #fdf5e6;
+            font-size: 0.95em; opacity: 0.85; line-height: 1.5;
         }
 
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            padding: 30px 20px; text-align: center;
+            background: linear-gradient(to right, #1F0505, #3B0D0D, #1F0505);
+            border-top: 2px solid #BF953F; margin-top: auto;
+        }
         footer p {
-            line-height: 1.6;
+            margin: 0; font-weight: bold; font-size: 1em; line-height: 1.6;
+            background: linear-gradient(to bottom, #BF953F, #FCF6BA, #B38728);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            display: inline-block;
         }
+        .footer-break { display: block; margin-top: 5px; }
 
+        /* ============================================
+           MOBILE
+           ============================================ */
         @media (max-width: 768px) {
-            nav {
-                padding: 15px 20px;
-            }
-
-            .logo {
-                font-size: 18px;
-            }
-
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 70px;
-                right: 15px;
-                background: rgba(2, 4, 18, 0.98);
-                border: 1px solid #00eaff;
+            .hamburger { display: flex; }
+            nav ul {
+                display: none; flex-direction: column;
+                position: absolute; top: 100%; right: 10px;
+                width: 260px; background-color: rgba(0,0,0,0.97);
+                padding: 20px 0; border: 1px solid #BF953F;
                 border-radius: 12px;
-                padding: 20px;
-                flex-direction: column;
-                gap: 25px;
-                width: 200px;
-                box-shadow: 0 0 20px rgba(0, 234, 255, 0.4);
+                box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+                z-index: 2000;
             }
-
-            .nav-links.active {
-                display: flex;
+            nav ul.active { display: flex; }
+            nav ul li {
+                margin: 0; width: 100%; text-align: center;
+                padding: 10px 0;
+                border-bottom: 1px solid rgba(191,149,63,0.15);
             }
-
-            .nav-links a {
-                font-size: 16px;
+            nav ul li:last-child { border-bottom: none; }
+            nav a {
+                font-size: 1.1em;
+                font-family: 'Georgia Pro', Georgia, serif;
+                font-weight: bold; color: #ffcc66;
+                display: inline-block; padding: 0 10px;
             }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .container {
-                padding: 100px 15px 40px;
-            }
-
-            .sub-section {
-                padding: 30px;
-                margin-bottom: 40px;
-            }
-
-            .sub-section h2 {
-                font-size: 24px;
-            }
-
-            .committee-list {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .committee-member {
-                width: 100%;
-                max-width: 350px;
-            }
-
-            footer {
-                padding: 20px;
-            }
+            nav a::after { display: none; }
+            nav a:hover, nav a.active { color: #ffd700; text-shadow: 0 0 8px rgba(255,215,0,0.5); }
+            h1 { font-size: 1.3em; }
+            .header-logo-wrap img { width: 42px; height: 42px; }
+            main { width: 92%; padding: 20px 15px; margin: 20px auto; }
         }
     </style>
 </head>
 <body>
-    <canvas id="bg-canvas"></canvas>
 
+<header>
+    <div class="hamburger" onclick="toggleMenu()">
+        <div></div><div></div><div></div>
+    </div>
+    <div class="header-logo-wrap">
+        <img src="44967.png" alt="SFGC Logo">
+        <h1>SFGC IKS Forum</h1>
+    </div>
     <nav>
-        <div class="logo">SFGC HACKATHON</div>
-        <div class="nav-links" id="nav-links">
-            <a href="index.html">Home</a>
-            <a href="events.html">Events</a>
-            <a href="about.html">About Us</a>
-            <a href="committee.html" class="active">Committee</a>
-            <a href="reach.html">Reach Us</a>
-        </div>
-        <div class="hamburger" id="hamburger">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
+        <ul id="nav-menu">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="occasion.html">Occasions</a></li>
+            <li><a href="proceedings-journal.html">Proceedings &amp; Journal</a></li>
+            <li><a href="committee.html" class="active">Committee</a></li>
+            <li><a href="about_us.html">About Us</a></li>
+        </ul>
     </nav>
+</header>
 
-    <div class="container">
-        <div class="sub-section">
-            <h2>Committee Members</h2>
-            <div class="committee-list">
-                <div class="committee-member">
-                    <h3>Dr.abc</h3>
-                    <p>Principal</p>
-                </div>
-                <div class="committee-member">
-                    <h3>Prof.xyz</h3>
-                    <p>HOD - Computer Science</p>
-                </div>
-                <div class="committee-member">
-                    <h3>Prof.pqr</h3>
-                    <p>Event Coordinator</p>
-                </div>
-                <div class="committee-member">
-                    <h3>Prof.mno</h3>
-                    <p>Technical Head</p>
-                </div>
-            </div>
+<main>
+    <h2 class="main-title">BOARD OF EXECUTIVES</h2>
+
+    <div class="committee-section">
+        <h3>Chief Patrons</h3>
+        <div class="member-box">
+            <span class="member-name"><a href="https://en.wikipedia.org/wiki/Anil_Sahasrabudhe" target="_blank">Dr. ANIL D. SAHASRABUDHE</a></span>
+            <span class="member-post">Chairman NETF/ EC-NAAC &amp; NBA/ Former Chairman, AICTE</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://www.set.edu.in/president-message" target="_blank">Shri. N R PANDITH ARADHYA</a></span>
+            <span class="member-post">President, Seshadripuram Educational Trust</span>
         </div>
     </div>
 
-    <footer>
-        <p>© All Copyrights Reserved 2026-27</p>
-        <p>SFGC IKS FORUM - SRF INDIA</p>
-    </footer>
+    <div class="committee-section">
+        <h3>Patrons</h3>
+        <div class="member-box">
+            <span class="member-name"><a href="https://www.set.edu.in/secretary-message" target="_blank">Shri. RAVI ARADHYA</a></span>
+            <span class="member-post">Secretary, Seshadripuram Educational Trust</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://www.set.edu.in/treasurer-message" target="_blank">Shri. SURESH ARADHYA</a></span>
+            <span class="member-post">Treasurer, Seshadripuram Educational Trust</span>
+        </div>
+    </div>
 
-    <script>
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let width, height, drops;
+    <div class="committee-section">
+        <h3>Chairman &amp; Co-Chairman, SFGC IKS</h3>
+        <div class="member-box">
+            <span class="member-name"><a href="https://www.sfgc.edu.in/principal" target="_blank">Dr. PRABHAKAR R</a></span>
+            <span class="member-post">Chairman, SFGC IKS</span>
+            <span class="member-post">Principal, Seshadripuram First Grade College</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://www.google.com/search?q=Prof+vivekananda+emeritus+faculty+iit+bombay+iist+thiruvananthapuram" target="_blank">Prof. VIVEKANANDA</a></span>
+            <span class="member-post">Co-Chairman, SFGC IKS</span>
+            <span class="member-post">Emeritus Faculty, IIT Bombay / IIST, Tiruvanantapuram</span>
+        </div>
+    </div>
 
-        function init() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            drops = Array(Math.floor(width / 20)).fill(1);
+    <div class="committee-section">
+        <h3>Convenors, SFGC IKS</h3>
+        <div class="member-box">
+            <span class="member-name"><a href="https://www.linkedin.com/in/dr-anjana-radhakrishnan-5a540b103" target="_blank">Dr. ANJANA RADHAKRISHNAN</a></span>
+            <span class="member-post">Co-ordinator, B.Com</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://www.google.com/search?q=Prof.+Vidya+A.S+HOD%2C+Bio-Chemistry%2C+SFGC" target="_blank">Prof. VIDYA A.S</a></span>
+            <span class="member-post">HOD, Bio-Chemistry</span>
+        </div>
+    </div>
+
+    <div class="committee-section">
+        <h3>Organizing Committee</h3>
+        <div class="member-box">
+            <span class="member-name"><a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Dr. M L ASHOK</a></span>
+            <span class="member-post">IQAC Co-ordinator</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Dr. VATSALA G</a></span>
+            <span class="member-post">Director, SAGE</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Dr. VINAY S</a></span>
+            <span class="member-post">Director, MBA</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Dr. RAJI PILLAI</a></span>
+            <span class="member-post">Director, M.Com</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Dr. SARITHA B</a></span>
+            <span class="member-post">HOD, Commerce and Management</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://www.linkedin.com/in/sudhakar-sudhakaran-217407172/" target="_blank">Mr. SUDHAKARAN</a></span>
+            <span class="member-post">Asst. Professor, Commerce and Management</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Prof. RAMESH T C</a></span>
+            <span class="member-post">HOD, Mathematics</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Dr. RAMA RAO S</a></span>
+            <span class="member-post">HOD, Sanskrit</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Prof. SANDEEP TILAK</a></span>
+            <span class="member-post">HOD, English</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Prof. RAJASHRI PADAKI</a></span>
+            <span class="member-post">HOD, Electronics</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Dr. SANTANU DAS</a></span>
+            <span class="member-post">HOD, Bio-Technology</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Prof. THIMMAPPA N T</a></span>
+            <span class="member-post">Staff Secretary 2025-26</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://www.linkedin.com/in/rekha-raichal-2a4a34262/" target="_blank">Prof. REKHA RAICHAL</a></span>
+            <span class="member-post">Director, MCA</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Prof. NETRA SANJEEV MIRJI</a></span>
+            <span class="member-post">Faculty, Department of Computer Application</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Prof. V A NAGARAJ</a></span>
+            <span class="member-post">Faculty, Department of Commerce and Management</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Dr. GEETHA D C</a></span>
+            <span class="member-post">HOD, Kannada</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://share.google/pWxBuljDuI9YfSzCA" target="_blank">Dr. SHARMILA BISWAS</a></span>
+            <span class="member-post">HOD, Hindi</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://www.linkedin.com/in/sachin-gowda-k-s-41650a245/" target="_blank">Mr. SACHIN GOWDA K S</a></span>
+            <span class="member-post">Asst. Professor, SRF Research Team Member</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://www.google.com/search?q=Prof.+Naveen+Kumar+K+S%2C+PO%2C+SFGC+NSS" target="_blank">Asst. Prof. NAVEEN KUMAR K S</a></span>
+            <span class="member-post">Faculty of Commerce, NSS Officer</span>
+        </div>
+    </div>
+
+    <div class="committee-section">
+        <h3>Student Co-ordinators</h3>
+        <div class="member-box">
+            <span class="member-name"><a href="https://www.linkedin.com/in/shamrobinson76/" target="_blank">SHAM ROBINSON V</a></span>
+            <span class="member-post">Executive Student Organiser &amp; Technical Co-ordinator - SFGC IKS</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://share.google/aimode/xTxn9gbRPl7keLd0f" target="_blank">SANDEEP S</a></span>
+            <span class="member-post">President, Student Council 2025-26, SFGC</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://www.linkedin.com/in/saajan-d-b2878a347" target="_blank">SAAJAN D</a></span>
+            <span class="member-post">Technical Head and Member of Organising team - SFGC IKS</span>
+        </div>
+        <div class="member-box">
+            <span class="member-name"><a href="https://www.linkedin.com/in/arvind-n-u-b25bb8383" target="_blank">ARVIND N U</a></span>
+            <span class="member-post">Technical and Media Representative - SFGC IKS</span>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>© All Copyrights Reserved 2026-27 <span class="footer-break">SFGC IKS FORUM - SRF INDIA</span></p>
+</footer>
+
+<script>
+    function toggleMenu() {
+        document.getElementById('nav-menu').classList.toggle('active');
+    }
+    document.addEventListener('click', function(e) {
+        const menu = document.getElementById('nav-menu');
+        const hamburger = document.querySelector('.hamburger');
+        if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
+            menu.classList.remove('active');
         }
-
-        function draw() {
-            ctx.fillStyle = "rgba(2, 4, 18, 0.1)";
-            ctx.fillRect(0, 0, width, height);
-            ctx.fillStyle = "#00eaff";
-            ctx.font = "15px monospace";
-            for (let i = 0; i < drops.length; i++) {
-                ctx.fillText(Math.floor(Math.random() * 10), i * 20, drops[i] * 20);
-                if (drops[i] * 20 > height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-        }
-
-        init();
-        setInterval(draw, 50);
-        
-        window.addEventListener('resize', function() {
-            init();
-        });
-
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('nav-links');
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-    </script>
+    });
+</script>
 </body>
 </html>
