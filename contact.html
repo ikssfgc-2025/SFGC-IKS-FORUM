@@ -68,8 +68,8 @@
         }
         nav a:hover::after { width: 100%; }
         nav a:hover { color: #fff; text-shadow: 0 0 10px #ffd700; }
-        nav a.active { color: #ffcc66; }
-        nav a.active::after { width: 0; }
+        nav a.active { color: #fff; }
+        nav a.active::after { width: 100%; }
         .hamburger {
             display: none; flex-direction: column; cursor: pointer;
             position: absolute; right: 14px; top: 50%;
@@ -263,8 +263,7 @@
                 display: inline-block; padding: 0 10px;
             }
             nav a::after { display: none; }
-            nav a:hover { color: #ffd700; text-shadow: 0 0 8px rgba(255,215,0,0.5); }
-            nav a.active { color: #ffcc66; text-shadow: none; }
+            nav a:hover, nav a.active { color: #ffd700; text-shadow: 0 0 8px rgba(255,215,0,0.5); }
             h1 { font-size: 1.3em; }
             .header-logo-wrap img { width: 42px; height: 42px; }
             main { width: 92%; padding: 20px 15px; margin: 20px auto; }
