@@ -32,17 +32,10 @@
             position: relative;
             z-index: 1000;
         }
-        .header-top-bar {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            margin-bottom: 10px;
-            min-height: 60px;
-        }
         .header-logo-wrap {
             display: flex; align-items: center;
             justify-content: center; gap: 14px;
+            margin-bottom: 10px;
         }
         .header-logo-wrap img {
             width: 54px; height: 54px;
@@ -79,9 +72,8 @@
         nav a.active::after { width: 100%; }
         .hamburger {
             display: none; flex-direction: column; cursor: pointer;
-            position: absolute; right: 0; top: 50%;
-            transform: translateY(-50%);
-            z-index: 1001; padding: 4px;
+            position: absolute; right: 14px; top: 50%;
+            transform: translateY(-50%); z-index: 1001; padding: 4px;
         }
         .hamburger div {
             width: 25px; height: 3px; background-color: #cccccc;
@@ -168,9 +160,11 @@
                 display: inline-block; padding: 0 10px;
             }
             nav a::after { display: none; }
-            nav a:hover, nav a.active { color: #ffd700; text-shadow: 0 0 8px rgba(255,215,0,0.5); }
+            nav a:hover { color: #ffd700; text-shadow: 0 0 8px rgba(255,215,0,0.5); }
+            nav a.active { color: #ffcc66; text-shadow: none; }
             h1 { font-size: 1.3em; }
-            header { padding-right: 52px; }
+            header { padding: 16px 20px 14px; }
+            .header-logo-wrap { padding: 0 44px; }
             .hamburger div { width: 20px; height: 2px; margin: 3px 0; }
             .header-logo-wrap img { width: 54px; height: 54px; }
             main { width: 92%; padding: 20px 15px; margin: 20px auto; }
@@ -179,14 +173,12 @@
 </head>
 <body>
 <header>
-    <div class="header-top-bar">
-        <div class="header-logo-wrap">
-            <img src="44967.png" alt="SFGC Logo">
-            <h1>SFGC IKS FORUM</h1>
-        </div>
-        <div class="hamburger" onclick="toggleMenu()">
-            <div></div><div></div><div></div>
-        </div>
+    <div class="hamburger" onclick="toggleMenu()">
+        <div></div><div></div><div></div>
+    </div>
+    <div class="header-logo-wrap">
+        <img src="44967.png" alt="SFGC Logo">
+        <h1>SFGC IKS FORUM</h1>
     </div>
     <nav>
         <ul id="nav-menu">
