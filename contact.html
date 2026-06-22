@@ -142,6 +142,7 @@
             border: 1px solid rgba(191,149,63,0.3);
             display: flex; align-items: center; justify-content: center;
             margin-bottom: 16px;
+            flex-shrink: 0;
             transition: background 0.28s ease;
         }
         .card:hover .card-icon { background: rgba(255,215,0,0.16); }
@@ -165,7 +166,7 @@
         }
         .card-link:hover, .card:hover .card-link { color: #ffd700; opacity: 1; }
 
-        /* ── INSTAGRAM COLLAB CARD ───────────────── */
+        /* ── INSTAGRAM / X COLLAB CARD ───────────── */
         .card-insta { position: relative; overflow: hidden; }
         .card-insta::before {
             content: '';
@@ -184,6 +185,7 @@
 
         .insta-badge { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
         .avatars { position: relative; width: 62px; height: 38px; flex-shrink: 0; }
+        .avatars.single { width: 38px; }
         .avatar {
             width: 38px; height: 38px; border-radius: 50%;
             border: 2.5px solid rgba(0,0,0,0.7);
@@ -191,33 +193,56 @@
             display: flex; align-items: center; justify-content: center;
             font-family: Georgia, serif; font-size: 13px; font-weight: bold;
             color: #ffd700;
-            transition: border-color 0.28s ease;
+            transition: border-color 0.28s ease, transform 0.22s ease, box-shadow 0.28s ease;
         }
-        .avatar-a { left: 0; z-index: 2; background: linear-gradient(135deg,#2a1a05,#4a2a08); border-color: #BF953F; }
-        .avatar-b { left: 24px; z-index: 1; background: linear-gradient(135deg,#1a052a,#2a0840); border-color: #9B59B6; }
-        .card-insta:hover .avatar-a { border-color: #fd1d1d; }
-        .card-insta:hover .avatar-b { border-color: #fcb045; }
+        .avatar-insta {
+            left: 0; z-index: 2;
+            background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+            border-color: rgba(253,245,230,0.6);
+        }
+        .card-insta:hover .avatar-insta { border-color: #ffffff; box-shadow: 0 0 10px rgba(255,105,180,0.4); }
+
+        /* X (Twitter) avatar */
+        .avatar-x {
+            left: 0; z-index: 2;
+            background: linear-gradient(135deg,#000,#1c1c1c);
+            border-color: rgba(253,245,230,0.6);
+            color: #fdf5e6; font-size: 15px;
+        }
+        .card-insta:hover .avatar-x { border-color: #ffffff; box-shadow: 0 0 10px rgba(255,255,255,0.35); }
 
         .insta-text { display: flex; flex-direction: column; gap: 3px; }
         .insta-handles { font-size: 0.9em; font-weight: bold; color: #fdf5e6; }
-        .insta-handles .x-sep { color: #BF953F; margin: 0 3px; font-weight: normal; }
         .insta-sub { font-size: 0.72em; color: #BF953F; }
         .card-insta:hover .insta-handles {
             background: linear-gradient(90deg,#c13584,#e1306c,#fd1d1d,#f56040);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
+        .card-insta:hover .x-handle-link {
+            background: none;
+            -webkit-text-fill-color: #ffffff;
+            color: #ffffff;
+        }
 
-        /* ── INSTAGRAM individual links ─────────── */
+        /* divider between Instagram and X rows */
+        .social-divider {
+            height: 1px;
+            background: rgba(191,149,63,0.25);
+            margin: 14px 0;
+        }
+
+        /* ── INSTAGRAM / X individual links ─────────── */
         .avatar-link {
             text-decoration: none; display: contents;
         }
-        .avatar-link .avatar:hover { transform: scale(1.1); transition: transform 0.22s ease; }
+        .avatar-link .avatar:hover { transform: scale(1.1); }
         .insta-handle-link {
             color: #fdf5e6; text-decoration: none;
             transition: color 0.25s ease;
         }
         .insta-handle-link:hover { color: #fcb045; text-decoration: underline; }
         .card-insta:hover .insta-handle-link { color: inherit; }
+        .x-handle-link:hover { color: #ffffff !important; text-decoration: underline; }
 
         /* ============================================
            FOOTER  (identical to reference)
@@ -286,7 +311,13 @@
             .hamburger div { width: 25px; height: 3px; margin: 4px 0; }
             main { width: 92%; padding: 20px 15px; margin: 20px auto; }
             .cards-row { grid-template-columns: 1fr; }
+
+            /* keep the insta/X badges from cramping on narrow phones */
+            .insta-badge { flex-wrap: wrap; gap: 10px; }
+            .insta-text { min-width: 0; }
+            .insta-handles { word-break: break-word; }
         }
+
     </style>
 </head>
 <body>
@@ -353,37 +384,50 @@
             <a class="card-link" href="mailto:iks.sfgc@gmail.com">iks.sfgc@gmail.com</a>
         </div>
 
-        <!-- INSTAGRAM COLLAB -->
+        <!-- INSTAGRAM + X COLLAB -->
         <div class="card card-insta">
-            <div class="card-icon" style="background:linear-gradient(135deg,rgba(131,58,180,.18),rgba(253,29,29,.18));">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-                     stroke="#fd1d1d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-                </svg>
-            </div>
+
             <p class="card-sub">Follow Us</p>
-            <p class="card-title">Instagram</p>
+            <p class="card-title">Instagram &amp; X</p>
+
+            <!-- Instagram handles -->
             <div class="insta-badge">
-                <!-- Overlapping avatars, each independently clickable -->
-                <div class="avatars">
-                    <a class="avatar-link" href="https://www.instagram.com/sfgc_iks_official?igsh=bzdnMWpqbzIxaWpn" target="_blank" rel="noopener noreferrer" title="@sfgc_iks_official">
-                        <div class="avatar avatar-a">I</div>
-                    </a>
-                    <a class="avatar-link" href="https://www.instagram.com/sfgc_official?igsh=MWc1Mm9sc2FjMGt1cg==" target="_blank" rel="noopener noreferrer" title="@sfgc_official">
-                        <div class="avatar avatar-b">S</div>
-                    </a>
+                <div class="avatars single">
+                    <div class="avatar avatar-insta" title="Instagram">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                             stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                        </svg>
+                    </div>
                 </div>
                 <div class="insta-text">
                     <span class="insta-handles">
-                        <a class="insta-handle-link" href="https://www.instagram.com/sfgc_iks_official?igsh=bzdnMWpqbzIxaWpn" target="_blank" rel="noopener noreferrer">@sfgc_iks_official</a><span class="x-sep">
+                        <a class="insta-handle-link" href="https://www.instagram.com/sfgc_iks_official?igsh=bzdnMWpqbzIxaWpn" target="_blank" rel="noopener noreferrer">@sfgc_iks_official</a>
                     </span>
                     <span class="insta-handles">
                         <a class="insta-handle-link" href="https://www.instagram.com/sfgc_official?igsh=MWc1Mm9sc2FjMGt1cg==" target="_blank" rel="noopener noreferrer">@sfgc_official</a>
                     </span>
                 </div>
             </div>
+
+            <div class="social-divider"></div>
+
+            <!-- X (Twitter) handle -->
+            <div class="insta-badge">
+                <div class="avatars single">
+                    <a class="avatar-link" href="https://x.com/sfgc_iks" target="_blank" rel="noopener noreferrer" title="@sfgc_iks">
+                        <div class="avatar avatar-x">𝕏</div>
+                    </a>
+                </div>
+                <div class="insta-text">
+                    <span class="insta-handles">
+                        <a class="insta-handle-link x-handle-link" href="https://x.com/sfgc_iks" target="_blank" rel="noopener noreferrer">@sfgc_iks</a>
+                    </span>
+                </div>
+            </div>
+
         </div>
 
     </div>
