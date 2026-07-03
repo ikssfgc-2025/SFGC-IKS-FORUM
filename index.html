@@ -94,12 +94,21 @@
             background: linear-gradient(to bottom, #BF953F 22%, #FCF6BA 45%, #B38728 50%, #FBF5B7 55%, #AA771C 78%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 
-            /* Restored your original text animation behavior */
-            opacity: 0; transform: scale(0.5);
+            /* Restored your original text animation behavior, plus a
+               downward shift so the text sits in the dark maroon courtyard
+               band instead of overlapping the temple towers */
+            opacity: 0; transform: translateY(9vh) scale(0.5);
             animation: netflixFadeIn 2s ease-out forwards;
         }
-        @keyframes netflixFadeIn { to { opacity: 1; transform: scale(1); } }
+        @keyframes netflixFadeIn { to { opacity: 1; transform: translateY(9vh) scale(1); } }
         .hidden { opacity: 0 !important; visibility: hidden; }
+        @media (max-width: 768px) {
+            /* Mobile photo has a taller maroon band, so the shift is smaller
+               relative to its own viewport height */
+            #iks-text { transform: translateY(6vh) scale(0.5); }
+            #iks-text { animation-name: netflixFadeInMobile; }
+        }
+        @keyframes netflixFadeInMobile { to { opacity: 1; transform: translateY(6vh) scale(1); } }
 
         /* ============================================
            UNIFORM HEADER & NAV
