@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>SFGC IKS Forum</title>
+    <!-- Preload the loading-screen background at highest priority so a slow
+         connection still fetches it right away, instead of the browser only
+         noticing it later once it parses the CSS background-image rule -->
+    <link rel="preload" as="image" href="loading page.jpg" media="(min-width: 769px)" fetchpriority="high">
+    <link rel="preload" as="image" href="mobile.jpg" media="(max-width: 768px)" fetchpriority="high">
+    <link rel="preload" as="image" href="45383.png" fetchpriority="high">
     <style>
         /* ============================================
            GLOBAL SETTINGS
@@ -34,10 +40,20 @@
             content: '';
             position: fixed; inset: 0;
             width: 100%; height: 100dvh; /* dvh = real visible mobile viewport */
-            background: url('45383.png') no-repeat center center;
+            /* Same fix as the loading screen: nothing shows until JS confirms
+               the image is fully loaded and decoded (see script at bottom of
+               page). Until then this stays the plain body background-color,
+               so there's no flash when the loading screen hands off to the
+               real page either. */
+            background-color: #1a0a00;
+            background-image: var(--page-bg, none);
+            background-repeat: no-repeat; background-position: center center;
             background-size: cover;
             z-index: -1;
+            opacity: 0;
+            transition: opacity .4s ease-out;
         }
+        body.page-bg-ready::before { opacity: 1; }
 
         /* ============================================
            LOADING SCREEN
@@ -55,21 +71,34 @@
             content: '';
             position: fixed; inset: 0;
             width: 100%; height: 100vh; height: 100dvh;
+            /* Solid fallback that matches the photo's darkest tone. This is
+               what shows the instant the page opens, so there is never a
+               mismatched flash — only the photo fading in on top of it once
+               it has actually finished loading (see JS below). */
+            background-color: #1a0a00;
             /* Desktop/tablet: wide temple photo — locked fixed so it never
-               shifts or jumps while the page is opening/loading */
-            background: url('loading page.jpg') no-repeat center center fixed;
+               shifts or jumps while the page is opening/loading. The image
+               itself is only assigned once JS confirms it has fully loaded
+               (via the --loading-bg custom property), instead of letting
+               the browser fetch/paint it on its own unpredictable schedule. */
+            background-image: var(--loading-bg, none);
+            background-repeat: no-repeat;
+            background-position: center center;
             background-size: cover;
             background-attachment: fixed;
             /* fixes the "dull" look — brighter, punchier, more saturated */
             filter: brightness(1.18) contrast(1.12) saturate(1.3);
             transform: scale(1.02); /* removes thin edge gaps from the filter */
             z-index: 0;
+            opacity: 0;
+            transition: opacity .4s ease-out;
         }
+        /* JS adds this class only after the correct photo has fully loaded */
+        #loading-screen.bg-ready::before { opacity: 1; }
         @media (max-width: 768px) {
             #loading-screen::before {
                 /* Mobile: purpose-shot portrait temple photo, already framed
                    correctly, also locked fixed for a stable open */
-                background-image: url('mobile.jpg');
                 background-position: center center;
                 background-attachment: fixed;
             }
@@ -98,6 +127,12 @@
                downward shift so the text sits in the dark maroon courtyard
                band instead of overlapping the temple towers */
             opacity: 0; transform: translateY(9vh) scale(0.5);
+            /* Animation no longer runs automatically — it's only started
+               once JS confirms the background photo has loaded (via the
+               .bg-ready class below), so the text never appears before or
+               without its photo. */
+        }
+        #loading-screen.bg-ready #iks-text {
             animation: netflixFadeIn 2s ease-out forwards;
         }
         @keyframes netflixFadeIn { to { opacity: 1; transform: translateY(9vh) scale(1); } }
@@ -106,7 +141,7 @@
             /* Mobile photo has a taller maroon band, so the shift is smaller
                relative to its own viewport height */
             #iks-text { transform: translateY(6vh) scale(0.5); }
-            #iks-text { animation-name: netflixFadeInMobile; }
+            #loading-screen.bg-ready #iks-text { animation-name: netflixFadeInMobile; }
         }
         @keyframes netflixFadeInMobile { to { opacity: 1; transform: translateY(6vh) scale(1); } }
 
@@ -350,6 +385,22 @@
 </footer>
 
 <script>
+    // Site-wide background: same "load, decode, then reveal" approach as the
+    // loading-screen photo above, so there's no flash handing off from the
+    // loading screen to the real page. This can start right away (it's
+    // hidden behind the loading screen the whole time regardless).
+    (function () {
+        const pageBg = new Image();
+        const reveal = () => document.body.classList.add('page-bg-ready');
+        pageBg.onload = () => {
+            document.body.style.setProperty('--page-bg', "url('45383.png')");
+            if (pageBg.decode) pageBg.decode().then(reveal).catch(reveal);
+            else reveal();
+        };
+        pageBg.onerror = reveal; // don't block the page if it fails
+        pageBg.src = '45383.png';
+    })();
+
     function toggleMenu() {
         document.getElementById('nav-menu').classList.toggle('active');
     }
@@ -363,13 +414,60 @@
         }
     });
 
-    // Loading screen timer restored to your original 2.5 seconds
+    // Loading screen now waits for the actual background photo to be fully
+    // loaded AND decoded before showing it or starting the text animation
+    // (instead of letting the CSS background-image fetch/paint on its own
+    // schedule, which is what caused the inconsistent "sometimes no photo"
+    // flash). Only once that's confirmed do we reveal the photo and let the
+    // gold-text animation run — so they always appear together, every time.
     window.addEventListener('load', () => {
-        setTimeout(() => {
-            const ls = document.getElementById('loading-screen');
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        const bgSrc = isMobile ? 'mobile.jpg' : 'loading page.jpg';
+        const minShowTime = 4000;    // loading screen always shown for exactly 4s
+        const settleAfterLoad = 0;   // no extra pause — the 4s minimum covers it
+        const maxWait = 8000;        // safety cap for very slow/broken connections
+        const startedAt = Date.now();
+        const ls = document.getElementById('loading-screen');
+        let finished = false;
+
+        function hideLoadingScreen() {
+            if (finished) return;
+            finished = true;
             ls.classList.add('hidden');
             setTimeout(() => { ls.style.display = 'none'; }, 1000);
-        }, 2500);
+        }
+
+        function finishAfterMinimumTime(extraDelay) {
+            const elapsed = Date.now() - startedAt;
+            const remaining = Math.max(minShowTime - elapsed, 0);
+            setTimeout(hideLoadingScreen, remaining + extraDelay);
+        }
+
+        function revealBackground() {
+            // decode() (where supported) guarantees the pixels are ready
+            // before we ever paint them, eliminating any partial-draw flash
+            ls.style.setProperty('--loading-bg', `url('${bgSrc}')`);
+            ls.classList.add('bg-ready');
+        }
+
+        const bgImage = new Image();
+        bgImage.onload = () => {
+            if (bgImage.decode) {
+                bgImage.decode().then(revealBackground).catch(revealBackground);
+            } else {
+                revealBackground();
+            }
+            finishAfterMinimumTime(settleAfterLoad);
+        };
+        bgImage.onerror = () => finishAfterMinimumTime(0); // don't hang if the image fails
+        bgImage.src = bgSrc;
+
+        setTimeout(() => {
+            // absolute fallback: if something stalled, still reveal whatever
+            // we have and close the loading screen rather than hang forever
+            if (!ls.classList.contains('bg-ready')) revealBackground();
+            hideLoadingScreen();
+        }, maxWait);
     });
 
     // Carousel
