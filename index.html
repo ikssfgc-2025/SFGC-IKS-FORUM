@@ -18,16 +18,25 @@
         }
         body {
             font-family: 'Georgia Pro', Georgia, serif;
-            background: url('45383.png') no-repeat top center fixed;
             background-color: #1a0a00;
-            background-size: cover;
             color: #fdf5e6;
             display: flex; flex-direction: column;
+            position: relative;
+            isolation: isolate; /* keeps ::before behind real content reliably */
         }
-        @media (max-width: 768px) {
-            /* background-attachment: fixed causes odd cropping/zoom behaviour
-               on mobile browsers, so switch to scroll there */
-            body { background-attachment: scroll; }
+        /* The background lives on a fixed, viewport-sized layer instead of
+           being painted directly on <body>. On mobile, <body> is much taller
+           than the screen (nav + content stack up), so "cover" on the body
+           itself was forcing the image to blow up hugely to cover that whole
+           tall area — that was the bad-fit/zoom problem. Locking it to the
+           viewport with position:fixed fixes it on both mobile and desktop. */
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            width: 100vw; height: 100dvh; /* dvh = real visible mobile viewport */
+            background: url('45383.png') no-repeat center center;
+            background-size: cover;
+            z-index: -1;
         }
 
         /* ============================================
@@ -35,7 +44,7 @@
            ============================================ */
         #loading-screen {
             position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%;
+            width: 100vw; height: 100vh; height: 100dvh;
             overflow: hidden;
             background-color: #1a0a00;
             display: flex; justify-content: center; align-items: center;
